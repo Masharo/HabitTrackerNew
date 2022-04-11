@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_menuDrawer_home"
+        android:title="@string/item_menuDrawer_home" />
+
+    <item
+        android:id="@+id/item_menuDrawer_info"
+        android:title="@string/item_menuDrawer_info" />
+
+</menu>

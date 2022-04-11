@@ -10,14 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Habits">
         <activity
-            android:name=".ColorPickerActivity"
-            android:theme="@style/Theme.Material3.Light.Dialog"
-            android:exported="false" />
-        <activity
-            android:name=".HabitActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HabitsListActivity"
+            android:name=".screens.root.RootHabitActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

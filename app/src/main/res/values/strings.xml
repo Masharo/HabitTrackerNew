@@ -34,4 +34,9 @@
     <string name="textView_habit_titleNew">Создание новой привычки</string>
     <string name="textView_habit_titleOld">Редактирование привычки</string>
     <string name="button_habit_color">Цвет фона</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="item_menuDrawer_home">Домашний экран</string>
+    <string name="item_menuDrawer_info">О приложении</string>
+    <string name="textView_info_text">Приложение для формиргования новых, и избавления от негативных привычек</string>
 </resources>
