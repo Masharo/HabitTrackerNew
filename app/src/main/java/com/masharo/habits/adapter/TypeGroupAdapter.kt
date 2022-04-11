@@ -7,10 +7,12 @@ import com.masharo.habits.screens.listHabit.HabitListFragment
 
 class TypeGroupAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
 
+    val fragment = HabitListFragment()
+
     override fun getItemCount(): Int = Habit.TypeHabit.values().size
 
     override fun createFragment(position: Int): Fragment {
-        val fragment = HabitListFragment.newInstance(position)
+        fragment.arguments
         return fragment
     }
 }

@@ -29,9 +29,11 @@ class HabitListViewModel(private val app: Application) : AndroidViewModel(app) {
         bind.viewModel = this
         this.type = type
 
-        habits = type?.let {
-            db.getHabitsTypeFilter(Habit.TypeHabit.values()[it])
-            } ?: db.getHabits()
+//        habits = type?.let {
+//            db.getHabitsTypeFilter(Habit.TypeHabit.values()[it])
+//            } ?: db.getHabits()
+
+        habits = db.getHabits()
 
         adapter = bind.recyclerViewHabitsListHabits.adapter as HabitsAdapter
 
@@ -47,6 +49,10 @@ class HabitListViewModel(private val app: Application) : AndroidViewModel(app) {
         val resultDiff = DiffUtil.calculateDiff(habitDiffUtilCallback)
         adapter.habits = sortedList
         resultDiff.dispatchUpdatesTo(adapter)
+    }
+
+    fun setFilterType(type: Int) {
+
     }
 
     fun setSort(column: HabitListFilter.Column) {
