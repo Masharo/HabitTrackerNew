@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.AndroidViewModel
-import com.masharo.habits.Habit
+import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.data.HabitDatabase
 import com.masharo.habits.databinding.FragmentHabitBinding
 import com.masharo.habits.data.habit.DataLogicHabit
@@ -18,7 +18,6 @@ class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
     private var id: Int? = null
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private lateinit var dataLogic: DataLogicHabit
-    private lateinit var finish: (() -> Unit)
     private lateinit var fragmentManager: FragmentManager
 
     private lateinit var habit: Habit
@@ -28,13 +27,11 @@ class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
     fun instance(bind: FragmentHabitBinding,
                  id: Int?,
                  resultLauncher: ActivityResultLauncher<Intent>,
-                 childFragmentManager: FragmentManager,
-                 finish: () -> Unit
+                 childFragmentManager: FragmentManager
     ) {
         this.bind = bind
         this.id = id
         this.resultLauncher = resultLauncher
-        this.finish = finish
         this.fragmentManager = childFragmentManager
 
         dataLogic = RoomHabitDataLogic(HabitDatabase.instance(app.applicationContext))
@@ -79,7 +76,6 @@ class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
             dataLogic.setHabit(habit)
         }
 
-        finish()
     }
 
     fun doneInc() {

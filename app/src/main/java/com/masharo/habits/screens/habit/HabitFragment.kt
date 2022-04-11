@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelStoreOwner
@@ -55,8 +56,6 @@ class HabitFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bindView()
-
         val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         {
             result ->
@@ -73,9 +72,10 @@ class HabitFragment : Fragment() {
             bind,
             id,
             resultLauncher,
-            childFragmentManager,
-            view.findNavController()::popBackStack
+            childFragmentManager
         )
+
+        bindView()
     }
 
     private fun bindView() {
@@ -92,6 +92,15 @@ class HabitFragment : Fragment() {
                 R.layout.habit_spinner_item,
                 resources.getStringArray(R.array.habit_period)
             )
+
+            bind.buttonHabitSave.setOnClickListener {
+                if (bind.editTextHabitTitle.text.toString().isNotBlank()) {
+                    viewModel.onClickButtonSave()
+                    view?.findNavController()?.popBackStack()
+                } else {
+                    Toast.makeText(requireContext(), R.string.warn_title_blank, Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
         <import
             type="androidx.core.content.ContextCompat" />
         <import
-            type="com.masharo.habits.Habit" />
+            type="com.masharo.habits.data.habit.Habit" />
         <import
             type="com.masharo.habits.support.SupportDataBinding" />
         <variable
@@ -18,7 +18,7 @@
             type="com.masharo.habits.screens.habit.HabitViewModel" />
         <variable
             name="habit"
-            type="com.masharo.habits.Habit" />
+            type="com.masharo.habits.data.habit.Habit" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -287,7 +287,6 @@
             android:textAllCaps="true"
             android:layout_marginBottom="10dp"
             android:padding="12dp"
-            android:onClick="@{() -> viewModel.onClickButtonSave()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 

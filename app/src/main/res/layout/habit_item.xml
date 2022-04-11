@@ -6,14 +6,14 @@
         <import
             type="android.view.View" />
         <import
-            type="com.masharo.habits.Habit" />
+            type="com.masharo.habits.data.habit.Habit" />
         <import
             type="com.masharo.habits.support.SupportDataBinding" />
         <import
             type="androidx.core.content.ContextCompat" />
         <variable
             name="habit"
-            type="com.masharo.habits.Habit" />
+            type="com.masharo.habits.data.habit.Habit" />
         <variable
             name="holder"
             type="com.masharo.habits.adapter.HabitsAdapter.HabitsViewHolder" />

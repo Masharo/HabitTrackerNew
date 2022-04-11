@@ -1,12 +1,14 @@
 package com.masharo.habits.screens.listHabit
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
-import com.masharo.habits.Habit
+import com.masharo.habits.data.habit.Habit
+import com.masharo.habits.R
 import com.masharo.habits.adapter.TypeGroupAdapter
 import com.masharo.habits.databinding.FragmentViewPagerHabitListBinding
 
@@ -24,6 +26,10 @@ class ViewPagerHabitListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        bind.fabAddHabit.setOnClickListener {
+            findNavController().navigate(R.id.habitFragment)
+        }
 
         val adapter = TypeGroupAdapter(this)
         bind.viewPagerPagerHabitType.adapter = adapter

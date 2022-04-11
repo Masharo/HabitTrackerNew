@@ -34,9 +34,26 @@
     <string name="textView_habit_titleNew">Создание новой привычки</string>
     <string name="textView_habit_titleOld">Редактирование привычки</string>
     <string name="button_habit_color">Цвет фона</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="item_menuDrawer_home">Домашний экран</string>
     <string name="item_menuDrawer_info">О приложении</string>
     <string name="textView_info_text">Приложение для формиргования новых, и избавления от негативных привычек</string>
+
+    <string name="db_title">Название</string>
+    <string name="db_description">Описание</string>
+    <string name="db_priority">Приоритет</string>
+    <string name="db_type">Тип</string>
+    <string name="db_count">Колличество</string>
+    <string name="db_period">Период</string>
+    <string name="db_count_done">Колличество выполнены</string>
+    <string name="db_color">Цвет</string>
+    <string name="db_id">Дата создания</string>
+
+    <string name="db_like">Поиск</string>
+    <string name="db_order">Сортировка</string>
+
+    <string name="db_desc">В обратном порядке</string>
+    <string name="db_asc">В прямом порядке</string>
+
+    <string name="warn_title_blank">Поле заголовок не заполнено!</string>
 </resources>

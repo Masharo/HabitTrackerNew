@@ -1,19 +1,35 @@
-package com.masharo.habits
+package com.masharo.habits.data.habit
 
-import androidx.annotation.IdRes
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.masharo.habits.BR
+import com.masharo.habits.R
 
 @Entity(tableName = "habit")
 class Habit : BaseObservable() {
 
+    companion object {
+        const val DB_ID = "_id_"
+        const val DB_TITLE = "title"
+        const val DB_DESCRIPTION = "description"
+        const val DB_PRIORITY = "priority"
+        const val DB_TYPE = "type"
+        const val DB_COUNT = "count"
+        const val DB_PERIOD = "period"
+        const val DB_COUNT_DONE = "count_done"
+        const val DB_COLOR = "color"
+    }
+
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = DB_ID)
     var id: Int? = null
 
     @get:Bindable
+    @ColumnInfo(name = DB_TITLE)
     var title: String = ""
         set(value) {
             field = value
@@ -21,6 +37,7 @@ class Habit : BaseObservable() {
         }
 
     @get:Bindable
+    @ColumnInfo(name = DB_DESCRIPTION)
     var description: String = ""
         set(value) {
             field = value
@@ -28,6 +45,7 @@ class Habit : BaseObservable() {
         }
 
     @get:Bindable
+    @ColumnInfo(name = DB_PRIORITY)
     var priority: Int = 0
         set(value) {
             field = value
@@ -35,6 +53,7 @@ class Habit : BaseObservable() {
         }
 
     @get:Bindable
+    @ColumnInfo(name = DB_TYPE)
     var type: Int = 0
         set(value) {
             field = value
@@ -42,6 +61,7 @@ class Habit : BaseObservable() {
         }
 
     @get:Bindable
+    @ColumnInfo(name = DB_COUNT)
     var count: Int = 0
         set(value) {
             field = value
@@ -49,18 +69,21 @@ class Habit : BaseObservable() {
         }
 
     @get:Bindable
+    @ColumnInfo(name = DB_PERIOD)
     var period: Int = 0
         set(value) {
             field = value
             notifyPropertyChanged(BR.period)
         }
     @get:Bindable
+    @ColumnInfo(name = DB_COUNT_DONE)
     var countDone: Int = 0
         set(value) {
             field = value
             notifyPropertyChanged(BR.countDone)
         }
     @get:Bindable
+    @ColumnInfo(name = DB_COLOR)
     var color: Int? = null
         set(value) {
             field = value
@@ -75,7 +98,7 @@ class Habit : BaseObservable() {
             notifyPropertyChanged(BR.image)
         }
 
-    fun getTypeEnum():TypeHabit {
+    fun getTypeEnum(): TypeHabit {
         val typeHabit = TypeHabit.values()[type]
         this.image = typeHabit.resourceDrawable()
         return typeHabit

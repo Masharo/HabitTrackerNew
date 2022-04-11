@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.databinding.InverseMethod
 import androidx.databinding.adapters.Converters
-import com.masharo.habits.Habit
+import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.R
 
 object SupportDataBinding {

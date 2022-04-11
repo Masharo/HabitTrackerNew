@@ -1,7 +1,6 @@
 package com.masharo.habits.data.habit
 
 import android.os.AsyncTask
-import com.masharo.habits.Habit
 import com.masharo.habits.data.HabitDatabase
 
 class RoomHabitDataLogic(val db: HabitDatabase): DataLogicHabit {

@@ -1,15 +1,16 @@
 package com.masharo.habits.screens.listHabit
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.findNavController
 import com.masharo.habits.R
+import com.masharo.habits.adapter.HabitsAdapter
 import com.masharo.habits.databinding.FragmentHabitListBinding
 import com.masharo.habits.screens.habit.ARG_ID
 import com.masharo.habits.support.InitViewModel
@@ -45,23 +46,27 @@ class HabitListFragment : Fragment() {
 
         type = arguments?.getInt(TYPE_HABIT, -1)
 
+        SortAndSearchFragment.add(this)
+
         if (type == -1) {
             type = null
         }
 
-        val viewModel = InitViewModel.instanceHabitListViewModel(
+        bind.recyclerViewHabitsListHabits.adapter = HabitsAdapter(requireContext(), null) {
+
+            val bundleFragment = bundleOf()
+
+            bundleFragment.putInt(ARG_ID, it)
+
+            view.findNavController().navigate(R.id.habitFragment, bundleFragment)
+
+        }
+
+        InitViewModel.instanceHabitListViewModel(
             this as ViewModelStoreOwner,
             bind,
             this as LifecycleOwner,
             type
-        ) {
-            val bundleFragment = bundleOf()
-
-            it?.let {
-                bundleFragment.putInt(ARG_ID, it)
-            }
-
-            view.findNavController().navigate(R.id.habitFragment, bundleFragment)
-        }
+        )
     }
 }

@@ -2,7 +2,7 @@ package com.masharo.habits.data.habitList
 
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
-import com.masharo.habits.Habit
+import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.data.HabitDatabase
 
 class RoomDataHabitList(val db: HabitDatabase): DataLogicHabitList {
@@ -21,8 +21,10 @@ class RoomDataHabitList(val db: HabitDatabase): DataLogicHabitList {
         }
     }
 
-    class HabitsTypeFilterTask(val db: HabitDatabase): AsyncTask<Habit.TypeHabit, Void, LiveData<List<Habit>>>() {
-        override fun doInBackground(vararg params: Habit.TypeHabit?): LiveData<List<Habit>> {
+    class HabitsTypeFilterTask(val db: HabitDatabase):
+        AsyncTask<Habit.TypeHabit, Void, LiveData<List<Habit>>>() {
+
+        override fun doInBackground(vararg params: Habit.TypeHabit): LiveData<List<Habit>> {
             if (params.isNotEmpty()) {
                 params[0]?.let {
                     return db.getHabitDao().habitsTypeFilter(it.id())

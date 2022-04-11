@@ -5,21 +5,21 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.masharo.habits.Habit
+import com.masharo.habits.data.habit.Habit
 
 @Dao
 interface HabitDao {
 
-    @Query("SELECT * FROM habit ORDER BY id DESC")
+    @Query("SELECT * FROM habit ORDER BY ${Habit.DB_ID} DESC")
     fun habits(): LiveData<List<Habit>>
 
-    @Query("SELECT * FROM habit WHERE type = :type ORDER BY id DESC")
+    @Query("SELECT * FROM habit WHERE ${Habit.DB_TYPE} = :type")
     fun habitsTypeFilter(type: Int): LiveData<List<Habit>>
 
     @Insert
     fun add(habit: Habit)
 
-    @Query("SELECT * FROM habit WHERE id = :id")
+    @Query("SELECT * FROM habit WHERE ${Habit.DB_ID} = :id")
     fun get(id: Int): Habit?
 
     @Update(entity = Habit::class)

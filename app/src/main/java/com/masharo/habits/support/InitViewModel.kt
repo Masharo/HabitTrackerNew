@@ -17,12 +17,11 @@ object InitViewModel {
                                bind: FragmentHabitBinding,
                                id: Int?,
                                resultLauncher: ActivityResultLauncher<Intent>,
-                               childFragmentManager: FragmentManager,
-                               finish: () -> Unit
+                               childFragmentManager: FragmentManager
     ): HabitViewModel {
 
         val viewModel = ViewModelProvider(vmOwner)[HabitViewModel::class.java]
-        viewModel.instance(bind, id, resultLauncher, childFragmentManager, finish)
+        viewModel.instance(bind, id, resultLauncher, childFragmentManager)
 
         return viewModel
     }
@@ -30,12 +29,11 @@ object InitViewModel {
     fun instanceHabitListViewModel(vmOwner: ViewModelStoreOwner,
                                    bind: FragmentHabitListBinding,
                                    owner: LifecycleOwner,
-                                   type: Int?,
-                                   habitOpenLambda: (Int?) -> Unit
+                                   type: Int?
     ): HabitListViewModel {
 
         val viewModal = ViewModelProvider(vmOwner)[HabitListViewModel::class.java]
-        viewModal.instance(bind, owner, type, habitOpenLambda)
+        viewModal.instance(bind, owner, type)
 
         return viewModal
     }
