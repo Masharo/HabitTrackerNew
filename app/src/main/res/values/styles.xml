@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="default_values_for_habit">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintRight_toRightOf">@id/imageButton_habitItem_openDescription</item>
+    </style>
+
+    <style name="color_picker_rectangle">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:onClick">onClick</item>
+        <item name="android:background">@drawable/rectangle_background</item>
+    </style>
+</resources>
