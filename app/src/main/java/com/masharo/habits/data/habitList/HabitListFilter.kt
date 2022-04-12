@@ -1,8 +1,8 @@
 package com.masharo.habits.data.habitList
 
 import android.content.Context
-import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.R
+import com.masharo.habits.data.habit.Habit
 import kotlin.reflect.KProperty1
 
 //Кароч у класса должено быть состояние, мы будем вызывать один метод который будет принимать лист
@@ -34,13 +34,15 @@ class HabitListFilter {
         if (search.isEmpty()) {
             null
         } else {
-            return habits.filter { habit ->
-                columnsLike.forEach {
-                    it.getColumnString()?.invoke(habit)?.contains(search, true))
+            habits.filter {
+                Habit::title.invoke(it).contains(search, true)
             }
+//            habits.filter { habit ->
+//                columnsLike.map { it.getColumnString()?.invoke(habit) }.contains(search)
+//            }
         }
 
-
+    
     companion object {
 
         val columnsOrderBy = useOperation(Operation.ORDER_BY)
