@@ -29,50 +29,36 @@ class HabitListViewModel(private val app: Application) : AndroidViewModel(app) {
         bind.viewModel = this
         this.type = type
 
-//        habits = type?.let {
-//            db.getHabitsTypeFilter(Habit.TypeHabit.values()[it])
-//            } ?: db.getHabits()
-
         habits = db.getHabits()
 
         adapter = bind.recyclerViewHabitsListHabits.adapter as HabitsAdapter
 
-        habits.observe(owner) {
+        habitListFilter.getHabits().observe(owner) {
             habitListChange(it)
         }
 
+        habits.observe(owner) {
+            habitListFilter.habitsOrigin = it
+        }
     }
 
     private fun habitListChange(list: List<Habit>) {
-        val sortedList = habitListFilter.sort(list)
-        val habitDiffUtilCallback = HabitDiffUtilCallback(adapter.habits ?: arrayListOf(), sortedList)
+        val habitDiffUtilCallback = HabitDiffUtilCallback(adapter.habits ?: arrayListOf(), list)
         val resultDiff = DiffUtil.calculateDiff(habitDiffUtilCallback)
-        adapter.habits = sortedList
+        adapter.habits = list
         resultDiff.dispatchUpdatesTo(adapter)
     }
 
     fun setFilterType(type: Int) {
-
+        habitListFilter.setFilter(HabitListFilter.Column.TYPE, type)
     }
 
     fun setSort(column: HabitListFilter.Column) {
-        habitListFilter.column = column
-
-        adapter.habits?.let {
-            habitListChange(it)
-        }
+        habitListFilter.sortColumn = column
     }
 
-    fun setSearch(search: CharSequence) {
-
-        if (search.isEmpty()) {
-            adapter.habits = habits.value
-
-        } else {
-            habitListChange(adapter.habits?.filter {
-                it.title.contains(search, true)
-            } ?: listOf())
-        }
+    fun setSearch(search: String) {
+        habitListFilter.search = search
     }
 
     fun removeHabit(id: Int) {

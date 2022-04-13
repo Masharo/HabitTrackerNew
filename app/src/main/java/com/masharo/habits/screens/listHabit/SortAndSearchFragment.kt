@@ -62,7 +62,7 @@ class SortAndSearchFragment : Fragment() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     s?.let {
                         postViewModels {
-                            postViewModels { it.setSearch(s) }
+                            postViewModels { it.setSearch(s.toString()) }
                         }
                     }
                 }

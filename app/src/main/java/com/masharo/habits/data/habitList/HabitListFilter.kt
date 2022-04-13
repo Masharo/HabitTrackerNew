@@ -16,12 +16,12 @@ class HabitListFilter {
             habits.value = value
         }
 
-    private lateinit var habits: MutableLiveData<List<Habit>>
-
-    var column: Column = Column.ID
+    private var habits: MutableLiveData<List<Habit>> = MutableLiveData()
 
     private var filterColumn: Column = Column.TYPE
     private var filterValue: Int = 0
+
+    fun getHabits(): LiveData<List<Habit>> = habits
 
     var sortColumn: Column = Column.ID
         set(value) {
@@ -43,40 +43,23 @@ class HabitListFilter {
     }
 
     private fun update() {
-        habits.value = sort(search(filter(habitsOrigin)))
+        habits.value = sort(filter(habitsOrigin))
     }
 
     private fun sort(habitsLocal: List<Habit>): List<Habit> = habitsLocal.sortedBy {
-            column.getColumn()?.invoke(it)
+            sortColumn.getColumn()?.invoke(it)
         }
 
-    private fun filter(habitsLocal: List<Habit>): List<Habit> {
+    private fun filter(habitsLocal: List<Habit>): List<Habit> =
         if (search.isEmpty()) {
-            habitsLocal
+            habitsLocal.filter {
+                filterColumn.getColumn()?.invoke(it) == filterValue
+            }
         } else {
             habitsLocal.filter {
+                filterColumn.getColumn()?.invoke(it) == filterValue &&
                 Habit::title.invoke(it).contains(search, true)
             }
-//            habits.filter { habit ->
-//                columnsLike.map { it.getColumnString()?.invoke(habit) }.contains(search)
-//            }
-        }
-
-        habitsLocal.filter {
-            filterColumn.getColumn()?.invoke(it) == filterValue
-        }
-    }
-
-    private fun search(habitsLocal: List<Habit>): List<Habit> =
-        if (search.isEmpty()) {
-            habitsLocal
-        } else {
-            habitsLocal.filter {
-                Habit::title.invoke(it).contains(search, true)
-            }
-//            habits.filter { habit ->
-//                columnsLike.map { it.getColumnString()?.invoke(habit) }.contains(search)
-//            }
         }
 
     
