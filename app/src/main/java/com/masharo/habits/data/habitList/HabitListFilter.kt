@@ -1,6 +1,8 @@
 package com.masharo.habits.data.habitList
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.masharo.habits.R
 import com.masharo.habits.data.habit.Habit
 import kotlin.reflect.KProperty1
@@ -8,33 +10,68 @@ import kotlin.reflect.KProperty1
 //Кароч у класса должено быть состояние, мы будем вызывать один метод который будет принимать лист
 class HabitListFilter {
 
+    var habitsOrigin: List<Habit> = listOf()
+        set(value) {
+            field = value
+            habits.value = value
+        }
+
+    private lateinit var habits: MutableLiveData<List<Habit>>
+
     var column: Column = Column.ID
 
     private var filterColumn: Column = Column.TYPE
     private var filterValue: Int = 0
 
     var sortColumn: Column = Column.ID
+        set(value) {
+            field = value
+            update()
+        }
 
     var search: String = ""
+        set(value) {
+            field = value
+            update()
+        }
 
     fun setFilter(column: Column, value: Int) {
         filterColumn = column
         filterValue = value
+
+        update()
     }
 
-    fun sort(habits: List<Habit>): List<Habit> = habits.sortedBy {
+    private fun update() {
+        habits.value = sort(search(filter(habitsOrigin)))
+    }
+
+    private fun sort(habitsLocal: List<Habit>): List<Habit> = habitsLocal.sortedBy {
             column.getColumn()?.invoke(it)
         }
 
-    fun filter(habits: List<Habit>): List<Habit> = habits.filter {
-            filterColumn.getColumn()?.invoke(it) == filterValue
+    private fun filter(habitsLocal: List<Habit>): List<Habit> {
+        if (search.isEmpty()) {
+            habitsLocal
+        } else {
+            habitsLocal.filter {
+                Habit::title.invoke(it).contains(search, true)
+            }
+//            habits.filter { habit ->
+//                columnsLike.map { it.getColumnString()?.invoke(habit) }.contains(search)
+//            }
         }
 
-    fun search(habits: List<Habit>): List<Habit>? =
+        habitsLocal.filter {
+            filterColumn.getColumn()?.invoke(it) == filterValue
+        }
+    }
+
+    private fun search(habitsLocal: List<Habit>): List<Habit> =
         if (search.isEmpty()) {
-            null
+            habitsLocal
         } else {
-            habits.filter {
+            habitsLocal.filter {
                 Habit::title.invoke(it).contains(search, true)
             }
 //            habits.filter { habit ->
