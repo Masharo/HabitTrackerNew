@@ -14,6 +14,7 @@ class HabitListFilter {
         set(value) {
             field = value
             habits.value = value
+            update()
         }
 
     private var habits: MutableLiveData<List<Habit>> = MutableLiveData()
@@ -38,7 +39,6 @@ class HabitListFilter {
     fun setFilter(column: Column, value: Int) {
         filterColumn = column
         filterValue = value
-
         update()
     }
 

@@ -28,12 +28,11 @@ object InitViewModel {
 
     fun instanceHabitListViewModel(vmOwner: ViewModelStoreOwner,
                                    bind: FragmentHabitListBinding,
-                                   owner: LifecycleOwner,
-                                   type: Int?
+                                   owner: LifecycleOwner
     ): HabitListViewModel {
 
         val viewModal = ViewModelProvider(vmOwner)[HabitListViewModel::class.java]
-        viewModal.instance(bind, owner, type)
+        viewModal.instance(bind, owner)
 
         return viewModal
     }

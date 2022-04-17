@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.ViewModelInitializer
 import androidx.navigation.findNavController
 import com.masharo.habits.R
 import com.masharo.habits.adapter.HabitsAdapter
@@ -46,27 +48,28 @@ class HabitListFragment : Fragment() {
 
         type = arguments?.getInt(TYPE_HABIT, -1)
 
-        SortAndSearchFragment.add(this)
-
         if (type == -1) {
             type = null
         }
 
         bind.recyclerViewHabitsListHabits.adapter = HabitsAdapter(requireContext(), null) {
-
-            val bundleFragment = bundleOf()
-
-            bundleFragment.putInt(ARG_ID, it)
-
-            view.findNavController().navigate(R.id.habitFragment, bundleFragment)
-
+            view.findNavController().navigate(R.id.habitFragment, bundleOf(Pair(ARG_ID, it)))
         }
 
-        InitViewModel.instanceHabitListViewModel(
-            this as ViewModelStoreOwner,
-            bind,
-            this as LifecycleOwner,
-            type
-        )
+        if (SortAndSearchFragment.size() == 0) {
+            SortAndSearchFragment.add(activity as ViewModelStoreOwner)
+
+            InitViewModel.instanceHabitListViewModel(
+                activity as ViewModelStoreOwner,
+                bind,
+                this as LifecycleOwner
+            ).setFilterType(type!!)
+        } else {
+            ViewModelProvider(activity as ViewModelStoreOwner)[HabitListViewModel::class.java].setFilterType(type!!)
+        }
+
+        ViewModelProvider(this, object : ViewModelProvider.Factory {
+
+        })
     }
 }

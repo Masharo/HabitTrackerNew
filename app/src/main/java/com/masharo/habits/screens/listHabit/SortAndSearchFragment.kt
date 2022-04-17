@@ -21,11 +21,13 @@ class SortAndSearchFragment : Fragment() {
     private lateinit var bind: FragmentSortAndSearchBinding
 
     companion object {
-        private val viewModels: MutableList<HabitListViewModel> = mutableListOf()
+        private val viewModels: MutableSet<HabitListViewModel> = mutableSetOf()
 
         fun add(vmStore: ViewModelStoreOwner) {
             viewModels.add(ViewModelProvider(vmStore)[HabitListViewModel::class.java])
         }
+
+        fun size(): Int = viewModels.size
     }
 
     override fun onCreateView(

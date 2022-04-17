@@ -1,33 +1,34 @@
 package com.masharo.habits.screens.listHabit
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
+import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.DiffUtil
-import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.adapter.HabitDiffUtilCallback
 import com.masharo.habits.adapter.HabitsAdapter
 import com.masharo.habits.data.HabitDatabase
+import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.data.habitList.HabitListFilter
 import com.masharo.habits.data.habitList.RoomDataHabitList
 import com.masharo.habits.databinding.FragmentHabitListBinding
 
-class HabitListViewModel(private val app: Application) : AndroidViewModel(app) {
+class HabitListViewModel(val context: Context): ViewModelProvider.Factory {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
     private val db = RoomDataHabitList(HabitDatabase.instance(app.applicationContext))
     lateinit var habits: LiveData<List<Habit>>
-    private var type: Int? = null
     lateinit var adapter: HabitsAdapter
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return modelClass.getConstructor(Context::class.java).newInstance(context)
+    }
 
     fun instance(
         bind: FragmentHabitListBinding,
         owner: LifecycleOwner,
-        type: Int?
     ) {
         bind.viewModel = this
-        this.type = type
 
         habits = db.getHabits()
 
@@ -66,4 +67,23 @@ class HabitListViewModel(private val app: Application) : AndroidViewModel(app) {
 
     fun swapHabit(id1: Int, id2: Int) {
     }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<HabitListViewModel> {
+        override fun createFromParcel(parcel: Parcel): HabitListViewModel {
+            return HabitListViewModel(parcel)
+        }
+
+        override fun newArray(size: Int): Array<HabitListViewModel?> {
+            return arrayOfNulls(size)
+        }
+    }
+
 }
