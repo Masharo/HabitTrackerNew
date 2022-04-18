@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.masharo.habits.screens.listHabit.HabitListViewModel" />
+            name="adapter"
+            type="com.masharo.habits.adapter.HabitsAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/recyclerView_habitsList_habits"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:adapter="@{viewModel.adapter}"
+            android:adapter="@{adapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

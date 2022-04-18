@@ -17,7 +17,7 @@ class RoomDataHabitList(val db: HabitDatabase): DataLogicHabitList {
 
     class HabitsTask(val db: HabitDatabase): AsyncTask<Void, Void, LiveData<List<Habit>>>() {
         override fun doInBackground(vararg params: Void?): LiveData<List<Habit>> {
-            return  db.getHabitDao().habits()
+            return db.getHabitDao().habits()
         }
     }
 

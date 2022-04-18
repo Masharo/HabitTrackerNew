@@ -3,13 +3,10 @@ package com.masharo.habits.support
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.masharo.habits.screens.listHabit.HabitListViewModel
-import com.masharo.habits.screens.habit.HabitViewModel
 import com.masharo.habits.databinding.FragmentHabitBinding
-import com.masharo.habits.databinding.FragmentHabitListBinding
+import com.masharo.habits.screens.habit.HabitViewModel
 
 object InitViewModel {
 
@@ -24,16 +21,5 @@ object InitViewModel {
         viewModel.instance(bind, id, resultLauncher, childFragmentManager)
 
         return viewModel
-    }
-
-    fun instanceHabitListViewModel(vmOwner: ViewModelStoreOwner,
-                                   bind: FragmentHabitListBinding,
-                                   owner: LifecycleOwner
-    ): HabitListViewModel {
-
-        val viewModal = ViewModelProvider(vmOwner)[HabitListViewModel::class.java]
-        viewModal.instance(bind, owner)
-
-        return viewModal
     }
 }

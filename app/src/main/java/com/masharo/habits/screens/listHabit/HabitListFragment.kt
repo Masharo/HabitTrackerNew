@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.viewmodel.ViewModelInitializer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.masharo.habits.R
@@ -25,7 +25,7 @@ const val TYPE_HABIT = "typeHabit"
 class HabitListFragment : Fragment() {
 
     private lateinit var bind: FragmentHabitListBinding
-    private var type: Int? = null
+    private var type: Int = 0
     private lateinit var vm: HabitListViewModel
     private lateinit var adapter: HabitsAdapter
 
@@ -48,41 +48,34 @@ class HabitListFragment : Fragment() {
         return bind.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        vm.setFilterType(type)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        type = arguments?.getInt(TYPE_HABIT, -1)
-
-        if (type == -1) {
-            type = null
-        }
+        type = arguments?.getInt(TYPE_HABIT, 0) ?: 0
 
         adapter = HabitsAdapter(requireContext(), null) {
             view.findNavController().navigate(R.id.habitFragment, bundleOf(Pair(ARG_ID, it)))
         }
 
-        bind.recyclerViewHabitsListHabits.adapter = adapter
+        bind.adapter = adapter
 
         if (SortAndSearchFragment.size() == 0) {
             SortAndSearchFragment.add(activity as ViewModelStoreOwner)
-
-            InitViewModel.instanceHabitListViewModel(
-                activity as ViewModelStoreOwner,
-                bind,
-                this as LifecycleOwner
-            ).setFilterType(type!!)
-        } else {
-//            ViewModelProvider(activity as ViewModelStoreOwner)[HabitListViewModel::class.java].setFilterType(type!!)
         }
 
-//        ViewModelProvider.
+        vm = HabitListViewModel.get(activity as ViewModelStoreOwner)
 
-        vm.getChangeFiltersAndSearch().observe(viewLifecycleOwner) {
+        vm.getChangeHabits().observe(viewLifecycleOwner) {
             habitListChange(it)
         }
 
         vm.habits.observe(viewLifecycleOwner) {
-
+            vm.setNewHabitList(it)
         }
     }
 
