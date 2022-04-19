@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
-import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.R
 import com.masharo.habits.adapter.TypeGroupAdapter
+import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.databinding.FragmentViewPagerHabitListBinding
 
 class ViewPagerHabitListFragment : Fragment() {

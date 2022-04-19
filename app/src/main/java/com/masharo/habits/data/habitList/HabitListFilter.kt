@@ -52,15 +52,25 @@ class HabitListFilter {
 
     private fun filter(habitsLocal: List<Habit>): List<Habit> =
         if (search.isEmpty()) {
-            habitsLocal.filter {
-                filterColumn.getColumn()?.invoke(it) == filterValue
-            }
+            habitsLocal
         } else {
             habitsLocal.filter {
-                filterColumn.getColumn()?.invoke(it) == filterValue &&
                 Habit::title.invoke(it).contains(search, true)
             }
         }
+
+//    Не использую фильтрацию, но можно
+//    private fun filter(habitsLocal: List<Habit>): List<Habit> =
+//        if (search.isEmpty()) {
+//            habitsLocal.filter {
+//                filterColumn.getColumn()?.invoke(it) == filterValue
+//            }
+//        } else {
+//            habitsLocal.filter {
+//                filterColumn.getColumn()?.invoke(it) == filterValue &&
+//                Habit::title.invoke(it).contains(search, true)
+//            }
+//        }
 
     
     companion object {

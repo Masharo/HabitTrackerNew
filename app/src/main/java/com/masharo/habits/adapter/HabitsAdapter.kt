@@ -1,17 +1,15 @@
 package com.masharo.habits.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ObservableBoolean
 import androidx.recyclerview.widget.RecyclerView
-import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.R
+import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.databinding.HabitItemBinding
 
 class HabitsAdapter(
-    private val context: Context,
     var habits: List<Habit>?,
     private val onClick: (id: Int) -> Unit):
     RecyclerView.Adapter<HabitsAdapter.HabitsViewHolder>() {
@@ -30,7 +28,6 @@ class HabitsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.habit_item, parent, false)
-
         return HabitsViewHolder(view)
     }
 

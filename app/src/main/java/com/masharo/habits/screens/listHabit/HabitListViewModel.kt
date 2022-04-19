@@ -16,12 +16,6 @@ class HabitListViewModel(app: Application): AndroidViewModel(app) {
         fun get(owner: ViewModelStoreOwner): HabitListViewModel {
             return ViewModelProvider(owner)[HabitListViewModel::class.java]
         }
-
-        fun get(owner: ViewModelStoreOwner, type: Int): HabitListViewModel {
-            val vm = ViewModelProvider(owner)[HabitListViewModel::class.java]
-            vm.setFilterType(type)
-            return vm
-        }
     }
 
     private var habitListFilter: HabitListFilter = HabitListFilter()

@@ -58,7 +58,7 @@ class HabitListFragment : Fragment() {
 
         type = arguments?.getInt(TYPE_HABIT, 0) ?: 0
 
-        adapter = HabitsAdapter(requireContext(), null) {
+        adapter = HabitsAdapter(null) {
             view.findNavController().navigate(R.id.habitFragment, bundleOf(Pair(ARG_ID, it)))
         }
 
@@ -80,9 +80,10 @@ class HabitListFragment : Fragment() {
     }
 
     private fun habitListChange(list: List<Habit>) {
-        val habitDiffUtilCallback = HabitDiffUtilCallback(adapter.habits ?: arrayListOf(), list)
-        val resultDiff = DiffUtil.calculateDiff(habitDiffUtilCallback)
-        adapter.habits = list
+        val listFilterType = list.filter { it.type == type }
+        val hduc = HabitDiffUtilCallback(adapter.habits ?: arrayListOf(), listFilterType)
+        val resultDiff = DiffUtil.calculateDiff(hduc)
+        adapter.habits = listFilterType
         resultDiff.dispatchUpdatesTo(adapter)
     }
 }
