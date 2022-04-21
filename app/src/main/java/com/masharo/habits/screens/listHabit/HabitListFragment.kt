@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -18,7 +15,6 @@ import com.masharo.habits.adapter.HabitsAdapter
 import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.databinding.FragmentHabitListBinding
 import com.masharo.habits.screens.habit.ARG_ID
-import com.masharo.habits.support.InitViewModel
 
 const val TYPE_HABIT = "typeHabit"
 
@@ -76,9 +72,13 @@ class HabitListFragment : Fragment() {
 
     private fun habitListChange(list: List<Habit>) {
         val listFilterType = list.filter { it.type == type }
-        val hduc = HabitDiffUtilCallback(adapter.habits ?: arrayListOf(), listFilterType)
-        val resultDiff = DiffUtil.calculateDiff(hduc)
+
+        DiffUtil.calculateDiff(
+                HabitDiffUtilCallback(
+                        adapter.habits ?: arrayListOf(),
+                        listFilterType))
+                .dispatchUpdatesTo(adapter)
+
         adapter.habits = listFilterType
-        resultDiff.dispatchUpdatesTo(adapter)
     }
 }
