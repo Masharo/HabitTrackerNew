@@ -10,7 +10,7 @@ import com.masharo.habits.data.habit.Habit
 @Dao
 interface HabitDao {
 
-    @Query("SELECT * FROM habit ORDER BY ${Habit.DB_ID} DESC")
+    @Query("SELECT * FROM habit")
     fun habits(): LiveData<List<Habit>>
 
     @Query("SELECT * FROM habit WHERE ${Habit.DB_TYPE} = :type")
