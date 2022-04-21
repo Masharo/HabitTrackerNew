@@ -48,11 +48,6 @@ class HabitListFragment : Fragment() {
         return bind.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        vm.setFilterType(type)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
