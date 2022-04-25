@@ -4,7 +4,5 @@ import androidx.lifecycle.LiveData
 import com.masharo.habits.data.habit.Habit
 
 interface DataLogicHabitList {
-    fun getHabits(): LiveData<List<Habit>>
-
-    fun getHabitsTypeFilter(type: Habit.TypeHabit): LiveData<List<Habit>>
+    suspend fun getHabits(): LiveData<List<Habit>>
 }

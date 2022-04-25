@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -22,7 +23,7 @@ class HabitListFragment : Fragment() {
 
     private lateinit var bind: FragmentHabitListBinding
     private var type: Int = 0
-    private lateinit var vm: HabitListViewModel
+    private val vm: HabitListViewModel by viewModels()
     private lateinit var adapter: HabitsAdapter
 
     companion object {
@@ -58,8 +59,6 @@ class HabitListFragment : Fragment() {
         if (SortAndSearchFragment.size() == 0) {
             SortAndSearchFragment.add(activity as ViewModelStoreOwner)
         }
-
-        vm = HabitListViewModel.get(activity as ViewModelStoreOwner)
 
         vm.getChangeHabits().observe(viewLifecycleOwner) {
             habitListChange(it)
