@@ -3,6 +3,8 @@ package com.masharo.habits.support
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
 import androidx.databinding.InverseMethod
 import androidx.databinding.adapters.Converters
 import com.masharo.habits.data.habit.Habit
@@ -58,4 +60,12 @@ object SupportDataBinding {
 
     @InverseMethod(value = "converterTypeHabit")
     fun converterTypeHabit(id: Int) = Habit.TypeHabit.searchForResource(id)
+
+    fun getTypeImage(context: Context, habit: Habit): Drawable? {
+        return if (habit.image == 0) {
+            ContextCompat.getDrawable(context, R.drawable.ic_smailhappy)
+        } else {
+            ContextCompat.getDrawable(context, habit.image)
+        }
+    }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -23,7 +24,7 @@ class HabitListFragment : Fragment() {
 
     private lateinit var bind: FragmentHabitListBinding
     private var type: Int = 0
-    private val vm: HabitListViewModel by viewModels()
+    private val vm: HabitListViewModel by viewModels({ activity ?: this })
     private lateinit var adapter: HabitsAdapter
 
     companion object {

@@ -5,13 +5,18 @@ import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.data.HabitDatabase
 import com.masharo.habits.databinding.FragmentHabitBinding
 import com.masharo.habits.data.habit.RoomHabitDataLogic
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope.coroutineContext
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.coroutineContext
 
 class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
 
@@ -22,7 +27,8 @@ class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
     private val dataLogic = RoomHabitDataLogic(HabitDatabase.instance(app.applicationContext))
     private lateinit var fragmentManager: FragmentManager
 
-    private lateinit var habit: Habit
+    private val habitLocal: MutableLiveData<Habit> = MutableLiveData(Habit())
+    val habit = habitLocal
     private var isNewHabit: Boolean = true
     private var isInstance: Boolean = false
 
@@ -36,37 +42,27 @@ class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
         this.resultLauncher = resultLauncher
         this.fragmentManager = childFragmentManager
 
+        this.bind.lifecycleOwner
+
         if (!isInstance) {
             isInstance = true
 
             viewModelScope.launch(Dispatchers.IO) {
-
-                isNewHabit = when (
-                    val habitLocal = dataLogic.getHabit(id)
-                ) {
-                    null -> {
-                        habit = Habit()
-                        true
-                    }
-                    else -> {
-                        habit = habitLocal
-                        false
-                    }
-                }
+                habitLocal.postValue(
+                    dataLogic.getHabit(id)?.let {
+                        isNewHabit = false
+                        it
+                    } ?: Habit()
+                )
             }
-
-
-
         }
 
-        bind.viewModel = this
         bind.isNewHabit = isNewHabit
-        bind.habit = habit
-
+        bind.viewModel = this
     }
 
     fun onClickStartColorPicker() {
-        val colorPickerFragment: ColorPickerFragment = habit.color?.let {
+        val colorPickerFragment: ColorPickerFragment = habitLocal.value?.color?.let {
             ColorPickerFragment.newInstance(it)
         } ?:
             ColorPickerFragment()
@@ -75,26 +71,33 @@ class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
     }
 
     fun onClickButtonSave() = viewModelScope.launch(Dispatchers.IO) {
-        if (isNewHabit) {
-            dataLogic.addHabit(habit)
-        } else {
-            dataLogic.setHabit(habit)
+        habitLocal.value?.let {
+            if (isNewHabit) {
+                dataLogic.addHabit(it)
+            } else {
+                dataLogic.setHabit(it)
+            }
         }
     }
 
 
     fun doneInc() {
-        habit.countDone++
+        habitLocal.value?.apply {
+            countDone++
+        }
     }
 
     fun doneDec() {
-        if (habit.countDone > 0) {
-            habit.countDone--
+        habitLocal.value?.apply {
+            if (countDone > 0) {
+                countDone--
+            }
         }
     }
 
     fun changeHabitColor(color: Int) {
-        habit.color = color
+        habit.value?.let {
+            it.color = color
+        }
     }
-
 }

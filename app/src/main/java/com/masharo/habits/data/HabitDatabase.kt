@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.masharo.habits.data.habit.Habit
 
-@Database(entities = [Habit::class], version = 2, exportSchema = false)
+@Database(entities = [Habit::class], version = 1, exportSchema = false)
 abstract class HabitDatabase: RoomDatabase() {
 
     abstract fun getHabitDao(): HabitDao
@@ -15,7 +15,7 @@ abstract class HabitDatabase: RoomDatabase() {
         private const val NAME_DB = "habit_db"
         @Volatile
         private var db_local: HabitDatabase? = null
-        private val db: HabitDatabase by lazyOf(db_local ?: throw Exception("Ошибка инициализации БД"))
+        private val db: HabitDatabase by lazy { db_local ?: throw Exception("Ошибка инициализации БД") }
 
         fun instance(context: Context): HabitDatabase {
             db_local ?: run {

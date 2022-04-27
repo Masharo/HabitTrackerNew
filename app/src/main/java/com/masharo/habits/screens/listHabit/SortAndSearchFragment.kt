@@ -20,7 +20,7 @@ import com.masharo.habits.databinding.FragmentSortAndSearchBinding
 class SortAndSearchFragment : Fragment() {
 
     private lateinit var bind: FragmentSortAndSearchBinding
-    private val vm: HabitListViewModel by viewModels()
+    private val vm: HabitListViewModel by viewModels({ activity ?: this })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

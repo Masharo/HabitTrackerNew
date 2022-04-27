@@ -13,7 +13,8 @@ class HabitListViewModel(app: Application): AndroidViewModel(app) {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
     private val db = RoomDataHabitList(HabitDatabase.instance(app.applicationContext))
-    lateinit var habits: LiveData<List<Habit>>
+    var habits: LiveData<List<Habit>> = MutableLiveData()
+        private set
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

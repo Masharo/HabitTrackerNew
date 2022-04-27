@@ -57,6 +57,7 @@ class Habit : BaseObservable() {
     var type: Int = 0
         set(value) {
             field = value
+            image = getTypeEnum().resourceDrawable()
             notifyPropertyChanged(BR.type)
         }
 
@@ -92,16 +93,14 @@ class Habit : BaseObservable() {
 
     @Ignore
     @get:Bindable
-    var image: Int? = getTypeEnum().resourceDrawable()
+    var image: Int = getTypeEnum().resourceDrawable()
         set(value) {
             field = value
             notifyPropertyChanged(BR.image)
         }
 
     fun getTypeEnum(): TypeHabit {
-        val typeHabit = TypeHabit.values()[type]
-        this.image = typeHabit.resourceDrawable()
-        return typeHabit
+        return TypeHabit.values()[type]
     }
 
     fun setTypeEnum(type: TypeHabit) {

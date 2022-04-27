@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.findNavController
 import com.masharo.habits.R
@@ -74,6 +75,10 @@ class HabitFragment : Fragment() {
             resultLauncher,
             childFragmentManager
         )
+
+        viewModel.habit.observe(this as LifecycleOwner) {
+            bind.habit = viewModel.habit.value
+        }
 
         bindView()
     }
