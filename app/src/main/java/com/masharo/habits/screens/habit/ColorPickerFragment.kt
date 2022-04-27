@@ -31,23 +31,21 @@ class ColorPickerFragment : DialogFragment() {
             setColor(it.getInt(ARG_COLOR))
         }
 
-        bind.selectColor = View.OnClickListener { view ->
-            activity?.let {
-                val rootView: View = bind.viewColorPickerBackgroundGradient
-                val y = (rootView.y / 2).toInt()
-                val x = view.background.bounds.centerX() + view.x.toInt()
+        bind.selectColor = View.OnClickListener {
+            val rootView: View = bind.viewColorPickerBackgroundGradient
+            val y = (rootView.y / 2).toInt()
+            val x = view.background.bounds.centerX() + view.x.toInt()
 
-                rootView.isDrawingCacheEnabled = true
-                val col = rootView.drawingCache.getColor(x, y)
+            rootView.isDrawingCacheEnabled = true
+            val col = rootView.drawingCache.getColor(x, y)
 
-                rootView.isDrawingCacheEnabled = false
+            rootView.isDrawingCacheEnabled = false
 
-                val redValue = col.red()
-                val blueValue = col.blue()
-                val greenValue = col.green()
+            val redValue = col.red()
+            val blueValue = col.blue()
+            val greenValue = col.green()
 
-                setColor(col.toArgb())
-            }
+            setColor(col.toArgb())
         }
 
         bind.buttonColorPickerOK.setOnClickListener {

@@ -2,10 +2,10 @@ package com.masharo.habits.data.habit
 
 interface DataLogicHabit {
 
-    fun setHabit(habit: Habit)
+    suspend fun setHabit(habit: Habit)
 
-    fun getHabit(id: Int?): Habit?
+    suspend fun getHabit(id: Int?): Habit?
 
-    fun addHabit(habit: Habit)
+    suspend fun addHabit(habit: Habit)
 
 }

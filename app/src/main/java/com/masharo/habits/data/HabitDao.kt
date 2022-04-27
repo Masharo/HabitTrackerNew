@@ -13,15 +13,12 @@ interface HabitDao {
     @Query("SELECT * FROM habit")
     fun habits(): LiveData<List<Habit>>
 
-    @Query("SELECT * FROM habit WHERE ${Habit.DB_TYPE} = :type")
-    fun habitsTypeFilter(type: Int): LiveData<List<Habit>>
-
     @Insert
-    fun add(habit: Habit)
+    suspend fun add(habit: Habit)
 
     @Query("SELECT * FROM habit WHERE ${Habit.DB_ID} = :id")
-    fun get(id: Int): Habit?
+    suspend fun get(id: Int): Habit?
 
     @Update(entity = Habit::class)
-    fun set(habit: Habit)
+    suspend fun set(habit: Habit)
 }

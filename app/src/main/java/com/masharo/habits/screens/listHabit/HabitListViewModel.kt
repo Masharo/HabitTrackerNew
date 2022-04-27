@@ -6,6 +6,7 @@ import com.masharo.habits.data.HabitDatabase
 import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.data.habitList.HabitListFilter
 import com.masharo.habits.data.habitList.RoomDataHabitList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HabitListViewModel(app: Application): AndroidViewModel(app) {
@@ -15,7 +16,7 @@ class HabitListViewModel(app: Application): AndroidViewModel(app) {
     lateinit var habits: LiveData<List<Habit>>
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             habits = db.getHabits()
         }
     }

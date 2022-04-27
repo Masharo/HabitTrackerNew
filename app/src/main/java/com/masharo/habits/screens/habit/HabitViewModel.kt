@@ -5,11 +5,13 @@ import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.data.HabitDatabase
 import com.masharo.habits.databinding.FragmentHabitBinding
-import com.masharo.habits.data.habit.DataLogicHabit
 import com.masharo.habits.data.habit.RoomHabitDataLogic
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
 
@@ -17,7 +19,7 @@ class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
     private lateinit var bind: FragmentHabitBinding
     private var id: Int? = null
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var dataLogic: DataLogicHabit
+    private val dataLogic = RoomHabitDataLogic(HabitDatabase.instance(app.applicationContext))
     private lateinit var fragmentManager: FragmentManager
 
     private lateinit var habit: Habit
@@ -34,23 +36,27 @@ class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
         this.resultLauncher = resultLauncher
         this.fragmentManager = childFragmentManager
 
-        dataLogic = RoomHabitDataLogic(HabitDatabase.instance(app.applicationContext))
-
-        val habitOrNull = dataLogic.getHabit(id)
-
         if (!isInstance) {
             isInstance = true
 
-            isNewHabit = when (habitOrNull) {
-                null -> {
-                    habit = Habit()
-                    true
-                }
-                else -> {
-                    habit = habitOrNull
-                    false
+            viewModelScope.launch(Dispatchers.IO) {
+
+                isNewHabit = when (
+                    val habitLocal = dataLogic.getHabit(id)
+                ) {
+                    null -> {
+                        habit = Habit()
+                        true
+                    }
+                    else -> {
+                        habit = habitLocal
+                        false
+                    }
                 }
             }
+
+
+
         }
 
         bind.viewModel = this
@@ -68,15 +74,14 @@ class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
         colorPickerFragment.show(fragmentManager, ColorPickerFragment.TAG)
     }
 
-    fun onClickButtonSave() {
-
+    fun onClickButtonSave() = viewModelScope.launch(Dispatchers.IO) {
         if (isNewHabit) {
             dataLogic.addHabit(habit)
         } else {
             dataLogic.setHabit(habit)
         }
-
     }
+
 
     fun doneInc() {
         habit.countDone++

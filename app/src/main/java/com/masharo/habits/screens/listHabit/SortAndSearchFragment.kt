@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.masharo.habits.R
@@ -19,16 +20,7 @@ import com.masharo.habits.databinding.FragmentSortAndSearchBinding
 class SortAndSearchFragment : Fragment() {
 
     private lateinit var bind: FragmentSortAndSearchBinding
-
-    companion object {
-        private val viewModels: MutableSet<HabitListViewModel> = mutableSetOf()
-
-        fun add(vmStore: ViewModelStoreOwner) {
-            viewModels.add(ViewModelProvider(vmStore)[HabitListViewModel::class.java])
-        }
-
-        fun size(): Int = viewModels.size
-    }
+    private val vm: HabitListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +43,7 @@ class SortAndSearchFragment : Fragment() {
 
         bind.spinnerSortAndSearchSort.onItemSelectedListener = object: OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                postViewModels { it.setSort(HabitListFilter.columnsOrderBy[position]) }
+                vm.setSort(HabitListFilter.columnsOrderBy[position])
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -63,15 +55,9 @@ class SortAndSearchFragment : Fragment() {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     s?.let {
-                        postViewModels {
-                            postViewModels { it.setSearch(s.toString()) }
-                        }
-                    }
+                        vm.setSearch(s.toString()) }
                 }
             }
         )
     }
-
-    private fun postViewModels(post: (it: HabitListViewModel) -> Unit) =
-        viewModels.forEach { post(it) }
 }

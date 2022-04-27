@@ -56,10 +56,6 @@ class HabitListFragment : Fragment() {
 
         bind.adapter = adapter
 
-        if (SortAndSearchFragment.size() == 0) {
-            SortAndSearchFragment.add(activity as ViewModelStoreOwner)
-        }
-
         vm.getChangeHabits().observe(viewLifecycleOwner) {
             habitListChange(it)
         }
