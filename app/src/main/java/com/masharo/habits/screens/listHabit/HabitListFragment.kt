@@ -61,8 +61,10 @@ class HabitListFragment : Fragment() {
             habitListChange(it)
         }
 
-        vm.habits.observe(viewLifecycleOwner) {
-            vm.setNewHabitList(it)
+        vm.habits.observe(viewLifecycleOwner) { habitLive ->
+            habitLive.observe(viewLifecycleOwner) {
+                vm.setNewHabitList(it)
+            }
         }
     }
 

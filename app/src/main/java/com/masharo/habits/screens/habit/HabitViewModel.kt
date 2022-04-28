@@ -48,12 +48,10 @@ class HabitViewModel(private val app: Application) : AndroidViewModel(app) {
             isInstance = true
 
             viewModelScope.launch(Dispatchers.IO) {
-                habitLocal.postValue(
-                    dataLogic.getHabit(id)?.let {
-                        isNewHabit = false
-                        it
-                    } ?: Habit()
-                )
+                dataLogic.getHabit(id)?.let {
+                    isNewHabit = false
+                    habitLocal.postValue(it)
+                }
             }
         }
 

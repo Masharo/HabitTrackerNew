@@ -60,12 +60,4 @@ object SupportDataBinding {
 
     @InverseMethod(value = "converterTypeHabit")
     fun converterTypeHabit(id: Int) = Habit.TypeHabit.searchForResource(id)
-
-    fun getTypeImage(context: Context, habit: Habit): Drawable? {
-        return if (habit.image == 0) {
-            ContextCompat.getDrawable(context, R.drawable.ic_smailhappy)
-        } else {
-            ContextCompat.getDrawable(context, habit.image)
-        }
-    }
 }

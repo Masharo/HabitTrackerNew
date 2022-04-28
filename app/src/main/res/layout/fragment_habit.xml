@@ -172,7 +172,7 @@
                     android:id="@+id/imageView_habit_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@{SupportDataBinding.INSTANCE.getTypeImage(context, habit)}"
+                    android:src="@{ContextCompat.getDrawable(context, habit.image)}"
                     app:layout_constraintBottom_toBottomOf="@id/radioGroup_habit_type"
                     app:layout_constraintLeft_toRightOf="@id/guideline_habit_65vertical"
                     app:layout_constraintRight_toRightOf="parent"

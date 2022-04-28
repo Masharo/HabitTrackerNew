@@ -34,7 +34,7 @@ class ColorPickerFragment : DialogFragment() {
         bind.selectColor = View.OnClickListener {
             val rootView: View = bind.viewColorPickerBackgroundGradient
             val y = (rootView.y / 2).toInt()
-            val x = view.background.bounds.centerX() + view.x.toInt()
+            val x = it.background.bounds.centerX() + it.x.toInt()
 
             rootView.isDrawingCacheEnabled = true
             val col = rootView.drawingCache.getColor(x, y)

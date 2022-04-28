@@ -13,12 +13,12 @@ class HabitListViewModel(app: Application): AndroidViewModel(app) {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
     private val db = RoomDataHabitList(HabitDatabase.instance(app.applicationContext))
-    var habits: LiveData<List<Habit>> = MutableLiveData()
-        private set
+    private var habitsLive: MutableLiveData<LiveData<List<Habit>>> = MutableLiveData()
+    var habits: LiveData<LiveData<List<Habit>>> = habitsLive
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            habits = db.getHabits()
+            habitsLive.postValue(db.getHabits())
         }
     }
 
