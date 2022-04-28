@@ -14,11 +14,8 @@
             name="isNewHabit"
             type="boolean" />
         <variable
-            name="viewModel"
-            type="com.masharo.habits.screens.habit.HabitViewModel" />
-        <variable
-            name="habit"
-            type="com.masharo.habits.data.habit.Habit" />
+            name="vm"
+            type="com.masharo.habits.presentation.habit.HabitViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +39,7 @@
                     android:id="@+id/textView_habit_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{isNewHabit ? @string/textView_habit_titleNew : @string/textView_habit_titleOld}"
+                    android:text="@{vm.habit.id == 0 ? @string/textView_habit_titleNew : @string/textView_habit_titleOld}"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:paddingBottom="40dp"
@@ -89,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="@={habit.title}"
+                    android:text="@={vm.habit.title}"
                     android:inputType="textCapSentences"
                     android:hint="@string/editText_habit_title"
                     android:minHeight="48dp"
@@ -104,7 +101,7 @@
                     android:minLines="3"
                     android:minHeight="40dp"
                     android:gravity="start|top"
-                    android:text="@={habit.description}"
+                    android:text="@={vm.habit.description}"
                     android:inputType="textMultiLine|textCapSentences"
                     android:layout_marginBottom="10dp"
                     android:hint="@string/editText_habit_description"
@@ -116,7 +113,7 @@
                     android:id="@+id/spinner_habit_priority"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:selection="@={habit.priority}"
+                    android:selection="@={vm.habit.priority}"
                     app:layout_constraintTop_toBottomOf="@id/editText_habit_description"
                     app:layout_constraintLeft_toRightOf="@id/textView_habit_priority"
                     app:layout_constraintRight_toRightOf="parent" />
@@ -153,8 +150,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17sp"
-                        android:checked="@{habit.typeEnum == Habit.TypeHabit.POSITIVE}"
-                        android:onClick="@{() -> habit.setTypeEnum(Habit.TypeHabit.POSITIVE)}"
+                        android:checked="@{vm.habit.typeEnum == Habit.TypeHabit.POSITIVE}"
+                        android:onClick="@{() -> vm.habit.setTypeEnum(Habit.TypeHabit.POSITIVE)}"
                         android:text="@{Habit.TypeHabit.POSITIVE.resourceString()}" />
 
                     <RadioButton
@@ -162,8 +159,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17sp"
-                        android:checked="@{habit.typeEnum == Habit.TypeHabit.NEGATIVE}"
-                        android:onClick="@{() -> habit.setTypeEnum(Habit.TypeHabit.NEGATIVE)}"
+                        android:checked="@{vm.habit.typeEnum == Habit.TypeHabit.NEGATIVE}"
+                        android:onClick="@{() -> vm.habit.setTypeEnum(Habit.TypeHabit.NEGATIVE)}"
                         android:text="@{Habit.TypeHabit.NEGATIVE.resourceString()}" />
 
                 </RadioGroup>
@@ -172,7 +169,7 @@
                     android:id="@+id/imageView_habit_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@{SupportDataBinding.INSTANCE.getTypeImage(context, habit)}"
+                    android:src="@{ContextCompat.getDrawable(context, vm.habit.image)}"
                     app:layout_constraintBottom_toBottomOf="@id/radioGroup_habit_type"
                     app:layout_constraintLeft_toRightOf="@id/guideline_habit_65vertical"
                     app:layout_constraintRight_toRightOf="parent"
@@ -193,7 +190,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:entries="@array/habit_period"
-                    android:selection="@={habit.period}"
+                    android:selection="@={vm.habit.period}"
                     app:layout_constraintTop_toBottomOf="@id/radioGroup_habit_type"
                     app:layout_constraintLeft_toRightOf="@id/editText_habit_count"
                     app:layout_constraintBottom_toBottomOf="@id/editText_habit_count"
@@ -209,7 +206,7 @@
                     android:gravity="center_horizontal"
                     android:layout_marginHorizontal="5dp"
                     android:inputType="number"
-                    android:text="@={SupportDataBinding.INSTANCE.convertIntToString(habit.count)}"
+                    android:text="@={SupportDataBinding.INSTANCE.convertIntToString(vm.habit.count)}"
                     app:layout_constraintTop_toBottomOf="@id/radioGroup_habit_type"
                     app:layout_constraintRight_toLeftOf="@id/spinner_habit_period"
                     app:layout_constraintLeft_toRightOf="@id/textView_habit_count" />
@@ -235,7 +232,7 @@
                     android:hint="@string/editText_habit_count"
                     android:gravity="center_horizontal"
                     android:inputType="number"
-                    android:text="@={SupportDataBinding.INSTANCE.convertIntToString(habit.countDone)}"
+                    android:text="@={SupportDataBinding.INSTANCE.convertIntToString(vm.habit.countDone)}"
                     app:layout_constraintTop_toBottomOf="@id/editText_habit_count"
                     app:layout_constraintLeft_toRightOf="@id/imageButton_habit_doneDec" />
 
@@ -244,7 +241,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_add_24"
-                    android:onClick="@{() -> viewModel.doneInc()}"
+                    android:onClick="@{() -> vm.doneInc()}"
                     app:layout_constraintTop_toBottomOf="@id/editText_habit_count"
                     app:layout_constraintLeft_toRightOf="@id/editText_habit_done" />
 
@@ -253,7 +250,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_remove_24"
-                    android:onClick="@{() -> viewModel.doneDec()}"
+                    android:onClick="@{() -> vm.doneDec()}"
                     app:layout_constraintTop_toBottomOf="@id/editText_habit_count"
                     app:layout_constraintLeft_toRightOf="@id/textView_habit_done" />
 
@@ -262,14 +259,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/button_habit_color"
-                    android:onClick="@{() -> viewModel.onClickStartColorPicker()}"
+                    android:onClick="@{() -> vm.onClickStartColorPicker()}"
                     app:layout_constraintTop_toBottomOf="@id/editText_habit_done"
                     app:layout_constraintLeft_toLeftOf="parent" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="@{SupportDataBinding.INSTANCE.convertColorToXML(habit.color)}"
+                    android:background="@{SupportDataBinding.INSTANCE.convertColorToXML(vm.habit.color)}"
                     app:layout_constraintTop_toTopOf="@id/button_habit_colorPicker"
                     app:layout_constraintBottom_toBottomOf="@id/button_habit_colorPicker"
                     app:layout_constraintRight_toRightOf="parent"

@@ -1,4 +1,4 @@
-package com.masharo.habits.screens.listHabit
+package com.masharo.habits.presentation.listHabit
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.masharo.habits.R
@@ -16,7 +13,8 @@ import com.masharo.habits.adapter.HabitDiffUtilCallback
 import com.masharo.habits.adapter.HabitsAdapter
 import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.databinding.FragmentHabitListBinding
-import com.masharo.habits.screens.habit.ARG_ID
+import com.masharo.habits.presentation.habit.ARG_ID
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val TYPE_HABIT = "typeHabit"
 
@@ -24,7 +22,7 @@ class HabitListFragment : Fragment() {
 
     private lateinit var bind: FragmentHabitListBinding
     private var type: Int = 0
-    private val vm: HabitListViewModel by viewModels({ activity ?: this })
+    private val vm: HabitListViewModel by viewModel()
     private lateinit var adapter: HabitsAdapter
 
     companion object {

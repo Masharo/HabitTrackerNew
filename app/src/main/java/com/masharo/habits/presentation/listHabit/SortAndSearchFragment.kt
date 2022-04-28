@@ -1,4 +1,4 @@
-package com.masharo.habits.screens.listHabit
+package com.masharo.habits.presentation.listHabit
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,8 +11,6 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import com.masharo.habits.R
 import com.masharo.habits.data.habitList.HabitListFilter
 import com.masharo.habits.databinding.FragmentSortAndSearchBinding

@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/U-003-106/Desktop/myProject/HabitTrackerNew/app/src/main/res/layout/activity_root_habit.xml" value="0.2916666666666667" />
+        <entry key="..\:/Users/U-003-106/Desktop/myProject/HabitTrackerNew/app/src/main/res/layout/fragment_habit.xml" value="0.2916666666666667" />
         <entry key="..\:/Users/U-003-106/Desktop/myProject/HabitTrackerNew/app/src/main/res/layout/fragment_habit_list.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/U-003-106/Desktop/myProject/HabitTrackerNew/app/src/main/res/layout/habit_item.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/fragment_habit.xml" value="0.35833333333333334" />

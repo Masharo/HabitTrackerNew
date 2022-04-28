@@ -1,4 +1,4 @@
-package com.masharo.habits.screens.root
+package com.masharo.habits.presentation.root
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

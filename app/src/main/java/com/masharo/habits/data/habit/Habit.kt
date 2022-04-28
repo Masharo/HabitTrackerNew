@@ -76,6 +76,7 @@ class Habit : BaseObservable() {
             field = value
             notifyPropertyChanged(BR.period)
         }
+
     @get:Bindable
     @ColumnInfo(name = DB_COUNT_DONE)
     var countDone: Int = 0
@@ -83,6 +84,7 @@ class Habit : BaseObservable() {
             field = value
             notifyPropertyChanged(BR.countDone)
         }
+
     @get:Bindable
     @ColumnInfo(name = DB_COLOR)
     var color: Int? = null

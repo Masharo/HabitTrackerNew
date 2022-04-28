@@ -1,39 +1,26 @@
-package com.masharo.habits.screens.habit
+package com.masharo.habits.presentation.habit
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelStoreOwner
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.masharo.habits.R
 import com.masharo.habits.databinding.FragmentHabitBinding
-import com.masharo.habits.support.InitViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 const val ARG_ID = "ID"
 
 class HabitFragment : Fragment() {
 
     private lateinit var bind: FragmentHabitBinding
-    private lateinit var viewModel: HabitViewModel
     private var id: Int? = null
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance(id: Int) =
-            HabitFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_ID, id)
-                }
-            }
-    }
+    private val vm: HabitViewModel by viewModel { parametersOf(id) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +29,7 @@ class HabitFragment : Fragment() {
         }
 
         childFragmentManager.setFragmentResultListener(ColorPickerFragment.TAG, this) { key, bundle ->
-            viewModel.changeHabitColor(bundle.getInt(ARG_COLOR))
+            vm.changeHabitColor(bundle.getInt(ARG_COLOR))
         }
     }
 
@@ -51,39 +38,15 @@ class HabitFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         bind = FragmentHabitBinding.inflate(inflater, container, false)
+
+        bind.vm = vm
+        bind.lifecycleOwner = viewLifecycleOwner
+
         return bind.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        {
-            result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                result.data?.let {
-                    val color = it.getIntExtra(ARG_COLOR, 0)
-                    viewModel.changeHabitColor(color)
-                }
-            }
-        }
-
-        viewModel = InitViewModel.instanceHabitViewModel(
-            this as ViewModelStoreOwner,
-            bind,
-            id,
-            resultLauncher,
-            childFragmentManager
-        )
-
-        viewModel.habit.observe(this as LifecycleOwner) {
-            bind.habit = viewModel.habit.value
-        }
-
-        bindView()
-    }
-
-    private fun bindView() {
 
         context?.let {
             bind.spinnerHabitPriority.adapter = ArrayAdapter(
@@ -100,12 +63,23 @@ class HabitFragment : Fragment() {
 
             bind.buttonHabitSave.setOnClickListener {
                 if (bind.editTextHabitTitle.text.toString().isNotBlank()) {
-                    viewModel.onClickButtonSave()
-                    view?.findNavController()?.popBackStack()
+                    vm.onClickButtonSave()
+                    view.findNavController().popBackStack()
                 } else {
                     Toast.makeText(requireContext(), R.string.warn_title_blank, Toast.LENGTH_LONG).show()
                 }
             }
         }
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun newInstance(id: Int) =
+            HabitFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_ID, id)
+                }
+            }
     }
 }

@@ -3,7 +3,7 @@ package com.masharo.habits.adapter
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.masharo.habits.data.habit.Habit
-import com.masharo.habits.screens.listHabit.HabitListFragment
+import com.masharo.habits.presentation.listHabit.HabitListFragment
 
 class TypeGroupAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
 

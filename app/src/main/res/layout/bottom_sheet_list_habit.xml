@@ -24,7 +24,7 @@
         android:id="@+id/fragmentContainer_bottomSheet_body"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:name="com.masharo.habits.screens.listHabit.SortAndSearchFragment"
+        android:name="com.masharo.habits.presentation.listHabit.SortAndSearchFragment"
         app:defaultNavHost="true" />
 
 </LinearLayout>

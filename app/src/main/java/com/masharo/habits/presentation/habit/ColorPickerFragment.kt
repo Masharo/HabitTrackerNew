@@ -1,4 +1,4 @@
-package com.masharo.habits.screens.habit
+package com.masharo.habits.presentation.habit
 
 import android.os.Bundle
 import android.view.LayoutInflater

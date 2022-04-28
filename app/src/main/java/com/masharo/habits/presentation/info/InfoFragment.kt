@@ -1,4 +1,4 @@
-package com.masharo.habits.screens.info
+package com.masharo.habits.presentation.info
 
 import android.os.Bundle
 import android.view.LayoutInflater

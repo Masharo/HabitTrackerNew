@@ -6,12 +6,12 @@
     app:startDestination="@id/viewPagerHabitListFragment">
     <activity
         android:id="@+id/rootHabitActivity"
-        android:name="com.masharo.habits.screens.root.RootHabitActivity"
+        android:name="com.masharo.habits.presentation.root.RootHabitActivity"
         android:label="activity_root_habit"
         tools:layout="@layout/activity_root_habit" />
     <fragment
         android:id="@+id/habitListFragment"
-        android:name="com.masharo.habits.screens.listHabit.HabitListFragment"
+        android:name="com.masharo.habits.presentation.listHabit.HabitListFragment"
         android:label="fragment_habit_list"
         tools:layout="@layout/fragment_habit_list" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/habitFragment"
-        android:name="com.masharo.habits.screens.habit.HabitFragment"
+        android:name="com.masharo.habits.presentation.habit.HabitFragment"
         android:label="fragment_habit"
         tools:layout="@layout/fragment_habit" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/colorPickerFragment"
-        android:name="com.masharo.habits.screens.habit.ColorPickerFragment"
+        android:name="com.masharo.habits.presentation.habit.ColorPickerFragment"
         android:label="fragment_color_picker"
         tools:layout="@layout/fragment_color_picker" >
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/viewPagerHabitListFragment"
-        android:name="com.masharo.habits.screens.listHabit.ViewPagerHabitListFragment"
+        android:name="com.masharo.habits.presentation.listHabit.ViewPagerHabitListFragment"
         android:label="fragment_view_pager_habit_list"
         tools:layout="@layout/fragment_view_pager_habit_list" >
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.masharo.habits.screens.info.InfoFragment"
+        android:name="com.masharo.habits.presentation.info.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" >
         <action
