@@ -34,7 +34,7 @@ class HabitViewModel(
 
             viewModelScope.launch(Dispatchers.IO) {
                 habitLocal.postValue(
-                    dataLogic.getHabit(1)?.let {
+                    dataLogic.getHabit(id)?.let {
                         isNewHabit = false
                         it
                     }
