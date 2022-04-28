@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="selectColor"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_colorPicker_rootView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ColorPickerActivity">
+
+        <View
+            android:id="@+id/view_colorPicker_result"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/scrollView_colorPicker_colors"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <HorizontalScrollView
+            android:id="@+id/scrollView_colorPicker_colors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_colorPicker_result">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="wrap_content"
+                android:layout_width="250dp">
+
+                <View
+                    android:id="@+id/view_colorPicker_backgroundGradient"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/gradient"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/linearLayout_colorPicker_gradient"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="@+id/linearLayout_colorPicker_gradient" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_colorPicker_gradient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:id="@+id/color1"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color2"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color3"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color4"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color5"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color6"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color7"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color8"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color9"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color10"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color11"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color12"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color13"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color14"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color15"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                    <View
+                        android:id="@+id/color16"
+                        android:onClick="@{(v) -> selectColor.onClick(v)}"
+                        style="@style/color_picker_rectangle" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/button_colorPicker_OK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="OK"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollView_colorPicker_colors"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

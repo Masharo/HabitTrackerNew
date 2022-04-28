@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Habits</string>
+
+    <!--PRIORITY-->
+    <string-array name="habit_priority">
+        <item name="habit_priority_high">Высокий</item>
+        <item name="habit_priority_medium">Средний</item>
+        <item name="habit_priority_low">Низкий</item>
+    </string-array>
+
+    <string-array name="habit_period">
+        <item name="habit_period_day">День</item>
+        <item name="habit_period_week">Неделя</item>
+        <item name="habit_period_month">Месяц</item>
+        <item name="habit_period_year">Год</item>
+    </string-array>
+
+    <!--TYPE-->
+    <string name="habit_type_positive">Положительная</string>
+    <string name="habit_type_neutral">Нейтральная</string>
+    <string name="habit_type_negative">Негативная</string>
+
+    <string name="imageView_row_description">Смайлик</string>
+    <string name="textView_habit_type">Тип</string>
+    <string name="textView_habitItem_priority">Приоритет: %1s</string>
+    <string name="textView_habit_priority">Приоритет:</string>
+    <string name="editText_habit_title">Заголовок</string>
+    <string name="editText_habit_description">Описание</string>
+    <string name="button_habit_save">Сохранить</string>
+    <string name="textView_habit_count">Периодичность:</string>
+    <string name="editText_habit_count">0</string>
+    <string name="textView_habit_done">Выполнено:</string>
+    <string name="textView_habitItem_period">%s %d/%d</string>
+    <string name="textView_habit_titleNew">Создание новой привычки</string>
+    <string name="textView_habit_titleOld">Редактирование привычки</string>
+    <string name="button_habit_color">Цвет фона</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="item_menuDrawer_home">Домашний экран</string>
+    <string name="item_menuDrawer_info">О приложении</string>
+    <string name="textView_info_text">Приложение для формиргования новых, и избавления от негативных привычек</string>
+
+    <string name="db_title">Название</string>
+    <string name="db_description">Описание</string>
+    <string name="db_priority">Приоритет</string>
+    <string name="db_type">Тип</string>
+    <string name="db_count">Колличество</string>
+    <string name="db_period">Период</string>
+    <string name="db_count_done">Колличество выполнены</string>
+    <string name="db_color">Цвет</string>
+    <string name="db_id">Дата создания</string>
+
+    <string name="db_like">Поиск</string>
+    <string name="db_order">Сортировка</string>
+
+    <string name="db_desc">В обратном порядке</string>
+    <string name="db_asc">В прямом порядке</string>
+
+    <string name="warn_title_blank">Поле заголовок не заполнено!</string>
+</resources>

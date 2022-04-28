@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="5dp"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="@dimen/size_title_bottom_sheet"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_title_bottom_sheet"
+        android:padding="15dp"
+        android:background="@drawable/form_top_bottom_sheet"
+        android:gravity="center"
+        android:textSize="@dimen/standard_text_size"
+        android:text="Сортировка / Поиск"
+        android:textColor="@android:color/white" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer_bottomSheet_body"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:name="com.masharo.habits.screens.listHabit.SortAndSearchFragment"
+        app:defaultNavHost="true" />
+
+</LinearLayout>
