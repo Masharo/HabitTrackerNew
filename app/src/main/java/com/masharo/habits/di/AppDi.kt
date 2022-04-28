@@ -8,11 +8,11 @@ import org.koin.dsl.module
 val appModule = module {
 
     viewModel<HabitViewModel>() { params ->
-        HabitViewModel(app = get(), id = params.get())
+        HabitViewModel(context = get(), id = params.get())
     }
 
     viewModel<HabitListViewModel> {
-        HabitListViewModel(app = get())
+        HabitListViewModel(context = get())
     }
 
 }

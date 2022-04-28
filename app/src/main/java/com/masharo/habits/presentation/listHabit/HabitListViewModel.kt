@@ -1,7 +1,10 @@
 package com.masharo.habits.presentation.listHabit
 
-import android.app.Application
-import androidx.lifecycle.*
+import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.masharo.habits.data.HabitDatabase
 import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.data.habitList.HabitListFilter
@@ -9,10 +12,10 @@ import com.masharo.habits.data.habitList.RoomDataHabitList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HabitListViewModel(app: Application): AndroidViewModel(app) {
+class HabitListViewModel(context: Context): ViewModel() {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
-    private val db = RoomDataHabitList(HabitDatabase.instance(app.applicationContext))
+    private val db = RoomDataHabitList(HabitDatabase.instance(context))
     var habits: LiveData<List<Habit>> = MutableLiveData()
         private set
 

@@ -1,6 +1,6 @@
 package com.masharo.habits.presentation.habit
 
-import android.app.Application
+import android.content.Context
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -12,50 +12,36 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HabitViewModel(
-    app: Application,
-    id: Int?
-): AndroidViewModel(app), Observable {
+    context: Context,
+    private val id: Int?
+): ViewModel(), Observable {
 
 //    private lateinit var resultLauncher: ActivityResultLauncher<Intent> TODO()
 //    private lateinit var fragmentManager: FragmentManager TODO()
 
-    private val dataLogic = RoomHabitDataLogic(HabitDatabase.instance(app.applicationContext))
+    private val dataLogic = RoomHabitDataLogic(HabitDatabase.instance(context))
     private val callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
     private val habitLocal: MutableLiveData<Habit> = MutableLiveData(Habit())
-
-    var id: Int? = null
-        set(value) {
-            field = value
-
-            viewModelScope.launch(Dispatchers.IO) {
-                habitLocal.postValue(
-                    dataLogic.getHabit(value)?.let {
-                        isNewHabit = false
-                        it
-                    }
-                )
-            }
-        }
 
     @Bindable
     val habit: LiveData<Habit> = habitLocal
     private var isNewHabit: Boolean = true
     private var isInstance: Boolean = false
 
-//    init {
-//        if (!isInstance) {
-//            isInstance = true
-//
-//            viewModelScope.launch(Dispatchers.IO) {
-//                habitLocal.postValue(
-//                    dataLogic.getHabit(1)?.let {
-//                        isNewHabit = false
-//                        it
-//                    }
-//                )
-//            }
-//        }
-//    }
+    init {
+        if (!isInstance) {
+            isInstance = true
+
+            viewModelScope.launch(Dispatchers.IO) {
+                habitLocal.postValue(
+                    dataLogic.getHabit(1)?.let {
+                        isNewHabit = false
+                        it
+                    }
+                )
+            }
+        }
+    }
 
 
 

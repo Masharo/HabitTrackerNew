@@ -14,11 +14,12 @@ import androidx.fragment.app.viewModels
 import com.masharo.habits.R
 import com.masharo.habits.data.habitList.HabitListFilter
 import com.masharo.habits.databinding.FragmentSortAndSearchBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SortAndSearchFragment : Fragment() {
 
     private lateinit var bind: FragmentSortAndSearchBinding
-    private val vm: HabitListViewModel by viewModels({ activity ?: this })
+    private val vm: HabitListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
