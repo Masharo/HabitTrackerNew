@@ -16,14 +16,7 @@ class HabitListViewModel(context: Context): ViewModel() {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
     private val db = RoomDataHabitList(HabitDatabase.instance(context))
-    var habits: LiveData<List<Habit>> = MutableLiveData()
-        private set
-
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            habits = db.getHabits()
-        }
-    }
+    val habits: LiveData<List<Habit>> = db.getHabits()
 
     fun setFilterType(type: Int) {
         habitListFilter.setFilter(HabitListFilter.Column.TYPE, type)

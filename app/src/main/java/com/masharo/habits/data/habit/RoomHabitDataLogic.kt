@@ -8,10 +8,8 @@ class RoomHabitDataLogic(val db: HabitDatabase): DataLogicHabit {
         db.getHabitDao().set(habit)
     }
 
-    override suspend fun getHabit(id: Int?): Habit? {
-        return id?.let {
-            db.getHabitDao().get(id)
-        }
+    override suspend fun getHabit(id: Int): Habit? {
+        return db.getHabitDao().get(id)
     }
 
     override suspend fun addHabit(habit: Habit) {

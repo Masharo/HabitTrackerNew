@@ -10,16 +10,15 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.masharo.habits.R
 import com.masharo.habits.data.habitList.HabitListFilter
 import com.masharo.habits.databinding.FragmentSortAndSearchBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SortAndSearchFragment : Fragment() {
 
     private lateinit var bind: FragmentSortAndSearchBinding
-    private val vm: HabitListViewModel by viewModel()
+    private val vm: HabitListViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

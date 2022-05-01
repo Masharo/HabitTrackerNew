@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.masharo.habits.R
 import com.masharo.habits.databinding.FragmentHabitBinding
@@ -19,16 +18,16 @@ const val ARG_ID = "ID"
 class HabitFragment : Fragment() {
 
     private lateinit var bind: FragmentHabitBinding
-    private var id: Int? = null
-    private val vm: HabitViewModel by viewModel { parametersOf(id) }
+    private var habitId: Int? = null
+    private val vm: HabitViewModel by viewModel { parametersOf(habitId) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            id = it.getInt(ARG_ID)
+            habitId = it.getInt(ARG_ID)
         }
 
-        childFragmentManager.setFragmentResultListener(ColorPickerFragment.TAG, this) { key, bundle ->
+        childFragmentManager.setFragmentResultListener(ColorPickerFragment.TAG, this) { _, bundle ->
             vm.changeHabitColor(bundle.getInt(ARG_COLOR))
         }
     }
@@ -63,23 +62,12 @@ class HabitFragment : Fragment() {
 
             bind.buttonHabitSave.setOnClickListener {
                 if (bind.editTextHabitTitle.text.toString().isNotBlank()) {
-                    vm.onClickButtonSave()
+                    vm.save()
                     view.findNavController().popBackStack()
                 } else {
                     Toast.makeText(requireContext(), R.string.warn_title_blank, Toast.LENGTH_LONG).show()
                 }
             }
         }
-    }
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance(id: Int) =
-            HabitFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_ID, id)
-                }
-            }
     }
 }

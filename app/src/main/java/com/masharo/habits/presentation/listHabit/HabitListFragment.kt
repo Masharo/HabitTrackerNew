@@ -14,7 +14,7 @@ import com.masharo.habits.adapter.HabitsAdapter
 import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.databinding.FragmentHabitListBinding
 import com.masharo.habits.presentation.habit.ARG_ID
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 const val TYPE_HABIT = "typeHabit"
 
@@ -22,7 +22,7 @@ class HabitListFragment : Fragment() {
 
     private lateinit var bind: FragmentHabitListBinding
     private var type: Int = 0
-    private val vm: HabitListViewModel by viewModel()
+    private val vm: HabitListViewModel by sharedViewModel()
     private lateinit var adapter: HabitsAdapter
 
     companion object {
@@ -69,9 +69,10 @@ class HabitListFragment : Fragment() {
 
         DiffUtil.calculateDiff(
                 HabitDiffUtilCallback(
-                        adapter.habits ?: arrayListOf(),
-                        listFilterType))
-                .dispatchUpdatesTo(adapter)
+                        oldHabits = adapter.habits ?: arrayListOf(),
+                        newHabits = listFilterType
+                )
+        ).dispatchUpdatesTo(adapter)
 
         adapter.habits = listFilterType
     }

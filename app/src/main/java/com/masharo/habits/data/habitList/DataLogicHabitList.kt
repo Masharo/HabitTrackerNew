@@ -4,5 +4,5 @@ import androidx.lifecycle.LiveData
 import com.masharo.habits.data.habit.Habit
 
 interface DataLogicHabitList {
-    suspend fun getHabits(): LiveData<List<Habit>>
+    fun getHabits(): LiveData<List<Habit>>
 }

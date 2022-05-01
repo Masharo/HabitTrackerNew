@@ -11,9 +11,6 @@
         <import
             type="com.masharo.habits.support.SupportDataBinding" />
         <variable
-            name="isNewHabit"
-            type="boolean" />
-        <variable
             name="vm"
             type="com.masharo.habits.presentation.habit.HabitViewModel" />
     </data>
@@ -39,7 +36,7 @@
                     android:id="@+id/textView_habit_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.habit.id == 0 ? @string/textView_habit_titleNew : @string/textView_habit_titleOld}"
+                    android:text="@{vm.habit.id == null ? @string/textView_habit_titleNew : @string/textView_habit_titleOld}"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:paddingBottom="40dp"

@@ -10,7 +10,7 @@ import com.masharo.habits.data.habit.Habit
 import com.masharo.habits.databinding.HabitItemBinding
 
 class HabitsAdapter(
-    var habits: List<Habit>?,
+    var habits: List<Habit>? = null,
     private val onClick: (id: Int) -> Unit):
     RecyclerView.Adapter<HabitsAdapter.HabitsViewHolder>() {
 
