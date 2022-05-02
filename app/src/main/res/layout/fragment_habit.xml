@@ -256,7 +256,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/button_habit_color"
-                    android:onClick="@{() -> vm.onClickStartColorPicker()}"
                     app:layout_constraintTop_toBottomOf="@id/editText_habit_done"
                     app:layout_constraintLeft_toLeftOf="parent" />
 

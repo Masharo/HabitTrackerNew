@@ -56,4 +56,5 @@
     <string name="db_asc">В прямом порядке</string>
 
     <string name="warn_title_blank">Поле заголовок не заполнено!</string>
+    <string name="button_colorPicker_ok">OK</string>
 </resources>

@@ -1,15 +1,19 @@
 package com.masharo.habits.presentation.habit
 
 import android.os.Bundle
+import android.text.method.TextKeyListener.clear
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.masharo.habits.R
 import com.masharo.habits.databinding.FragmentHabitBinding
+import org.koin.androidx.viewmodel.ViewModelParameter
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -23,6 +27,7 @@ class HabitFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             habitId = it.getInt(ARG_ID)
         }
@@ -66,6 +71,14 @@ class HabitFragment : Fragment() {
                     view.findNavController().popBackStack()
                 } else {
                     Toast.makeText(requireContext(), R.string.warn_title_blank, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+        bind.buttonHabitColorPicker.setOnClickListener {
+            parentFragmentManager.apply {
+                if (isAdded) {
+                    ColorPickerFragment(vm).show(this, ColorPickerFragment.TAG)
                 }
             }
         }

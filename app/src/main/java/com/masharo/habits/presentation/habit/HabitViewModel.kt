@@ -36,15 +36,6 @@ class HabitViewModel(
         }
     }
 
-    fun onClickStartColorPicker() {
-//        val colorPickerFragment: ColorPickerFragment = habitLocal.value?.color?.let {
-//            ColorPickerFragment.newInstance(it)
-//        } ?:
-//            ColorPickerFragment()
-//
-//        colorPickerFragment.show(fragmentManager, ColorPickerFragment.TAG)
-    }
-
     fun save() = viewModelScope.launch(Dispatchers.IO) {
         habitLocal.value?.apply {
             id?.let {
@@ -81,9 +72,3 @@ class HabitViewModel(
         callbacks.remove(callback)
     }
 }
-
-//class FactoryHabitViewModel(val context: Context, val id: Int?) : ViewModelProvider.Factory {
-//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//        return HabitViewModel(context, id) as T
-//    }
-//}

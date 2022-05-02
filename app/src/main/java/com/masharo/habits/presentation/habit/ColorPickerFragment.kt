@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.os.bundleOf
+import androidx.core.graphics.get
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.DialogFragment
 import com.masharo.habits.databinding.FragmentColorPickerBinding
 
 const val ARG_COLOR = "color"
 
-class ColorPickerFragment : DialogFragment() {
+class ColorPickerFragment(private val vm: HabitViewModel) : DialogFragment() {
 
-    private var color: Int? = null
     private lateinit var bind: FragmentColorPickerBinding
 
     override fun onCreateView(
@@ -33,44 +33,35 @@ class ColorPickerFragment : DialogFragment() {
 
         bind.selectColor = View.OnClickListener {
             val rootView: View = bind.viewColorPickerBackgroundGradient
-            val y = (rootView.y / 2).toInt()
-            val x = view.background.bounds.centerX() + view.x.toInt()
 
-            rootView.isDrawingCacheEnabled = true
-            val col = rootView.drawingCache.getColor(x, y)
+//            Нам все равно на высоту потому, что градиент горизонтальный
+//            val y = (rootView.y / 2).toInt()
 
-            rootView.isDrawingCacheEnabled = false
+            val y = 0
+            val x = it.background.bounds.centerX() + it.x.toInt()
 
-            val redValue = col.red()
-            val blueValue = col.blue()
-            val greenValue = col.green()
+            val color = rootView.drawToBitmap().getColor(x, y)
 
-            setColor(col.toArgb())
+            val redValue = color.red()
+            val blueValue = color.blue()
+            val greenValue = color.green()
+
+            setColor(color.toArgb())
         }
 
         bind.buttonColorPickerOK.setOnClickListener {
-            color?.let {
-                parentFragmentManager.setFragmentResult(TAG, bundleOf(ARG_COLOR to color))
-            }
             dismiss()
         }
     }
 
     private fun setColor(color: Int) {
-        this.color = color
-        bind.viewColorPickerResult.background = color.toDrawable()
+        vm.habit.value?.let {
+            it.color = color
+            bind.viewColorPickerResult.background = color.toDrawable()
+        }
     }
 
     companion object {
-
         const val TAG = "ColorPicker"
-
-        @JvmStatic
-        fun newInstance(color: Int) =
-            ColorPickerFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLOR, color)
-                }
-            }
     }
 }
