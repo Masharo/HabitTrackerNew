@@ -78,7 +78,7 @@ class HabitFragment : Fragment() {
         bind.buttonHabitColorPicker.setOnClickListener {
             parentFragmentManager.apply {
                 if (isAdded) {
-                    ColorPickerFragment(vm).show(this, ColorPickerFragment.TAG)
+                    ColorPickerFragment().show(childFragmentManager, ColorPickerFragment.TAG)
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.masharo.habits.data.habit
 
+import android.graphics.Color
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.ColumnInfo
@@ -87,7 +88,7 @@ class Habit : BaseObservable() {
 
     @get:Bindable
     @ColumnInfo(name = DB_COLOR)
-    var color: Int? = null
+    var color: Int? = Color.WHITE
         set(value) {
             field = value
             notifyPropertyChanged(BR.color)

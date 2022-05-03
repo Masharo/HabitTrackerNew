@@ -57,4 +57,7 @@
 
     <string name="warn_title_blank">Поле заголовок не заполнено!</string>
     <string name="button_colorPicker_ok">OK</string>
+
+    <string name="hsv">(%d %d %d) :HSV</string>
+    <string name="rgb">RGB: (%d %d %d)</string>
 </resources>

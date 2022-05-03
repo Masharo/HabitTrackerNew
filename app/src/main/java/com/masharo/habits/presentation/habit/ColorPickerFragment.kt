@@ -4,62 +4,75 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.graphics.get
-import androidx.core.view.drawToBitmap
 import androidx.fragment.app.DialogFragment
+import com.masharo.habits.R
 import com.masharo.habits.databinding.FragmentColorPickerBinding
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 const val ARG_COLOR = "color"
+const val COUNT_RECTANGLE: Int = 16
 
-class ColorPickerFragment(private val vm: HabitViewModel) : DialogFragment() {
+class ColorPickerFragment: DialogFragment() {
 
     private lateinit var bind: FragmentColorPickerBinding
+    private val vm: HabitViewModel by lazy {
+        requireParentFragment().getViewModel()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         bind = FragmentColorPickerBinding.inflate(inflater, container, false)
+        bind.vm = vm
         return bind.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.let {
-            setColor(it.getInt(ARG_COLOR))
-        }
+        createRectangleForGradient()
 
-        bind.selectColor = View.OnClickListener {
-            val rootView: View = bind.viewColorPickerBackgroundGradient
-
-//            Нам все равно на высоту потому, что градиент горизонтальный
-//            val y = (rootView.y / 2).toInt()
-
-            val y = 0
-            val x = it.background.bounds.centerX() + it.x.toInt()
-
-            val color = rootView.drawToBitmap().getColor(x, y)
-
-            val redValue = color.red()
-            val blueValue = color.blue()
-            val greenValue = color.green()
-
-            setColor(color.toArgb())
-        }
+//        bind.selectColor = View.OnClickListener {
+//            val rootView = bind.viewColorPickerBackgroundGradient
+//
+//            vm.colorCalculated(it, rootView)
+//
+////            val redValue = color.red()
+////            val blueValue = color.blue()
+////            val greenValue = color.green()
+//        }
 
         bind.buttonColorPickerOK.setOnClickListener {
             dismiss()
         }
     }
 
-    private fun setColor(color: Int) {
-        vm.habit.value?.let {
-            it.color = color
-            bind.viewColorPickerResult.background = color.toDrawable()
+    private fun createRectangleForGradient() {
+        if (COUNT_RECTANGLE > 0 ) {
+
+            val changeColorClick = View.OnClickListener {
+                vm.colorCalculated(
+                    view = it,
+                    rootView = bind.viewColorPickerBackgroundGradient
+                )
+            }
+
+            for (i in 1..COUNT_RECTANGLE) {
+                val viewRectangle = layoutInflater.inflate(
+                    R.layout.test_view,
+                    bind.linearLayoutColorPickerGradient,
+                    false
+                )
+
+                viewRectangle.setOnClickListener(changeColorClick)
+
+                bind.linearLayoutColorPickerGradient.addView(viewRectangle)
+            }
+
         }
     }
+
 
     companion object {
         const val TAG = "ColorPicker"

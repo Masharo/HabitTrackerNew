@@ -68,4 +68,39 @@ object SupportDataBinding {
             ContextCompat.getDrawable(context, image)
         }
     }
+
+    fun convertColorToRgb(context: Context, valueColor: Int?): String =
+        valueColor?.let {
+            val colors = Color
+                .valueOf(valueColor)
+                .getComponents(null)
+                .map { (it * 255).toInt() }
+
+            context.getString(
+                R.string.rgb,
+                colors[0],
+                colors[1],
+                colors[2]
+            )
+
+        } ?: run {
+            convertColorToRgb(context, Color.WHITE)
+        }
+
+    fun convertColorToHsv(context: Context, valueColor: Int?): String =
+        valueColor?.let {
+            val colors = FloatArray(3)
+            Color.colorToHSV(Color.valueOf(valueColor).toArgb(), colors)
+
+            context.getString(
+                R.string.hsv,
+                colors[0].toInt(),
+                (colors[1] * 100).toInt(),
+                (colors[2] * 100).toInt()
+            )
+
+        } ?: run {
+            convertColorToHsv(context, Color.WHITE)
+        }
+
 }

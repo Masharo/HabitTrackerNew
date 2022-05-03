@@ -1,6 +1,9 @@
 package com.masharo.habits.presentation.habit
 
 import android.content.Context
+import android.graphics.Color
+import android.view.View
+import androidx.core.view.drawToBitmap
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -62,6 +65,21 @@ class HabitViewModel(
         habit.value?.let {
             it.color = color
         }
+    }
+
+    fun colorCalculated(view: View, rootView: View) {
+//      Нам все равно на высоту потому, что градиент горизонтальный
+//      val y = (rootView.y / 2).toInt()
+
+        val y = 0
+        val x = view.background.bounds.centerX() + view.x.toInt()
+
+        habit.value?.color = rootView.drawToBitmap().getColor(x, y).toArgb()
+
+//        var arrF = FloatArray(3)
+//        Color.colorToHSV(rootView.drawToBitmap().getColor(x, y).toArgb(), arrF)
+
+//        rootView.drawToBitmap().getColor(x, y).getComponents(null).map { it * 255 }
     }
 
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
