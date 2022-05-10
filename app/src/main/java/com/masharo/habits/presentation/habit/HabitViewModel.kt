@@ -12,8 +12,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.masharo.habits.data.HabitRepository
 import com.masharo.habits.data.db.model.Habit
+import com.masharo.habits.data.remote.model.PutResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HabitViewModel(
     context: Context,
@@ -41,13 +45,39 @@ class HabitViewModel(
         }
     }
 
-    fun save() = viewModelScope.launch(Dispatchers.IO) {
-        habitLocal.value?.apply {
-            id?.let {
-                repository.setHabit(this)
-            } ?: repository.addHabit(this)
+    fun save() {
+
+        habitLocal.value?.let { habit ->
+            habit.id?.let {
+                viewModelScope.launch(Dispatchers.IO) {
+                    repository.setHabit(habit)
+                }
+            } ?: run {
+                viewModelScope.launch(Dispatchers.IO) {
+                    repository.addHabit(habit)
+                }
+                repository.addHabitRemote(habit).enqueue(object: Callback<PutResult> {
+                    override fun onResponse(
+                        call: Call<PutResult>,
+                        response: Response<PutResult>
+                    ) {
+                        if (response.isSuccessful) {
+                            response.body()?.let {
+
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<PutResult>, t: Throwable) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+            }
         }
+
     }
+
 
     fun doneInc() {
         habitLocal.value?.apply {

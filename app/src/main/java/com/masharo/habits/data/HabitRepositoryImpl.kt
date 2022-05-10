@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import com.masharo.habits.data.db.HabitDatabase
 import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.data.remote.HabitApi
-import com.masharo.habits.data.remote.model.DoneParams
-import com.masharo.habits.data.remote.model.HabitRemote
+import com.masharo.habits.data.remote.model.*
 import retrofit2.Call
 
 class HabitRepositoryImpl(
@@ -24,53 +23,6 @@ class HabitRepositoryImpl(
     override suspend fun addAll(habits: List<Habit>) {
         db.getHabitDao().addAll(habits)
     }
-
-//    override suspend fun updateHabits(): Boolean {
-//
-//        db.getHabitDao().deleteAll()
-//
-//        api.getHabits().enqueue(object: Callback<List<HabitRemote>> {
-//            override fun onResponse(
-//                call: Call<List<HabitRemote>>,
-//                response: Response<List<HabitRemote>>
-//            ) {
-//                if (response.isSuccessful) {
-//                    response.body()?.map { Habit() }?.let {
-//                        db.getHabitDao().addAll(it)
-//                    }
-//                } else {
-//                    Log.i("myLog", "err 5")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<HabitRemote>>, t: Throwable) {
-//                t.message?.let {
-//                    Log.i("myLog", it)
-//                }
-//            }
-//        })
-//
-//        val execute = api.getHabits().execute()
-//        execute.body()?.map { Habit() }?.let {
-//            db.getHabitDao().addAll(it)
-//        }
-//
-
-//        if (clearHabits()) {
-//            request.body()?.let {
-//                it.forEach {
-//
-//                }
-//            }
-//
-//            request.errorBody()?.let {
-//
-//            }
-//        }
-//
-//        return false
-//
-//    }
 
     override suspend fun clearHabits(): Boolean {
         return try {
@@ -91,6 +43,10 @@ class HabitRepositoryImpl(
 
     override suspend fun addHabit(habit: Habit) {
         db.getHabitDao().add(habit)
+    }
+
+    override fun addHabitRemote(habit: Habit): Call<PutResult> {
+        return api.addHabit(convertToNewHabitRemote(habit))
     }
 
     override fun doneHabit(params: DoneParams): Call<Void> {

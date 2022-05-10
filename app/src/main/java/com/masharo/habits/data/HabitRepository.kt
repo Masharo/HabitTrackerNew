@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.data.remote.model.DoneParams
 import com.masharo.habits.data.remote.model.HabitRemote
+import com.masharo.habits.data.remote.model.PutResult
 import retrofit2.Call
 
 interface HabitRepository {
@@ -23,6 +24,8 @@ interface HabitRepository {
     suspend fun getHabit(id: Int): Habit?
 
     suspend fun addHabit(habit: Habit)
+
+    fun addHabitRemote(habit: Habit): Call<PutResult>
 
     fun doneHabit(params: DoneParams): Call<Void>
 }

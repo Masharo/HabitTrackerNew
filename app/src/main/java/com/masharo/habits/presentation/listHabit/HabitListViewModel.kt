@@ -3,14 +3,12 @@ package com.masharo.habits.presentation.listHabit
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.masharo.habits.data.HabitListFilter
 import com.masharo.habits.data.HabitRepository
 import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.data.remote.model.HabitRemote
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,9 +23,6 @@ class HabitListViewModel(
     val habits: LiveData<List<Habit>> = repository.getHabits()
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.clearHabits()
-        }
 
         repository.getRemoteHabits().enqueue(object: Callback<List<HabitRemote>> {
             override fun onResponse(
@@ -39,6 +34,7 @@ class HabitListViewModel(
                         ?.map { it.convertToHabit() }
                         ?.let {
                             viewModelScope.launch {
+                                repository.clearHabits()
                                 repository.addAll(it)
                             }
                         }
