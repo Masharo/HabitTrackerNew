@@ -1,7 +1,6 @@
 package com.masharo.habits.presentation.habit
 
 import android.content.Context
-import android.graphics.Color
 import android.view.View
 import androidx.core.view.drawToBitmap
 import androidx.databinding.Bindable
@@ -9,8 +8,8 @@ import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.*
 import com.masharo.habits.data.HabitDatabase
-import com.masharo.habits.data.habit.Habit
-import com.masharo.habits.data.habit.RoomHabitDataLogic
+import com.masharo.habits.data.model.Habit
+import com.masharo.habits.data.HabitRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -22,7 +21,7 @@ class HabitViewModel(
 //    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 //    private lateinit var fragmentManager: FragmentManager
 
-    private val dataLogic = RoomHabitDataLogic(HabitDatabase.instance(context))
+    private val dataLogic = HabitRepositoryImpl(HabitDatabase.instance(context))
     private val callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
     private val habitLocal: MutableLiveData<Habit> = MutableLiveData(Habit())
 

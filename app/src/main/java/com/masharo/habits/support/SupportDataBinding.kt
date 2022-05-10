@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.databinding.InverseMethod
 import androidx.databinding.adapters.Converters
-import com.masharo.habits.data.habit.Habit
+import com.masharo.habits.data.model.Habit
 import com.masharo.habits.R
 
 object SupportDataBinding {

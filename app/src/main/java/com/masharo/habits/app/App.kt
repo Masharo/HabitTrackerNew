@@ -2,6 +2,7 @@ package com.masharo.habits.app
 
 import android.app.Application
 import com.masharo.habits.di.appModule
+import com.masharo.habits.di.remoteModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +15,7 @@ class App: Application() {
 
         startKoin {
             androidContext(this@App)
-            modules(listOf(appModule))
+            modules(listOf(appModule, remoteModule))
         }
     }
 }

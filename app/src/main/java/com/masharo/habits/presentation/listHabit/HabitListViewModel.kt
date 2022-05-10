@@ -1,22 +1,63 @@
 package com.masharo.habits.presentation.listHabit
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.masharo.habits.data.HabitDatabase
-import com.masharo.habits.data.habit.Habit
-import com.masharo.habits.data.habitList.HabitListFilter
-import com.masharo.habits.data.habitList.RoomDataHabitList
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.masharo.habits.data.model.Habit
+import com.masharo.habits.data.HabitListFilter
+import com.masharo.habits.data.HabitRepositoryImpl
+import com.masharo.habits.data.remote.HabitApi
+import com.masharo.habits.data.remote.model.HabitRemote
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
+//class HabitListViewModel(context: Context, private val remoteApi: HabitApi): ViewModel() {
 class HabitListViewModel(context: Context): ViewModel() {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
-    private val db = RoomDataHabitList(HabitDatabase.instance(context))
+    private val db = HabitRepositoryImpl(HabitDatabase.instance(context))
+//    private val remoteHabitsMutable: MutableLiveData<List<HabitRemote>> = MutableLiveData()
+//    private val calls = arrayListOf<Call<*>>()
+
+//    val remoteHabits: LiveData<List<HabitRemote>> = remoteHabitsMutable
     val habits: LiveData<List<Habit>> = db.getHabits()
+
+//    init {
+//        getRemoteHabitList()
+//    }
+
+//    private fun getRemoteHabitList() {
+//
+//        val call = remoteApi.getHabits()
+//        calls.add(call)
+//
+//        call.enqueue(object: Callback<List<HabitRemote>> {
+//            override fun onResponse(
+//                call: Call<List<HabitRemote>>,
+//                response: Response<List<HabitRemote>>
+//            ) {
+//                if (response.isSuccessful) {
+//                    remoteHabitsMutable.value = response.body()
+//                } else {
+//                    Log.i("myLog", "err 5")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<HabitRemote>>, t: Throwable) {
+//                t.message?.let {
+//                    Log.i("myLog", it)
+//                }
+//            }
+//        })
+//
+//    }
+//
+//    override fun onCleared() {
+//        calls.forEach { it.cancel() }
+//        super.onCleared()
+//    }
 
     fun setFilterType(type: Int) {
         habitListFilter.setFilter(HabitListFilter.Column.TYPE, type)

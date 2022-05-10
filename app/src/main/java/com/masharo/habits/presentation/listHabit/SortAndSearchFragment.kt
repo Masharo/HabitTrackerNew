@@ -11,7 +11,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.masharo.habits.R
-import com.masharo.habits.data.habitList.HabitListFilter
+import com.masharo.habits.data.HabitListFilter
 import com.masharo.habits.databinding.FragmentSortAndSearchBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
