@@ -16,14 +16,9 @@ val appModule = module {
 
     viewModel {
         HabitListViewModel(
-            context = get()
+            context = get(),
+            remoteApi = get()
         )
     }
-//    viewModel {
-//        HabitListViewModel(
-//            context = get(),
-//            remoteApi = get()
-//        )
-//    }
 
 }

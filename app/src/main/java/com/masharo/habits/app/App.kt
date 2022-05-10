@@ -4,7 +4,7 @@ import android.app.Application
 import com.masharo.habits.di.appModule
 import com.masharo.habits.di.remoteModule
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
+import org.koin.android.logger.AndroidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
@@ -15,6 +15,7 @@ class App: Application() {
 
         startKoin {
             androidContext(this@App)
+            logger(AndroidLogger(Level.INFO))
             modules(listOf(appModule, remoteModule))
         }
     }

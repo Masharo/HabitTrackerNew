@@ -13,46 +13,45 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//class HabitListViewModel(context: Context, private val remoteApi: HabitApi): ViewModel() {
-class HabitListViewModel(context: Context): ViewModel() {
+class HabitListViewModel(context: Context, private val remoteApi: HabitApi): ViewModel() {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
     private val db = HabitRepositoryImpl(HabitDatabase.instance(context))
-//    private val remoteHabitsMutable: MutableLiveData<List<HabitRemote>> = MutableLiveData()
+    private val remoteHabitsMutable: MutableLiveData<List<HabitRemote>> = MutableLiveData()
 //    private val calls = arrayListOf<Call<*>>()
 
-//    val remoteHabits: LiveData<List<HabitRemote>> = remoteHabitsMutable
+    val remoteHabits: LiveData<List<HabitRemote>> = remoteHabitsMutable
     val habits: LiveData<List<Habit>> = db.getHabits()
 
-//    init {
-//        getRemoteHabitList()
-//    }
+    init {
+        getRemoteHabitList()
+    }
 
-//    private fun getRemoteHabitList() {
-//
-//        val call = remoteApi.getHabits()
+    private fun getRemoteHabitList() {
+
+        val call = remoteApi.getHabits()
 //        calls.add(call)
-//
-//        call.enqueue(object: Callback<List<HabitRemote>> {
-//            override fun onResponse(
-//                call: Call<List<HabitRemote>>,
-//                response: Response<List<HabitRemote>>
-//            ) {
-//                if (response.isSuccessful) {
-//                    remoteHabitsMutable.value = response.body()
-//                } else {
-//                    Log.i("myLog", "err 5")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<HabitRemote>>, t: Throwable) {
-//                t.message?.let {
-//                    Log.i("myLog", it)
-//                }
-//            }
-//        })
-//
-//    }
+
+        call.enqueue(object: Callback<List<HabitRemote>> {
+            override fun onResponse(
+                call: Call<List<HabitRemote>>,
+                response: Response<List<HabitRemote>>
+            ) {
+                if (response.isSuccessful) {
+                    remoteHabitsMutable.value = response.body()
+                } else {
+                    Log.i("myLog", "err 5")
+                }
+            }
+
+            override fun onFailure(call: Call<List<HabitRemote>>, t: Throwable) {
+                t.message?.let {
+                    Log.i("myLog", it)
+                }
+            }
+        })
+
+    }
 //
 //    override fun onCleared() {
 //        calls.forEach { it.cancel() }

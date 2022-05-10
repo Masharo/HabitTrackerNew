@@ -24,7 +24,7 @@ private fun httpLoggingInterceptor(): HttpLoggingInterceptor {
     return httpLoggingInterceptor
 }
 
-private fun authorizationInterceptor() = object : Interceptor {
+private fun authorizationInterceptor(): Interceptor = object: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val authorizationResponse = chain
             .request()
