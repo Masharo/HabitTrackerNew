@@ -2,43 +2,46 @@ package com.masharo.habits.presentation.listHabit
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.*
-import com.masharo.habits.data.HabitDatabase
-import com.masharo.habits.data.model.Habit
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.masharo.habits.data.HabitListFilter
-import com.masharo.habits.data.HabitRepositoryImpl
-import com.masharo.habits.data.remote.HabitApi
+import com.masharo.habits.data.HabitRepository
+import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.data.remote.model.HabitRemote
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HabitListViewModel(context: Context, private val remoteApi: HabitApi): ViewModel() {
+class HabitListViewModel(
+    context: Context,
+    private val repository: HabitRepository
+): ViewModel() {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
-    private val db = HabitRepositoryImpl(HabitDatabase.instance(context))
-    private val remoteHabitsMutable: MutableLiveData<List<HabitRemote>> = MutableLiveData()
-//    private val calls = arrayListOf<Call<*>>()
-
-    val remoteHabits: LiveData<List<HabitRemote>> = remoteHabitsMutable
-    val habits: LiveData<List<Habit>> = db.getHabits()
+    val habits: LiveData<List<Habit>> = repository.getHabits()
 
     init {
-        getRemoteHabitList()
-    }
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.clearHabits()
+        }
 
-    private fun getRemoteHabitList() {
-
-        val call = remoteApi.getHabits()
-//        calls.add(call)
-
-        call.enqueue(object: Callback<List<HabitRemote>> {
+        repository.getRemoteHabits().enqueue(object: Callback<List<HabitRemote>> {
             override fun onResponse(
                 call: Call<List<HabitRemote>>,
                 response: Response<List<HabitRemote>>
             ) {
                 if (response.isSuccessful) {
-                    remoteHabitsMutable.value = response.body()
+                    response.body()
+                        ?.map { it.convertToHabit() }
+                        ?.let {
+                            viewModelScope.launch {
+                                repository.addAll(it)
+                            }
+                        }
                 } else {
                     Log.i("myLog", "err 5")
                 }
@@ -52,11 +55,6 @@ class HabitListViewModel(context: Context, private val remoteApi: HabitApi): Vie
         })
 
     }
-//
-//    override fun onCleared() {
-//        calls.forEach { it.cancel() }
-//        super.onCleared()
-//    }
 
     fun setFilterType(type: Int) {
         habitListFilter.setFilter(HabitListFilter.Column.TYPE, type)

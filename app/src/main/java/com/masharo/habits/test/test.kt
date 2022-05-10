@@ -1,5 +1,6 @@
 package com.masharo.habits.test
 
+import com.google.gson.Gson
 import com.masharo.habits.data.remote.HabitApi
 import com.masharo.habits.data.remote.model.*
 import okhttp3.Interceptor
@@ -10,46 +11,46 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 fun main() {
-    val test = Test()
-
-    val result = test.api.addHabit(NewHabitRemote(
-        questColor = 0,
-        questCount = 0,
-        questDate = 0,
-        questDescription = "desc",
-        questDoneDates = arrayListOf(0, 1, 2, 3, 4),
-        questFrequency = 0,
-        questPriority = 1,
-        questTitle = "my test habit",
-        questType = 1
-    ))
-
-    val res = result.execute().body()
-    println(res)
-//
 //    val test = Test()
 //
-//    val result = test.api.putHabit(HabitRemote(
+//    val result = test.api.addHabit(NewHabitRemote(
 //        questColor = 0,
 //        questCount = 0,
-//        questDate = 2,
+//        questDate = 0,
 //        questDescription = "desc",
 //        questDoneDates = arrayListOf(0, 1, 2, 3, 4),
 //        questFrequency = 0,
 //        questPriority = 1,
-//        questTitle = "my test habit123",
-//        questType = 1,
-//        questId = "133ebd98-eb23-4de9-8c61-48aced1295f8"
-//        )
-//    )
+//        questTitle = "my test habit",
+//        questType = 1
+//    ))
 //
-//    val res = result.execute()
-//    println(res.body())
-//    println(res.code())
-//    res.errorBody()?.apply {
-//        val message = Gson().fromJson(string(), Message::class.java)
-//        println(message)
-//    }
+//    val res = result.execute().body()
+//    println(res)
+//
+    val test = Test()
+
+    val result = test.api.putHabit(HabitRemote(
+        questColor = 0,
+        questCount = 0,
+        questDate = 2,
+        questDescription = "desc",
+        questDoneDates = arrayListOf(0, 1, 2, 3, 4),
+        questFrequency = 0,
+        questPriority = 1,
+        questTitle = "my test habit123",
+        questType = 1,
+        questId = "133ebd98-eb23-4de9-8c61-48aced1295f8"
+        )
+    )
+
+    val res = result.execute()
+    println(res.body())
+    println(res.code())
+    res.errorBody()?.apply {
+        val message = Gson().fromJson(string(), Message::class.java)
+        println(message)
+    }
 
 
 

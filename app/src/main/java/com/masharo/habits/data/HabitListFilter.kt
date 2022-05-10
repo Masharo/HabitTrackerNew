@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.masharo.habits.R
-import com.masharo.habits.data.model.Habit
+import com.masharo.habits.data.db.model.Habit
 import kotlin.reflect.KProperty1
 
 //Кароч у класса должено быть состояние, мы будем вызывать один метод который будет принимать лист

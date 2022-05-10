@@ -6,22 +6,25 @@ import androidx.core.view.drawToBitmap
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
-import androidx.lifecycle.*
-import com.masharo.habits.data.HabitDatabase
-import com.masharo.habits.data.model.Habit
-import com.masharo.habits.data.HabitRepositoryImpl
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.masharo.habits.data.HabitRepository
+import com.masharo.habits.data.db.model.Habit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HabitViewModel(
     context: Context,
+    private val repository: HabitRepository,
     private val habitId: Int?
 ): ViewModel(), Observable {
 
 //    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 //    private lateinit var fragmentManager: FragmentManager
 
-    private val dataLogic = HabitRepositoryImpl(HabitDatabase.instance(context))
+//    private val repository = HabitRepositoryImpl(HabitDatabase.instance(context))
     private val callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
     private val habitLocal: MutableLiveData<Habit> = MutableLiveData(Habit())
 
@@ -31,7 +34,7 @@ class HabitViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             habitId?.let { id ->
-                dataLogic.getHabit(id)?.let {
+                repository.getHabit(id)?.let {
                     habitLocal.postValue(it)
                 }
             }
@@ -41,8 +44,8 @@ class HabitViewModel(
     fun save() = viewModelScope.launch(Dispatchers.IO) {
         habitLocal.value?.apply {
             id?.let {
-                dataLogic.setHabit(this)
-            } ?: dataLogic.addHabit(this)
+                repository.setHabit(this)
+            } ?: repository.addHabit(this)
         }
     }
 

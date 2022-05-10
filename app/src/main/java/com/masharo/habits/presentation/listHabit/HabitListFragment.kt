@@ -1,7 +1,6 @@
 package com.masharo.habits.presentation.listHabit
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.masharo.habits.R
 import com.masharo.habits.adapter.HabitDiffUtilCallback
 import com.masharo.habits.adapter.HabitsAdapter
-import com.masharo.habits.data.model.Habit
+import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.databinding.FragmentHabitListBinding
 import com.masharo.habits.presentation.habit.ARG_ID
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel

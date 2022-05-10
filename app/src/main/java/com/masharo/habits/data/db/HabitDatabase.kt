@@ -1,10 +1,10 @@
-package com.masharo.habits.data
+package com.masharo.habits.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.masharo.habits.data.model.Habit
+import com.masharo.habits.data.db.model.Habit
 
 @Database(entities = [Habit::class], version = 1, exportSchema = false)
 abstract class HabitDatabase: RoomDatabase() {

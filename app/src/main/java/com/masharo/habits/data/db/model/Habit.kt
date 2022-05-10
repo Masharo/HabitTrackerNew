@@ -1,4 +1,4 @@
-package com.masharo.habits.data.model
+package com.masharo.habits.data.db.model
 
 import android.graphics.Color
 import androidx.databinding.BaseObservable

@@ -10,6 +10,7 @@ val appModule = module {
     viewModel { params ->
         HabitViewModel(
             context = get(),
+            repository = get(),
             habitId = params.getOrNull()
         )
     }
@@ -17,7 +18,7 @@ val appModule = module {
     viewModel {
         HabitListViewModel(
             context = get(),
-            remoteApi = get()
+            repository = get()
         )
     }
 

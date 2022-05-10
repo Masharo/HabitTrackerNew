@@ -7,7 +7,7 @@
         <import
             type="androidx.core.content.ContextCompat" />
         <import
-            type="com.masharo.habits.data.model.Habit" />
+            type="com.masharo.habits.data.db.model.Habit" />
         <import
             type="com.masharo.habits.support.SupportDataBinding" />
         <variable

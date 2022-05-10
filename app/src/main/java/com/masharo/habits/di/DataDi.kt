@@ -1,5 +1,8 @@
 package com.masharo.habits.di
 
+import com.masharo.habits.data.HabitRepository
+import com.masharo.habits.data.HabitRepositoryImpl
+import com.masharo.habits.data.db.HabitDatabase
 import com.masharo.habits.data.remote.HabitApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -9,12 +12,15 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val remoteModule = module {
+val dataModule = module {
     factory { httpLoggingInterceptor() }
-    factory { authorizationInterceptor() }
+    factory<Interceptor> { headersInterceptor() }
     factory { okHttpClient(get(), get()) }
     factory { retrofit(get()) }
     single { remoteApi(get()) }
+
+    single { HabitDatabase.instance(get()) }
+    factory<HabitRepository> { HabitRepositoryImpl(get(), get()) }
 }
 
 private fun httpLoggingInterceptor(): HttpLoggingInterceptor {
@@ -24,7 +30,7 @@ private fun httpLoggingInterceptor(): HttpLoggingInterceptor {
     return httpLoggingInterceptor
 }
 
-private fun authorizationInterceptor(): Interceptor = object: Interceptor {
+private fun headersInterceptor() = object: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val authorizationResponse = chain
             .request()
@@ -38,11 +44,11 @@ private fun authorizationInterceptor(): Interceptor = object: Interceptor {
 }
 
 private fun okHttpClient(logger: HttpLoggingInterceptor,
-                         authorizationInterceptor: Interceptor
+                         headersInterceptor: Interceptor
 ) = OkHttpClient
     .Builder()
     .addInterceptor(logger)
-    .addInterceptor(authorizationInterceptor)
+    .addInterceptor(headersInterceptor)
     .build()
 
 private fun retrofit(okHttpClient: OkHttpClient) = Retrofit

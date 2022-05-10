@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.ObservableBoolean
 import androidx.recyclerview.widget.RecyclerView
 import com.masharo.habits.R
-import com.masharo.habits.data.model.Habit
+import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.databinding.HabitItemBinding
 
 class HabitsAdapter(

@@ -1,6 +1,7 @@
 package com.masharo.habits.data.remote.model
 
 import com.google.gson.annotations.SerializedName
+import com.masharo.habits.data.db.model.Habit
 
 data class HabitRemote(
     @SerializedName("color")
@@ -32,4 +33,18 @@ data class HabitRemote(
 
     @SerializedName("uid")
     val questId: String
-)
+) {
+    fun convertToHabit(): Habit {
+        val habit = Habit()
+
+        habit.title = questTitle
+        habit.description = questDescription
+        habit.count = questCount
+        habit.countDone = questDoneDates.size
+        habit.period = questFrequency
+        habit.priority = questPriority
+        habit.type = questType
+
+        return habit
+    }
+}
