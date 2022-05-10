@@ -63,7 +63,6 @@ class HabitViewModel(
                     ) {
                         if (response.isSuccessful) {
                             response.body()?.let {
-
                             }
                         }
                     }

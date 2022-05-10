@@ -9,6 +9,7 @@ import com.masharo.habits.data.HabitListFilter
 import com.masharo.habits.data.HabitRepository
 import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.data.remote.model.HabitRemote
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,7 +34,7 @@ class HabitListViewModel(
                     response.body()
                         ?.map { it.convertToHabit() }
                         ?.let {
-                            viewModelScope.launch {
+                            viewModelScope.launch(Dispatchers.IO) {
                                 repository.clearHabits()
                                 repository.addAll(it)
                             }
