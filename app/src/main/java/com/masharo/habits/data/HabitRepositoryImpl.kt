@@ -1,10 +1,13 @@
 package com.masharo.habits.data
 
 import androidx.lifecycle.LiveData
+import androidx.work.OneTimeWorkRequestBuilder
 import com.masharo.habits.data.db.HabitDatabase
 import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.data.remote.HabitApi
 import com.masharo.habits.data.remote.model.*
+import com.masharo.habits.test.worker.AddHabitWorker
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.Call
 
 class HabitRepositoryImpl(
@@ -14,6 +17,10 @@ class HabitRepositoryImpl(
 
     override fun getHabits(): LiveData<List<Habit>> {
         return db.getHabitDao().getAll()
+    }
+
+    override fun getHabitsTest(): Observable<List<HabitRemote>> {
+        return api.getHabitsTest()
     }
 
     override fun getRemoteHabits(): Call<List<HabitRemote>> {
@@ -37,15 +44,19 @@ class HabitRepositoryImpl(
         db.getHabitDao().set(habit)
     }
 
+    override fun setHabitRemote(habit: Habit): Observable<PutResult> {
+        return api.addHabit(convertToNewHabitRemote(habit))
+    }
+
     override suspend fun getHabit(id: Int): Habit? {
         return db.getHabitDao().get(id)
     }
 
-    override suspend fun addHabit(habit: Habit) {
-        db.getHabitDao().add(habit)
+    override suspend fun addHabit(habit: Habit): Long {
+        return db.getHabitDao().add(habit)
     }
 
-    override fun addHabitRemote(habit: Habit): Call<PutResult> {
+    override fun addHabitRemote(habit: Habit): Observable<PutResult> {
         return api.addHabit(convertToNewHabitRemote(habit))
     }
 

@@ -111,7 +111,7 @@ dependencies {
 //Remote
 dependencies {
     def okHttp_version = '4.8.0'
-    def retrofit_version = '2.4.0'
+    def retrofit_version = '2.9.0'
 
     implementation 'com.google.code.gson:gson:2.9.0'
 
@@ -120,4 +120,24 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
+}
+
+dependencies {
+    def work_version = "2.7.1"
+
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+
+    // optional - GCMNetworkManager support
+    implementation "androidx.work:work-gcm:$work_version"
+
+    // optional - Multiprocess support
+    implementation "androidx.work:work-multiprocess:$work_version"
+}
+
+
+dependencies {
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 }

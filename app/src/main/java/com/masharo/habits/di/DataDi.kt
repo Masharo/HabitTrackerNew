@@ -10,6 +10,7 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 val dataModule = module {
@@ -55,6 +56,7 @@ private fun retrofit(okHttpClient: OkHttpClient) = Retrofit
     .Builder()
     .baseUrl("https://droid-test-server.doubletapp.ru/api/")
     .client(okHttpClient)
+    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 

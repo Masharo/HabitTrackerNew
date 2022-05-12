@@ -1,19 +1,65 @@
 package com.masharo.habits.test
 
-import com.google.gson.Gson
-import com.masharo.habits.data.remote.HabitApi
-import com.masharo.habits.data.remote.model.*
+import android.util.Log
+import com.masharo.habits.data.remote.model.DeleteParams
+import com.masharo.habits.data.remote.model.HabitRemote
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.HTTP
 
 fun main() {
-//    val test = Test()
+
+    val instance = Instance()
+
+    instance.api.getHabits().enqueue(object: Callback<List<HabitRemote>> {
+            override fun onResponse(
+                call: Call<List<HabitRemote>>,
+                response: Response<List<HabitRemote>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.onEach {
+                        instance.api.deleteHabit(DeleteParams(id = it.questId)).enqueue(
+                            object: Callback<Void> {
+                                override fun onResponse(
+                                    call: Call<Void>,
+                                    response: Response<Void>
+                                ) {
+                                }
+
+                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                                    t.message?.let {
+                                        Log.i("clear", it)
+                                    }
+                                }
+                            }
+                        )
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<HabitRemote>>, t: Throwable) {
+                t.message?.let {
+                    Log.i("clear", it)
+                }
+            }
+        })
+    }
+
+
+
 //
-//    val result = test.api.addHabit(NewHabitRemote(
+//    val test = Test()
+////
+//    CoroutineScope(Dispatchers.IO).launch {
+//        test.api.addHabit(NewHabitRemote(
 //        questColor = 0,
 //        questCount = 0,
 //        questDate = 0,
@@ -21,44 +67,15 @@ fun main() {
 //        questDoneDates = arrayListOf(0, 1, 2, 3, 4),
 //        questFrequency = 0,
 //        questPriority = 1,
-//        questTitle = "my test habit",
+//        questTitle = "my test habit MEGA TEST",
 //        questType = 1
 //    ))
+//    }
 //
-//    val res = result.execute().body()
-//    println(res)
-//
-    val test = Test()
+//    Thread.sleep(10000)
 
-    val result = test.api.putHabit(HabitRemote(
-        questColor = 0,
-        questCount = 0,
-        questDate = 2,
-        questDescription = "desc",
-        questDoneDates = arrayListOf(0, 1, 2, 3, 4),
-        questFrequency = 0,
-        questPriority = 1,
-        questTitle = "my test habit123",
-        questType = 1,
-        questId = "133ebd98-eb23-4de9-8c61-48aced1295f8"
-        )
-    )
-
-    val res = result.execute()
-    println(res.body())
-    println(res.code())
-    res.errorBody()?.apply {
-        val message = Gson().fromJson(string(), Message::class.java)
-        println(message)
-    }
-
-
-
-//    val test = Test()
-//
-//    val result = test.api.doneHabit(DoneParams(4, "133ebd98-eb23-4de9-8c61-48aced1295f8"))
-//
 //    val res = result.execute()
+//    println("MISS")
 //    println(res.body())
 //    println(res.code())
 //    res.errorBody()?.apply {
@@ -66,24 +83,10 @@ fun main() {
 //        println(message)
 //    }
 
-//    val test = Test()
-//
-//    val result = test.api.deleteHabit(DeleteParams(
-//        id = "133ebd98-eb23-4de9-8c61-48aced1295f8"
-//    ))
-//
-//    val res = result.execute()
-//    println(res.body())
-//    println(res.code())
-//    res.errorBody()?.apply {
-//        val message = Gson().fromJson(string(), Message::class.java)
-//        println(message)
-//    }
-}
 
-class Test {
+class Instance {
 
-    lateinit var api: HabitApi
+    lateinit var api: LittleApi
 
     init {
         configureRetrofit()
@@ -94,7 +97,7 @@ class Test {
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val authorizationInterceptor = object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
+            override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
                 val authorizationResponse = chain
                     .request()
                     .newBuilder()
@@ -117,6 +120,14 @@ class Test {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        api = retrofit.create(HabitApi::class.java)
+        api = retrofit.create(LittleApi::class.java)
     }
+}
+
+interface LittleApi {
+    @GET("./habit")
+    fun getHabits(): Call<List<HabitRemote>>
+
+    @HTTP(method = "DELETE", path = "./habit", hasBody = true)
+    fun deleteHabit(@Body params: DeleteParams): Call<Void>
 }

@@ -5,11 +5,14 @@ import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.data.remote.model.DoneParams
 import com.masharo.habits.data.remote.model.HabitRemote
 import com.masharo.habits.data.remote.model.PutResult
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.Call
 
 interface HabitRepository {
 
     fun getHabits(): LiveData<List<Habit>>
+
+    fun getHabitsTest(): Observable<List<HabitRemote>>
 
     fun getRemoteHabits(): Call<List<HabitRemote>>
 
@@ -21,11 +24,13 @@ interface HabitRepository {
 
     suspend fun setHabit(habit: Habit)
 
+    fun setHabitRemote(habit: Habit): Observable<PutResult>
+
     suspend fun getHabit(id: Int): Habit?
 
-    suspend fun addHabit(habit: Habit)
+    suspend fun addHabit(habit: Habit): Long
 
-    fun addHabitRemote(habit: Habit): Call<PutResult>
+    fun addHabitRemote(habit: Habit): Observable<PutResult>
 
     fun doneHabit(params: DoneParams): Call<Void>
 }

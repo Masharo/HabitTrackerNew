@@ -10,9 +10,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.Data
+import androidx.work.ListenableWorker
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.masharo.habits.data.HabitRepository
 import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.data.remote.model.PutResult
+import com.masharo.habits.test.worker.AddHabitWorker
+import com.masharo.habits.test.worker.HABIT_ID
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -20,7 +26,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HabitViewModel(
-    context: Context,
+    private val context: Context,
     private val repository: HabitRepository,
     private val habitId: Int?
 ): ViewModel(), Observable {
@@ -54,28 +60,27 @@ class HabitViewModel(
                 }
             } ?: run {
                 viewModelScope.launch(Dispatchers.IO) {
-                    repository.addHabit(habit)
+                    workOperation<AddHabitWorker>(
+                        repository.addHabit(habit).toInt()
+                    )
                 }
-                repository.addHabitRemote(habit).enqueue(object: Callback<PutResult> {
-                    override fun onResponse(
-                        call: Call<PutResult>,
-                        response: Response<PutResult>
-                    ) {
-                        if (response.isSuccessful) {
-                            response.body()?.let {
-                            }
-                        }
-                    }
-
-                    override fun onFailure(call: Call<PutResult>, t: Throwable) {
-                        TODO("Not yet implemented")
-                    }
-
-                })
             }
         }
 
     }
+
+    private inline fun <reified W : ListenableWorker>workOperation(id: Int) = WorkManager
+        .getInstance(context)
+        .enqueue(
+            OneTimeWorkRequestBuilder<W>()
+                .setInputData(
+                    Data
+                        .Builder()
+                        .putInt(HABIT_ID, id)
+                        .build()
+                )
+                .build()
+        )
 
 
     fun doneInc() {

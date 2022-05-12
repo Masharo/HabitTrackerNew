@@ -1,7 +1,10 @@
 package com.masharo.habits.data.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 import com.masharo.habits.data.db.model.Habit
 
 @Dao
@@ -14,7 +17,7 @@ interface HabitDao {
     suspend fun deleteAll()
 
     @Insert
-    suspend fun add(habit: Habit)
+    suspend fun add(habit: Habit): Long
 
     @Insert
     suspend fun addAll(habits: List<Habit>)

@@ -33,7 +33,8 @@ data class HabitRemote(
 
     @SerializedName("uid")
     val questId: String
-) {
+)
+{
     fun convertToHabit(): Habit {
         val habit = Habit()
 
@@ -48,3 +49,16 @@ data class HabitRemote(
         return habit
     }
 }
+
+fun convertToHabitRemote(habit: Habit) = HabitRemote(
+        questTitle = habit.title,
+        questDescription = habit.description,
+        questCount = habit.count,
+        questDoneDates = arrayListOf(),
+        questFrequency = habit.period,
+        questPriority = habit.priority,
+        questType = habit.type,
+        questDate = 0,
+        questColor = 0,
+        questId = TODO()
+    )
