@@ -1,26 +1,40 @@
 package com.masharo.habits.presentation.listHabit
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.work.*
 import com.masharo.habits.data.HabitListFilter
 import com.masharo.habits.data.HabitRepository
 import com.masharo.habits.data.db.model.Habit
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.masharo.habits.data.remote.worker.UpdateAllHabitWorker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HabitListViewModel(
-    context: Context,
+    val context: Context,
     private val repository: HabitRepository
 ): ViewModel() {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
     val habits: LiveData<List<Habit>> = repository.getHabits()
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    val habitsR = MutableLiveData<List<Habit>>()
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+        WorkManager
+            .getInstance(context)
+            .enqueue(
+                OneTimeWorkRequestBuilder<UpdateAllHabitWorker>()
+                    .setConstraints(
+                        Constraints
+                            .Builder()
+                            .setRequiredNetworkType(NetworkType.CONNECTED)
+                            .build()
+                    ).build()
+            )
+        }
+    }
 
 //    init {
 //        load()

@@ -14,13 +14,13 @@ interface HabitDao {
     fun getAll(): LiveData<List<Habit>>
 
     @Query("DELETE FROM habit")
-    suspend fun deleteAll()
+    fun deleteAll()
 
     @Insert
     suspend fun add(habit: Habit): Long
 
     @Insert
-    suspend fun addAll(habits: List<Habit>)
+    fun addAll(habits: List<Habit>)
 
     @Query("SELECT * FROM habit WHERE ${Habit.DB_ID} = :id")
     suspend fun get(id: Int): Habit?

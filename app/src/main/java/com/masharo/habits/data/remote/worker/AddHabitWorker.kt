@@ -1,12 +1,10 @@
-package com.masharo.habits.test.worker
+package com.masharo.habits.data.remote.worker
 
 import android.content.Context
-import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.masharo.habits.HABIT_ID
 import com.masharo.habits.data.HabitRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -21,17 +19,19 @@ class AddHabitWorker(context: Context, workerParams: WorkerParameters):
 
         if (id != -1) {
             repository.getHabit(id)?.let { habit ->
-                repository.addHabitRemote(habit)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ listHabitRemote ->
-                        Log.i("myLog", listHabitRemote.toString())
-                    }, {
-                        Log.i("myLog", it.toString())
-                    })
+
+                val response = repository.addHabitRemote(habit)
+                response.body()?.let {
+                    habit.idRemote = it.id
+                    repository.setHabit(habit)
+                }
+
+                response.errorBody()?.let {
+                    return Result.retry()
+                }
+
             }
         }
-
 
         return Result.success()
     }

@@ -10,20 +10,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.work.Data
-import androidx.work.ListenableWorker
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.work.*
+import com.masharo.habits.HABIT_ID
 import com.masharo.habits.data.HabitRepository
 import com.masharo.habits.data.db.model.Habit
-import com.masharo.habits.data.remote.model.PutResult
-import com.masharo.habits.test.worker.AddHabitWorker
-import com.masharo.habits.test.worker.HABIT_ID
+import com.masharo.habits.data.remote.worker.AddHabitWorker
+import com.masharo.habits.data.remote.worker.SetHabitWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import java.util.*
 
 class HabitViewModel(
     private val context: Context,
@@ -31,10 +26,6 @@ class HabitViewModel(
     private val habitId: Int?
 ): ViewModel(), Observable {
 
-//    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-//    private lateinit var fragmentManager: FragmentManager
-
-//    private val repository = HabitRepositoryImpl(HabitDatabase.instance(context))
     private val callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
     private val habitLocal: MutableLiveData<Habit> = MutableLiveData(Habit())
 
@@ -54,9 +45,13 @@ class HabitViewModel(
     fun save() {
 
         habitLocal.value?.let { habit ->
+
+            habit.dateRemote = (Calendar.getInstance().timeInMillis * 0.001).toInt()
+
             habit.id?.let {
                 viewModelScope.launch(Dispatchers.IO) {
                     repository.setHabit(habit)
+                    workOperation<SetHabitWorker>(it)
                 }
             } ?: run {
                 viewModelScope.launch(Dispatchers.IO) {
@@ -73,6 +68,11 @@ class HabitViewModel(
         .getInstance(context)
         .enqueue(
             OneTimeWorkRequestBuilder<W>()
+                .setConstraints(
+                    Constraints
+                        .Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build())
                 .setInputData(
                     Data
                         .Builder()
@@ -81,7 +81,6 @@ class HabitViewModel(
                 )
                 .build()
         )
-
 
     fun doneInc() {
         habitLocal.value?.apply {
@@ -111,11 +110,6 @@ class HabitViewModel(
         val x = view.background.bounds.centerX() + view.x.toInt()
 
         habit.value?.color = rootView.drawToBitmap().getColor(x, y).toArgb()
-
-//        var arrF = FloatArray(3)
-//        Color.colorToHSV(rootView.drawToBitmap().getColor(x, y).toArgb(), arrF)
-
-//        rootView.drawToBitmap().getColor(x, y).getComponents(null).map { it * 255 }
     }
 
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {

@@ -9,12 +9,15 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.masharo.habits.BR
 import com.masharo.habits.R
+import java.util.*
 
 @Entity(tableName = "habit")
 class Habit : BaseObservable() {
 
     companion object {
         const val DB_ID = "_id_"
+        const val DB_ID_REMOTE = "_id_remote"
+        const val DB_DATE_REMOTE = "date_remote"
         const val DB_TITLE = "title"
         const val DB_DESCRIPTION = "description"
         const val DB_PRIORITY = "priority"
@@ -28,6 +31,12 @@ class Habit : BaseObservable() {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DB_ID)
     var id: Int? = null
+
+    @ColumnInfo(name = DB_ID_REMOTE)
+    var idRemote: String = ""
+
+    @ColumnInfo(name = DB_DATE_REMOTE)
+    var dateRemote: Int = 0
 
     @get:Bindable
     @ColumnInfo(name = DB_TITLE)

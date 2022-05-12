@@ -7,30 +7,27 @@ import com.masharo.habits.data.remote.model.HabitRemote
 import com.masharo.habits.data.remote.model.PutResult
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.Call
+import retrofit2.Response
 
 interface HabitRepository {
 
     fun getHabits(): LiveData<List<Habit>>
 
-    fun getHabitsTest(): Observable<List<HabitRemote>>
+    suspend fun getRemoteHabits(): Response<List<HabitRemote>>
 
-    fun getRemoteHabits(): Call<List<HabitRemote>>
+    fun addAll(habits: List<Habit>)
 
-    suspend fun addAll(habits: List<Habit>)
-
-//    suspend fun updateHabits(): Boolean
-
-    suspend fun clearHabits(): Boolean
+    fun clearHabits(): Boolean
 
     suspend fun setHabit(habit: Habit)
 
-    fun setHabitRemote(habit: Habit): Observable<PutResult>
+    suspend fun setHabitRemote(habit: Habit): Response<PutResult>
 
     suspend fun getHabit(id: Int): Habit?
 
     suspend fun addHabit(habit: Habit): Long
 
-    fun addHabitRemote(habit: Habit): Observable<PutResult>
+    suspend fun addHabitRemote(habit: Habit): Response<PutResult>
 
     fun doneHabit(params: DoneParams): Call<Void>
 }

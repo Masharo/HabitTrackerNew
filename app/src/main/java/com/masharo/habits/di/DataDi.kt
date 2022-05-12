@@ -1,5 +1,7 @@
 package com.masharo.habits.di
 
+import com.masharo.habits.BASE_URL
+import com.masharo.habits.TOKEN
 import com.masharo.habits.data.HabitRepository
 import com.masharo.habits.data.HabitRepositoryImpl
 import com.masharo.habits.data.db.HabitDatabase
@@ -36,7 +38,7 @@ private fun headersInterceptor() = object: Interceptor {
         val authorizationResponse = chain
             .request()
             .newBuilder()
-            .header("Authorization", "da57b0ce-6f54-40a6-94f4-9000b6a67152")
+            .header("Authorization", TOKEN)
             .header("Content-Type", "application/json")
             .header("accept", "application/json")
             .build()
@@ -54,7 +56,7 @@ private fun okHttpClient(logger: HttpLoggingInterceptor,
 
 private fun retrofit(okHttpClient: OkHttpClient) = Retrofit
     .Builder()
-    .baseUrl("https://droid-test-server.doubletapp.ru/api/")
+    .baseUrl(BASE_URL)
     .client(okHttpClient)
     .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
     .addConverterFactory(GsonConverterFactory.create())

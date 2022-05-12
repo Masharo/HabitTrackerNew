@@ -1,4 +1,4 @@
-package com.masharo.habits.test
+package com.masharo.habits.cleaner
 
 import android.util.Log
 import com.masharo.habits.data.remote.model.DeleteParams

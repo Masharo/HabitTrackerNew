@@ -1,5 +1,6 @@
 package com.masharo.habits.data.remote.model
 
+import android.graphics.Color
 import com.google.gson.annotations.SerializedName
 import com.masharo.habits.data.db.model.Habit
 
@@ -45,6 +46,8 @@ data class HabitRemote(
         habit.period = questFrequency
         habit.priority = questPriority
         habit.type = questType
+        habit.idRemote = questId
+        habit.color = questColor
 
         return habit
     }
@@ -58,7 +61,7 @@ fun convertToHabitRemote(habit: Habit) = HabitRemote(
         questFrequency = habit.period,
         questPriority = habit.priority,
         questType = habit.type,
-        questDate = 0,
-        questColor = 0,
-        questId = TODO()
+        questDate = habit.dateRemote,
+        questColor = habit.color ?: Color.WHITE,
+        questId = habit.idRemote
     )
