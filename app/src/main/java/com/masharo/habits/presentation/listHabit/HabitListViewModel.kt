@@ -11,6 +11,7 @@ import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.data.remote.worker.UpdateAllHabitWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class HabitListViewModel(
     val context: Context,
@@ -26,6 +27,10 @@ class HabitListViewModel(
             .getInstance(context)
             .enqueue(
                 OneTimeWorkRequestBuilder<UpdateAllHabitWorker>()
+                    .setBackoffCriteria(
+                        BackoffPolicy.LINEAR,
+                        OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
+                        TimeUnit.MILLISECONDS)
                     .setConstraints(
                         Constraints
                             .Builder()
@@ -35,53 +40,6 @@ class HabitListViewModel(
             )
         }
     }
-
-//    init {
-//        load()
-//    }
-//
-//    fun load() {
-//        compositeDisposable.add(
-//            repository.getHabitsTest()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({ listHabitRemote ->
-////                    habitsR.postValue(listHabitRemote)
-//                    Log.i("myLog", listHabitRemote.toString())
-//                }, {
-//                    Log.i("myLog", it.toString())
-//                })
-//        )
-//    }
-//    init {
-//
-//        repository.getRemoteHabits().enqueue(object: Callback<List<HabitRemote>> {
-//            override fun onResponse(
-//                call: Call<List<HabitRemote>>,
-//                response: Response<List<HabitRemote>>
-//            ) {
-//                if (response.isSuccessful) {
-//                    response.body()
-//                        ?.map { it.convertToHabit() }
-//                        ?.let {
-//                            viewModelScope.launch(Dispatchers.IO) {
-//                                repository.clearHabits()
-//                                repository.addAll(it)
-//                            }
-//                        }
-//                } else {
-//                    Log.i("myLog", "err 5")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<HabitRemote>>, t: Throwable) {
-//                t.message?.let {
-//                    Log.i("myLog", it)
-//                }
-//            }
-//        })
-//
-//    }
 
     fun setFilterType(type: Int) {
         habitListFilter.setFilter(HabitListFilter.Column.TYPE, type)

@@ -19,6 +19,7 @@ import com.masharo.habits.data.remote.worker.SetHabitWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class HabitViewModel(
     private val context: Context,
@@ -68,6 +69,10 @@ class HabitViewModel(
         .getInstance(context)
         .enqueue(
             OneTimeWorkRequestBuilder<W>()
+                .setBackoffCriteria(
+                    BackoffPolicy.LINEAR,
+                    OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
+                    TimeUnit.MILLISECONDS)
                 .setConstraints(
                     Constraints
                         .Builder()
