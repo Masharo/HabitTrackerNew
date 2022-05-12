@@ -55,7 +55,7 @@
     <string name="db_desc">В обратном порядке</string>
     <string name="db_asc">В прямом порядке</string>
 
-    <string name="warn_title_blank">Поле заголовок не заполнено!</string>
+    <string name="warn_title_or_description_blank">Поле заголовок и описание должны быть заполнены!</string>
     <string name="button_colorPicker_ok">OK</string>
 
     <string name="hsv">(%d %d %d) :HSV</string>

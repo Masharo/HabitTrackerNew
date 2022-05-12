@@ -8,11 +8,19 @@
         <entry key="..\:/Users/U-003-106/Desktop/myProject/HabitTrackerNew/app/src/main/res/layout/fragment_habit.xml" value="0.2916666666666667" />
         <entry key="..\:/Users/U-003-106/Desktop/myProject/HabitTrackerNew/app/src/main/res/layout/fragment_habit_list.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/U-003-106/Desktop/myProject/HabitTrackerNew/app/src/main/res/layout/habit_item.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/drawable/rectangle_background.xml" value="0.197" />
+        <entry key="app/src/main/res/layout/activity_root_habit.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/bottom_sheet_list_habit.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_color_picker.xml" value="0.29069767441860467" />
         <entry key="app/src/main/res/layout/fragment_habit.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_habit_list.xml" value="0.3578125" />
+        <entry key="app/src/main/res/layout/fragment_view_pager_habit_list.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/habit_item.xml" value="0.184375" />
+        <entry key="app/src/main/res/layout/habit_spinner_item.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/rectangle_color_picker_view.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/test.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/test_view.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/menu/menu_drawer_root.xml" value="0.32407407407407407" />
       </map>
     </option>
   </component>

@@ -33,16 +33,6 @@ class ColorPickerFragment: DialogFragment() {
 
         createRectangleForGradient()
 
-//        bind.selectColor = View.OnClickListener {
-//            val rootView = bind.viewColorPickerBackgroundGradient
-//
-//            vm.colorCalculated(it, rootView)
-//
-////            val redValue = color.red()
-////            val blueValue = color.blue()
-////            val greenValue = color.green()
-//        }
-
         bind.buttonColorPickerOK.setOnClickListener {
             dismiss()
         }
@@ -60,7 +50,7 @@ class ColorPickerFragment: DialogFragment() {
 
             for (i in 1..COUNT_RECTANGLE) {
                 val viewRectangle = layoutInflater.inflate(
-                    R.layout.test_view,
+                    R.layout.rectangle_color_picker_view,
                     bind.linearLayoutColorPickerGradient,
                     false
                 )
