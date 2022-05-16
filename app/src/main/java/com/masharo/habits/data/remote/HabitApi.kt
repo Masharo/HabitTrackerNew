@@ -11,9 +11,6 @@ interface HabitApi {
     @GET("./habit")
     suspend fun getHabits(): Response<List<HabitRemote>>
 
-    @GET("./habit")
-    fun getHabitsTest(): Observable<List<HabitRemote>>
-
     @PUT("./habit")
     suspend fun setHabit(@Body habit: HabitRemote): Response<PutResult>
 
