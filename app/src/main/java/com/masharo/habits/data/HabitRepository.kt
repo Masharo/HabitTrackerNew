@@ -5,7 +5,6 @@ import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.data.remote.model.DoneParams
 import com.masharo.habits.data.remote.model.HabitRemote
 import com.masharo.habits.data.remote.model.PutResult
-import io.reactivex.rxjava3.core.Observable
 import retrofit2.Call
 import retrofit2.Response
 

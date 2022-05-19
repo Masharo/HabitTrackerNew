@@ -10,6 +10,6 @@ data class Habit(
     val type: Int,
     val count: Int,
     val period: Int,
-    val countDone: Int,
+    var countDone: Int,
     val color: Int
 )
