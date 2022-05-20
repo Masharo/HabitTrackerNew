@@ -1,4 +1,5 @@
 package com.masharo.habits.domain.model
 
-class Id {
-}
+data class Id(
+    val id: Int
+)

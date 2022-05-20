@@ -6,10 +6,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface DBHabitRepository {
 
-    fun editHabit(habit: Habit)
-    fun addHabit(habit: Habit)
-    fun deleteHabit(id: Id)
-    fun getHabit(id: Id): Habit?
+    suspend fun editHabit(habit: Habit)
+    suspend fun addHabit(habit: Habit)
+    suspend fun deleteHabit(id: Id)
+    suspend fun getHabit(id: Id): Habit?
     fun getAllHabits(): Flow<List<Habit>>
 
 }
