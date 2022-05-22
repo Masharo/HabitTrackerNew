@@ -1,6 +1,6 @@
 package com.masharo.habits.dataNew
 
-import com.masharo.habits.dataNew.model.HabitData
+import com.masharo.habits.dataNew.model.local.HabitData
 import com.masharo.habits.domain.model.Habit
 
 fun domainToDataHabit(habit: Habit) = HabitData(

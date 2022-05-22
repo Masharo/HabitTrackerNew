@@ -15,7 +15,8 @@ class AddHabitUseCase(private val dbRepository: DBHabitRepository,
         withContext(dispatcher) {
             try {
 
-                dbRepository.addHabit(habit)
+                val id = dbRepository.addHabit(habit)
+                habit.id = id.toInt()
                 remoteRepository.putHabitRemote(habit)
 
                 return@withContext true

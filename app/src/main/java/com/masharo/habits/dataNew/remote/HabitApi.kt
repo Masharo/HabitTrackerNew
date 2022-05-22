@@ -1,7 +1,7 @@
 package com.masharo.habits.dataNew.remote
 
-import com.masharo.habits.dataNew.model.HabitData
-import com.masharo.habits.dataNew.model.IdData
+import com.masharo.habits.dataNew.model.local.HabitData
+import com.masharo.habits.dataNew.model.local.IdData
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*

@@ -1,11 +1,11 @@
 package com.masharo.habits.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.masharo.habits.data.db.model.Habit
+import com.masharo.habits.presentation.model.HabitPresentation
 
 class HabitDiffUtilCallback(
-    private val oldHabits: List<Habit>,
-    private val newHabits: List<Habit>
+    private val oldHabits: List<HabitPresentation>,
+    private val newHabits: List<HabitPresentation>
     ): DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldHabits.size

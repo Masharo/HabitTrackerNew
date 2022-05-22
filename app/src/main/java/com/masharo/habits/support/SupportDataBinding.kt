@@ -7,8 +7,8 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.databinding.InverseMethod
 import androidx.databinding.adapters.Converters
-import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.R
+import com.masharo.habits.presentation.model.HabitPresentation
 
 object SupportDataBinding {
 
@@ -26,17 +26,13 @@ object SupportDataBinding {
              else -> value.toString()
          }
 
-    fun convertColorToXML(valueColor: Int?): ColorDrawable =
-        if (valueColor != null) {
-            Converters.convertColorToDrawable(valueColor)
-        } else {
-            Converters.convertColorToDrawable(Color.WHITE)
-        }
+    fun convertColorToXML(valueColor: Int): ColorDrawable =
+        Converters.convertColorToDrawable(valueColor)
 
     @InverseMethod(value="convertColorToXML")
-    fun convertXMLToColor(valueColor: String) = Color.parseColor(valueColor)
+    fun convertXMLToColor(valueColor: ColorDrawable) = valueColor.color
 
-    fun getPriority(habit: Habit, context: Context): String {
+    fun getPriority(habit: HabitPresentation, context: Context): String {
         val priority = context.resources.getStringArray(R.array.habit_priority)[habit.priority]
 
         return context.getString(
@@ -45,7 +41,7 @@ object SupportDataBinding {
         )
     }
 
-    fun getPeriod(habit: Habit, context: Context): String {
+    fun getPeriod(habit: HabitPresentation, context: Context): String {
         val period = context.resources.getStringArray(R.array.habit_period)[habit.period]
 
         return context.getString(
@@ -56,10 +52,10 @@ object SupportDataBinding {
         )
     }
 
-    fun converterTypeHabit(habit: Habit) = habit.getTypeEnum().resourceString()
+    fun converterTypeHabit(habit: HabitPresentation) = habit.getTypeEnum().resourceString()
 
     @InverseMethod(value = "converterTypeHabit")
-    fun converterTypeHabit(id: Int) = Habit.TypeHabit.searchForResource(id)
+    fun converterTypeHabit(id: Int) = HabitPresentation.TypeHabit.searchForResource(id)
 
     fun getTypeImage(context: Context, image: Int): Drawable? {
         return if (image == 0) {

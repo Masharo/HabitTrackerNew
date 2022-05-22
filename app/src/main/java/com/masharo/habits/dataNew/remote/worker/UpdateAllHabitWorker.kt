@@ -21,7 +21,7 @@ class UpdateAllHabitWorker(context: Context, workerParams: WorkerParameters):
 
         if (response.isSuccessful) {
             response.body()?.let {
-                db.getHabitDao().add(*it.toTypedArray())
+                db.getHabitDao().addAll(*it.toTypedArray())
             }
         }
 

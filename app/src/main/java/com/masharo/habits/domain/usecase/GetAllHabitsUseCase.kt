@@ -6,13 +6,9 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class GetAllHabitsUseCase(private val dbRepository: DBHabitRepository,
-                          private val dispatcher: CoroutineDispatcher
-) {
+class GetAllHabitsUseCase(private val dbRepository: DBHabitRepository) {
 
-    suspend fun execute(): Flow<List<Habit>> =
-        withContext(dispatcher) {
-            dbRepository.getAllHabits()
-        }
+    fun execute(): Flow<List<Habit>> =
+        dbRepository.getAllHabits()
 
 }

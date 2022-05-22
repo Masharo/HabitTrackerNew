@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.masharo.habits.R
 import com.masharo.habits.adapter.TypeGroupAdapter
-import com.masharo.habits.data.db.model.Habit
+import com.masharo.habits.presentation.model.HabitPresentation
 import com.masharo.habits.databinding.FragmentViewPagerHabitListBinding
 
 class ViewPagerHabitListFragment : Fragment() {
@@ -35,7 +35,7 @@ class ViewPagerHabitListFragment : Fragment() {
         bind.viewPagerPagerHabitType.adapter = adapter
 
         TabLayoutMediator(bind.tabLayoutPagerHabitType, bind.viewPagerPagerHabitType) { tab, position ->
-            tab.text = getString(Habit.TypeHabit.values()[position].resourceString())
+            tab.text = getString(HabitPresentation.TypeHabit.values()[position].resourceString())
         }.attach()
     }
 }

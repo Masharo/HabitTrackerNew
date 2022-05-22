@@ -6,14 +6,14 @@
         <import
             type="android.view.View" />
         <import
-            type="com.masharo.habits.data.db.model.Habit" />
+            type="com.masharo.habits.presentation.model.HabitPresentation" />
         <import
             type="com.masharo.habits.support.SupportDataBinding" />
         <import
             type="androidx.core.content.ContextCompat" />
         <variable
             name="habit"
-            type="com.masharo.habits.data.db.model.Habit" />
+            type="com.masharo.habits.presentation.model.HabitPresentation" />
         <variable
             name="holder"
             type="com.masharo.habits.adapter.HabitsAdapter.HabitsViewHolder" />
@@ -23,7 +23,7 @@
         android:id="@+id/cardView_habitItem_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@{habit.color ?? @color/white}"
+        app:cardBackgroundColor="@{habit.color}"
         app:cardCornerRadius="16dp"
         android:layout_margin="10dp">
 
@@ -99,7 +99,7 @@
                 android:id="@+id/imageButton_habitItem_openDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@{habit.color ?? @color/white}"
+                android:background="@{habit.color}"
                 android:src="@drawable/ic_baseline_expand_more_24"
                 android:onClick="@{() -> holder.descriptionOpenChange()}"
                 app:layout_constraintTop_toTopOf="parent"

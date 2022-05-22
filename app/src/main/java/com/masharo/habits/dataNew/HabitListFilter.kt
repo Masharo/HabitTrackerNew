@@ -1,28 +1,28 @@
-package com.masharo.habits.data
+package com.masharo.habits.dataNew
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.masharo.habits.R
-import com.masharo.habits.data.db.model.Habit
+import com.masharo.habits.presentation.model.HabitPresentation
 import kotlin.reflect.KProperty1
 
 //Кароч у класса должено быть состояние, мы будем вызывать один метод который будет принимать лист
 class HabitListFilter {
 
-    var habitsOrigin: List<Habit> = listOf()
+    var habitsOrigin: List<HabitPresentation> = listOf()
         set(value) {
             field = value
             habits.value = value
             update()
         }
 
-    private var habits: MutableLiveData<List<Habit>> = MutableLiveData()
+    private var habits: MutableLiveData<List<HabitPresentation>> = MutableLiveData()
 
     private var filterColumn: Column = Column.TYPE
     private var filterValue: Int = 0
 
-    fun getHabits(): LiveData<List<Habit>> = habits
+    fun getHabits(): LiveData<List<HabitPresentation>> = habits
 
     var sortColumn: Column = Column.ID
         set(value) {
@@ -46,16 +46,16 @@ class HabitListFilter {
         habits.value = sort(filter(habitsOrigin))
     }
 
-    private fun sort(habitsLocal: List<Habit>): List<Habit> = habitsLocal.sortedBy {
+    private fun sort(habitsLocal: List<HabitPresentation>): List<HabitPresentation> = habitsLocal.sortedBy {
             sortColumn.getColumn()?.invoke(it)
         }
 
-    private fun filter(habitsLocal: List<Habit>): List<Habit> =
+    private fun filter(habitsLocal: List<HabitPresentation>): List<HabitPresentation> =
         if (search.isEmpty()) {
             habitsLocal
         } else {
             habitsLocal.filter {
-                Habit::title.invoke(it).contains(search, true)
+                HabitPresentation::title.invoke(it).contains(search, true)
             }
         }
 
@@ -142,9 +142,9 @@ class HabitListFilter {
 
             override fun useLike(): Boolean = false
             override fun useOrderBy(): Boolean = true
-            override fun getColumn(): KProperty1<Habit, Int?> = Habit::id
-            override fun getColumnString(): KProperty1<Habit, String?>? = null
-            override fun toString(): String = Habit.DB_ID
+            override fun getColumn(): KProperty1<HabitPresentation, Int?> = HabitPresentation::id
+            override fun getColumnString(): KProperty1<HabitPresentation, String?>? = null
+            override fun toString(): String = "id"
 
         },
         TITLE {
@@ -154,9 +154,9 @@ class HabitListFilter {
 
             override fun useLike(): Boolean = true
             override fun useOrderBy(): Boolean = false
-            override fun getColumn(): KProperty1<Habit, Int>? = null
-            override fun getColumnString(): KProperty1<Habit, String?> = Habit::title
-            override fun toString(): String = Habit.DB_TITLE
+            override fun getColumn(): KProperty1<HabitPresentation, Int>? = null
+            override fun getColumnString(): KProperty1<HabitPresentation, String?> = HabitPresentation::title
+            override fun toString(): String = "Title"
         },
         DESCRIPTION {
             override fun getResource(): Int {
@@ -165,9 +165,9 @@ class HabitListFilter {
 
             override fun useLike(): Boolean = false
             override fun useOrderBy(): Boolean = false
-            override fun getColumn(): KProperty1<Habit, Int>? = null
-            override fun getColumnString(): KProperty1<Habit, String?> = Habit::description
-            override fun toString(): String = Habit.DB_DESCRIPTION
+            override fun getColumn(): KProperty1<HabitPresentation, Int>? = null
+            override fun getColumnString(): KProperty1<HabitPresentation, String?> = HabitPresentation::description
+            override fun toString(): String = "Description"
         },
         TYPE {
             override fun getResource(): Int {
@@ -176,9 +176,9 @@ class HabitListFilter {
 
             override fun useLike(): Boolean = false
             override fun useOrderBy(): Boolean = false
-            override fun getColumn(): KProperty1<Habit, Int> = Habit::type
-            override fun getColumnString(): KProperty1<Habit, String?>? = null
-            override fun toString(): String = Habit.DB_TYPE
+            override fun getColumn(): KProperty1<HabitPresentation, Int> = HabitPresentation::type
+            override fun getColumnString(): KProperty1<HabitPresentation, String?>? = null
+            override fun toString(): String = "Type"
         },
         COUNT {
             override fun getResource(): Int {
@@ -187,9 +187,9 @@ class HabitListFilter {
 
             override fun useLike(): Boolean = false
             override fun useOrderBy(): Boolean = true
-            override fun getColumn(): KProperty1<Habit, Int> = Habit::count
-            override fun getColumnString(): KProperty1<Habit, String?>? = null
-            override fun toString(): String = Habit.DB_COUNT
+            override fun getColumn(): KProperty1<HabitPresentation, Int> = HabitPresentation::count
+            override fun getColumnString(): KProperty1<HabitPresentation, String?>? = null
+            override fun toString(): String = "Count"
         },
         PERIOD {
             override fun getResource(): Int {
@@ -198,9 +198,9 @@ class HabitListFilter {
 
             override fun useLike(): Boolean = false
             override fun useOrderBy(): Boolean = true
-            override fun getColumn(): KProperty1<Habit, Int> = Habit::period
-            override fun getColumnString(): KProperty1<Habit, String?>? = null
-            override fun toString(): String = Habit.DB_PERIOD
+            override fun getColumn(): KProperty1<HabitPresentation, Int> = HabitPresentation::period
+            override fun getColumnString(): KProperty1<HabitPresentation, String?>? = null
+            override fun toString(): String = "Period"
         },
         COUNT_DONE {
             override fun getResource(): Int {
@@ -209,15 +209,15 @@ class HabitListFilter {
 
             override fun useLike(): Boolean = false
             override fun useOrderBy(): Boolean = true
-            override fun getColumn(): KProperty1<Habit, Int> = Habit::countDone
-            override fun getColumnString(): KProperty1<Habit, String?>? = null
-            override fun toString(): String = Habit.DB_COUNT_DONE
+            override fun getColumn(): KProperty1<HabitPresentation, Int> = HabitPresentation::countDone
+            override fun getColumnString(): KProperty1<HabitPresentation, String?>? = null
+            override fun toString(): String = "Count done"
         };
 
         abstract fun getResource(): Int
         abstract fun useLike(): Boolean
         abstract fun useOrderBy(): Boolean
-        abstract fun getColumn(): KProperty1<Habit, Int?>?
-        abstract fun getColumnString(): KProperty1<Habit, String?>?
+        abstract fun getColumn(): KProperty1<HabitPresentation, Int?>?
+        abstract fun getColumnString(): KProperty1<HabitPresentation, String?>?
     }
 }

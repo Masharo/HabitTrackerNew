@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.DiffUtil
 import com.masharo.habits.R
 import com.masharo.habits.adapter.HabitDiffUtilCallback
 import com.masharo.habits.adapter.HabitsAdapter
-import com.masharo.habits.data.db.model.Habit
 import com.masharo.habits.databinding.FragmentHabitListBinding
+import com.masharo.habits.presentation.domainToPresentationHabit
+import com.masharo.habits.presentation.model.HabitPresentation
 import com.masharo.habits.presentation.habit.ARG_ID
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -56,7 +57,7 @@ class HabitListFragment : Fragment() {
         bind.adapter = adapter
 
         vm.getChangeHabits().observe(viewLifecycleOwner) {
-            habitListChange(it)
+            habitListChange( it )
         }
 
         vm.habits.observe(viewLifecycleOwner) {
@@ -64,7 +65,7 @@ class HabitListFragment : Fragment() {
         }
     }
 
-    private fun habitListChange(list: List<Habit>) {
+    private fun habitListChange(list: List<HabitPresentation>) {
         val listFilterType = list.filter { it.type == type }
 
         DiffUtil.calculateDiff(

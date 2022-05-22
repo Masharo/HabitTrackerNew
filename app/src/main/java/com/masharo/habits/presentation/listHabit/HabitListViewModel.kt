@@ -1,44 +1,31 @@
 package com.masharo.habits.presentation.listHabit
 
-import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.work.*
-import com.masharo.habits.data.HabitListFilter
-import com.masharo.habits.data.HabitRepository
-import com.masharo.habits.data.db.model.Habit
-import com.masharo.habits.data.remote.worker.UpdateAllHabitWorker
-import kotlinx.coroutines.Dispatchers
+import androidx.lifecycle.*
+import com.masharo.habits.dataNew.HabitListFilter
+import com.masharo.habits.domain.usecase.GetAllHabitsUseCase
+import com.masharo.habits.domain.usecase.LoadHabitsUseCase
+import com.masharo.habits.presentation.domainToPresentationHabit
+import com.masharo.habits.presentation.model.HabitPresentation
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 class HabitListViewModel(
-    val context: Context,
-    repository: HabitRepository
+    loadHabitsUseCase: LoadHabitsUseCase,
+    getAllHabitsUseCase: GetAllHabitsUseCase
 ): ViewModel() {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
-    val habits: LiveData<List<Habit>> = repository.getHabits()
+    var habits: LiveData<List<HabitPresentation>> = getAllHabitsUseCase.execute()
+        .asLiveData()
+        .map { listHabit ->
+            listHabit.map { habit ->
+                domainToPresentationHabit(habit)
+            }
+        }
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            WorkManager
-                .getInstance(context)
-                .enqueue(
-                    OneTimeWorkRequestBuilder<UpdateAllHabitWorker>()
-                        .setBackoffCriteria(
-                            BackoffPolicy.LINEAR,
-                            OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
-                            TimeUnit.MILLISECONDS)
-                        .setConstraints(
-                            Constraints
-                                .Builder()
-                                .setRequiredNetworkType(NetworkType.CONNECTED)
-                                .build()
-                        ).build()
-                )
-            }
+        viewModelScope.launch {
+            loadHabitsUseCase.execute()
+        }
     }
 
     fun setFilterType(type: Int) {
@@ -53,11 +40,11 @@ class HabitListViewModel(
         habitListFilter.search = search
     }
 
-    fun getChangeHabits(): LiveData<List<Habit>> {
+    fun getChangeHabits(): LiveData<List<HabitPresentation>> {
         return habitListFilter.getHabits()
     }
 
-    fun setNewHabitList(habits: List<Habit>) {
+    fun setNewHabitList(habits: List<HabitPresentation>) {
         habitListFilter.habitsOrigin = habits
     }
 }

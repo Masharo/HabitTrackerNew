@@ -2,10 +2,14 @@ package com.masharo.habits.di
 
 import com.masharo.habits.BASE_URL
 import com.masharo.habits.TOKEN
-import com.masharo.habits.data.HabitRepository
-import com.masharo.habits.data.HabitRepositoryImpl
-import com.masharo.habits.data.db.HabitDatabase
-import com.masharo.habits.data.remote.HabitApi
+import com.masharo.habits.dataNew.database.DBHabitRepositoryImpl
+import com.masharo.habits.dataNew.database.HabitDatabase
+import com.masharo.habits.dataNew.remote.HabitApi
+import com.masharo.habits.dataNew.remote.RemoteHabitRepositoryImpl
+import com.masharo.habits.domain.DBHabitRepository
+import com.masharo.habits.domain.RemoteHabitRepository
+import com.masharo.habits.domain.usecase.*
+import kotlinx.coroutines.Dispatchers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -22,8 +26,16 @@ val dataModule = module {
     factory { retrofit(get()) }
     single { remoteApi(get()) }
 
+    factory<RemoteHabitRepository> { RemoteHabitRepositoryImpl(get(), get()) }
+
     single { HabitDatabase.instance(get()) }
-    factory<HabitRepository> { HabitRepositoryImpl(get(), get()) }
+    factory<DBHabitRepository> { DBHabitRepositoryImpl(get()) }
+
+    factory<LoadHabitsUseCase> { LoadHabitsUseCase(get(), Dispatchers.IO) }
+    factory<GetAllHabitsUseCase> { GetAllHabitsUseCase(get()) }
+    factory<GetHabitUseCase> { GetHabitUseCase(get(), Dispatchers.IO) }
+    factory<AddHabitUseCase> { AddHabitUseCase(get(), get(), Dispatchers.IO) }
+    factory<EditHabitUseCase> { EditHabitUseCase(get(), get(), Dispatchers.IO) }
 }
 
 private fun httpLoggingInterceptor(): HttpLoggingInterceptor {

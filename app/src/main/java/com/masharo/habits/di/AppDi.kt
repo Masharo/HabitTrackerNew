@@ -10,15 +10,17 @@ val appModule = module {
     viewModel { params ->
         HabitViewModel(
             context = get(),
-            repository = get(),
-            habitId = params.getOrNull()
+            habitId = params.getOrNull(),
+            getHabitUseCase = get(),
+            addHabitUseCase = get(),
+            editHabitUseCase = get()
         )
     }
 
     viewModel {
         HabitListViewModel(
-            context = get(),
-            repository = get()
+            loadHabitsUseCase = get(),
+            getAllHabitsUseCase = get()
         )
     }
 

@@ -1,8 +1,8 @@
-package com.masharo.habits.data.remote.model
+package com.masharo.habits.dataNew.model.local
 
 import com.google.gson.annotations.SerializedName
 
-data class PutResult(
+data class IdData(
     @SerializedName("uid")
     val id: String
 )

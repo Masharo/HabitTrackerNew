@@ -7,7 +7,7 @@
         <import
             type="androidx.core.content.ContextCompat" />
         <import
-            type="com.masharo.habits.data.db.model.Habit" />
+            type="com.masharo.habits.presentation.model.HabitPresentation" />
         <import
             type="com.masharo.habits.support.SupportDataBinding" />
         <variable
@@ -147,18 +147,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17sp"
-                        android:checked="@{vm.habit.typeEnum == Habit.TypeHabit.POSITIVE}"
-                        android:onClick="@{() -> vm.habit.setTypeEnum(Habit.TypeHabit.POSITIVE)}"
-                        android:text="@{Habit.TypeHabit.POSITIVE.resourceString()}" />
+                        android:checked="@{vm.habit.typeEnum == HabitPresentation.TypeHabit.POSITIVE}"
+                        android:onClick="@{() -> vm.habit.setTypeEnum(HabitPresentation.TypeHabit.POSITIVE)}"
+                        android:text="@{HabitPresentation.TypeHabit.POSITIVE.resourceString()}" />
 
                     <RadioButton
                         android:id="@+id/radioButton_habit_negative"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17sp"
-                        android:checked="@{vm.habit.typeEnum == Habit.TypeHabit.NEGATIVE}"
-                        android:onClick="@{() -> vm.habit.setTypeEnum(Habit.TypeHabit.NEGATIVE)}"
-                        android:text="@{Habit.TypeHabit.NEGATIVE.resourceString()}" />
+                        android:checked="@{vm.habit.typeEnum == HabitPresentation.TypeHabit.NEGATIVE}"
+                        android:onClick="@{() -> vm.habit.setTypeEnum(HabitPresentation.TypeHabit.NEGATIVE)}"
+                        android:text="@{HabitPresentation.TypeHabit.NEGATIVE.resourceString()}" />
 
                 </RadioGroup>
 

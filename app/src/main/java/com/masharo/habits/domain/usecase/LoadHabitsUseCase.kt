@@ -9,7 +9,7 @@ class LoadHabitsUseCase(private val remoteRepository: RemoteHabitRepository,
                         private val dispatcher: CoroutineDispatcher
 ) {
 
-    suspend fun execute(id: Id) {
+    suspend fun execute() {
         withContext(dispatcher) {
             remoteRepository.updateHabits()
         }

@@ -16,8 +16,8 @@ class DBHabitRepositoryImpl(
         db.getHabitDao().set(domainToDataHabit(habit))
     }
 
-    override suspend fun addHabit(habit: Habit) {
-        db.getHabitDao().add(domainToDataHabit(habit))
+    override suspend fun addHabit(habit: Habit): Long {
+        return db.getHabitDao().add(domainToDataHabit(habit))
     }
 
     override suspend fun deleteHabit(id: Id) {

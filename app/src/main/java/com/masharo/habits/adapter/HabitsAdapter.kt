@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.databinding.ObservableBoolean
 import androidx.recyclerview.widget.RecyclerView
 import com.masharo.habits.R
-import com.masharo.habits.data.db.model.Habit
+import com.masharo.habits.presentation.model.HabitPresentation
 import com.masharo.habits.databinding.HabitItemBinding
 
 class HabitsAdapter(
-    var habits: List<Habit>? = null,
+    var habits: List<HabitPresentation>? = null,
     private val onClick: (id: Int) -> Unit):
     RecyclerView.Adapter<HabitsAdapter.HabitsViewHolder>() {
 
@@ -34,7 +34,7 @@ class HabitsAdapter(
     override fun onBindViewHolder(holder: HabitsViewHolder, position: Int) {
 
         habits?.let {
-            val habit: Habit = it[position]
+            val habit: HabitPresentation = it[position]
             holder.bind.habit = habit
             holder.bind.holder = holder
 

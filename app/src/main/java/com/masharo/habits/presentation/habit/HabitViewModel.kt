@@ -12,32 +12,36 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.*
 import com.masharo.habits.HABIT_ID
-import com.masharo.habits.data.HabitRepository
-import com.masharo.habits.data.db.model.Habit
-import com.masharo.habits.data.remote.worker.AddHabitWorker
-import com.masharo.habits.data.remote.worker.SetHabitWorker
-import kotlinx.coroutines.Dispatchers
+import com.masharo.habits.domain.model.Id
+import com.masharo.habits.domain.usecase.AddHabitUseCase
+import com.masharo.habits.domain.usecase.EditHabitUseCase
+import com.masharo.habits.domain.usecase.GetHabitUseCase
+import com.masharo.habits.presentation.domainToPresentationHabit
+import com.masharo.habits.presentation.model.HabitPresentation
+import com.masharo.habits.presentation.presentationToDomainHabit
 import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class HabitViewModel(
     private val context: Context,
-    private val repository: HabitRepository,
-    private val habitId: Int?
+    private val habitId: Int?,
+    private val getHabitUseCase: GetHabitUseCase,
+    private val addHabitUseCase: AddHabitUseCase,
+    private val editHabitUseCase: EditHabitUseCase
 ): ViewModel(), Observable {
 
     private val callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
-    private val habitLocal: MutableLiveData<Habit> = MutableLiveData(Habit())
+    private val habitLocal: MutableLiveData<HabitPresentation> = MutableLiveData(HabitPresentation())
 
     @Bindable
-    val habit: LiveData<Habit> = habitLocal
+    val habit: LiveData<HabitPresentation> = habitLocal
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            habitId?.let { id ->
-                repository.getHabit(id)?.let {
-                    habitLocal.postValue(it)
+        habitId?.let {
+            viewModelScope.launch {
+                getHabitUseCase.execute(Id(it))?.let { habit->
+                    habitLocal.postValue(domainToPresentationHabit(habit))
                 }
             }
         }
@@ -46,19 +50,15 @@ class HabitViewModel(
     fun save() {
 
         habitLocal.value?.let { habit ->
-
             habit.dateRemote = (Calendar.getInstance().timeInMillis * 0.001).toInt()
 
             habit.id?.let {
-                viewModelScope.launch(Dispatchers.IO) {
-                    repository.setHabit(habit)
-                    workOperation<SetHabitWorker>(it)
+                viewModelScope.launch {
+                    editHabitUseCase.execute(presentationToDomainHabit(habit))
                 }
             } ?: run {
-                viewModelScope.launch(Dispatchers.IO) {
-                    workOperation<AddHabitWorker>(
-                        repository.addHabit(habit).toInt()
-                    )
+                viewModelScope.launch {
+                    addHabitUseCase.execute(presentationToDomainHabit(habit))
                 }
             }
         }
