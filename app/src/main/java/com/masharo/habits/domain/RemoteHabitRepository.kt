@@ -5,9 +5,9 @@ import com.masharo.habits.domain.model.Id
 
 interface RemoteHabitRepository {
 
-    fun incGoneCountHabitRemote(id: Id)
-    fun putHabitRemote(habit: Habit)
-    fun deleteHabitRemote(id: Id)
-    fun updateHabits()
+    suspend fun incGoneCountHabitRemote(id: Id)
+    suspend fun putHabitRemote(habit: Habit)
+    suspend fun deleteHabitRemote(id: Id)
+    suspend fun updateHabits()
 
 }

@@ -10,7 +10,7 @@ data class HabitData(
     val id: Int? = null,
 
     @ColumnInfo("_id_remote")
-    val idRemote: String,
+    var idRemote: String?,
 
     @ColumnInfo("date_remote")
     val dateRemote: Int,

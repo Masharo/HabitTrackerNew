@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 class HabitListViewModel(
     val context: Context,
-    private val repository: HabitRepository
+    repository: HabitRepository
 ): ViewModel() {
 
     private var habitListFilter: HabitListFilter = HabitListFilter()
@@ -23,22 +23,22 @@ class HabitListViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-        WorkManager
-            .getInstance(context)
-            .enqueue(
-                OneTimeWorkRequestBuilder<UpdateAllHabitWorker>()
-                    .setBackoffCriteria(
-                        BackoffPolicy.LINEAR,
-                        OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
-                        TimeUnit.MILLISECONDS)
-                    .setConstraints(
-                        Constraints
-                            .Builder()
-                            .setRequiredNetworkType(NetworkType.CONNECTED)
-                            .build()
-                    ).build()
-            )
-        }
+            WorkManager
+                .getInstance(context)
+                .enqueue(
+                    OneTimeWorkRequestBuilder<UpdateAllHabitWorker>()
+                        .setBackoffCriteria(
+                            BackoffPolicy.LINEAR,
+                            OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
+                            TimeUnit.MILLISECONDS)
+                        .setConstraints(
+                            Constraints
+                                .Builder()
+                                .setRequiredNetworkType(NetworkType.CONNECTED)
+                                .build()
+                        ).build()
+                )
+            }
     }
 
     fun setFilterType(type: Int) {
