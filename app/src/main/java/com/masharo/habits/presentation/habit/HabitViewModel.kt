@@ -65,28 +65,6 @@ class HabitViewModel(
 
     }
 
-    private inline fun <reified W : ListenableWorker>workOperation(id: Int) = WorkManager
-        .getInstance(context)
-        .enqueue(
-            OneTimeWorkRequestBuilder<W>()
-                .setBackoffCriteria(
-                    BackoffPolicy.LINEAR,
-                    OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
-                    TimeUnit.MILLISECONDS)
-                .setConstraints(
-                    Constraints
-                        .Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build())
-                .setInputData(
-                    Data
-                        .Builder()
-                        .putInt(HABIT_ID, id)
-                        .build()
-                )
-                .build()
-        )
-
     fun doneInc() {
         habitLocal.value?.apply {
             countDone++

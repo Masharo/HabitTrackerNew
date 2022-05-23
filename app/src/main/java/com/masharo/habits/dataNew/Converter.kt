@@ -1,6 +1,7 @@
 package com.masharo.habits.dataNew
 
 import com.masharo.habits.dataNew.model.local.HabitData
+import com.masharo.habits.dataNew.model.remote.HabitRemote
 import com.masharo.habits.domain.model.Habit
 
 fun domainToDataHabit(habit: Habit) = HabitData(
@@ -29,4 +30,30 @@ fun dataToDomainHabit(habitData: HabitData) = Habit(
         period = habitData.period,
         countDone = habitData.countDone,
         color = habitData.color
+    )
+
+fun remoteToDataHabit(habitRemote: HabitRemote) = HabitData(
+        idRemote = habitRemote.questId,
+        dateRemote = habitRemote.questDate,
+        title = habitRemote.questTitle,
+        description = habitRemote.questDescription,
+        priority = habitRemote.questPriority,
+        type = habitRemote.questType,
+        count = habitRemote.questCount,
+        period = habitRemote.questFrequency,
+        countDone = habitRemote.questDoneDates.size,
+        color = habitRemote.questColor
+    )
+
+fun dataToRemoteHabit(habitData: HabitData) = HabitRemote(
+        questId = habitData.idRemote ?: "",
+        questTitle = habitData.title,
+        questDescription = habitData.description,
+        questCount = habitData.count,
+        questDoneDates = arrayListOf(),
+        questFrequency = habitData.period,
+        questPriority = habitData.priority,
+        questType = habitData.type,
+        questDate = habitData.dateRemote,
+        questColor = habitData.color
     )

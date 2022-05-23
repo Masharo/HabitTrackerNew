@@ -5,6 +5,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.masharo.habits.dataNew.database.HabitDatabase
 import com.masharo.habits.dataNew.remote.HabitApi
+import com.masharo.habits.dataNew.remoteToDataHabit
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -21,7 +22,7 @@ class UpdateAllHabitWorker(context: Context, workerParams: WorkerParameters):
 
         if (response.isSuccessful) {
             response.body()?.let {
-                db.getHabitDao().addAll(*it.toTypedArray())
+                db.getHabitDao().addAll(*it.map { habit ->  remoteToDataHabit(habit) }.toTypedArray())
             }
         }
 

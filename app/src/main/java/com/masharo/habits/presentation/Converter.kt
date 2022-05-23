@@ -7,6 +7,7 @@ fun domainToPresentationHabit(habit: Habit) = HabitPresentation()
     .apply {
         id = habit.id
         title = habit.title
+        idRemote = habit.idRemote ?: ""
         description = habit.description
         priority = habit.priority
         type = habit.type
@@ -17,6 +18,7 @@ fun domainToPresentationHabit(habit: Habit) = HabitPresentation()
 
 fun presentationToDomainHabit(habitPresentation: HabitPresentation) = Habit(
     id = habitPresentation.id,
+    idRemote = habitPresentation.idRemote,
     dateRemote = habitPresentation.dateRemote,
     title = habitPresentation.title,
     description = habitPresentation.description,

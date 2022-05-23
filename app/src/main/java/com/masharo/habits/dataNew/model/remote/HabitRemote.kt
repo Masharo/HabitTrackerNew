@@ -3,6 +3,7 @@ package com.masharo.habits.dataNew.model.remote
 import com.google.gson.annotations.SerializedName
 
 data class HabitRemote(
+
     @SerializedName("color")
     val questColor: Int,
 
@@ -32,4 +33,5 @@ data class HabitRemote(
 
     @SerializedName("uid")
     val questId: String
+
 )
