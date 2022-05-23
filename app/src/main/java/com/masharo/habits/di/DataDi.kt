@@ -2,12 +2,12 @@ package com.masharo.habits.di
 
 import com.masharo.habits.BASE_URL
 import com.masharo.habits.TOKEN
-import com.masharo.habits.dataNew.database.DBHabitRepositoryImpl
+import com.masharo.habits.dataNew.repository.DBHabitRepositoryImpl
 import com.masharo.habits.dataNew.database.HabitDatabase
 import com.masharo.habits.dataNew.remote.HabitApi
-import com.masharo.habits.dataNew.remote.RemoteHabitRepositoryImpl
-import com.masharo.habits.domain.DBHabitRepository
-import com.masharo.habits.domain.RemoteHabitRepository
+import com.masharo.habits.dataNew.repository.RemoteHabitRepositoryImpl
+import com.masharo.habits.domain.repository.DBHabitRepository
+import com.masharo.habits.domain.repository.RemoteHabitRepository
 import com.masharo.habits.domain.usecase.*
 import kotlinx.coroutines.Dispatchers
 import okhttp3.Interceptor

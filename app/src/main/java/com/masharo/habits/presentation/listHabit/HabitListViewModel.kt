@@ -1,7 +1,7 @@
 package com.masharo.habits.presentation.listHabit
 
 import androidx.lifecycle.*
-import com.masharo.habits.dataNew.HabitListFilter
+import com.masharo.habits.presentation.HabitListFilter
 import com.masharo.habits.domain.usecase.GetAllHabitsUseCase
 import com.masharo.habits.domain.usecase.LoadHabitsUseCase
 import com.masharo.habits.presentation.domainToPresentationHabit

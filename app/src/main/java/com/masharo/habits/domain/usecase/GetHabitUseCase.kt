@@ -1,6 +1,6 @@
 package com.masharo.habits.domain.usecase
 
-import com.masharo.habits.domain.DBHabitRepository
+import com.masharo.habits.domain.repository.DBHabitRepository
 import com.masharo.habits.domain.model.Habit
 import com.masharo.habits.domain.model.Id
 import kotlinx.coroutines.CoroutineDispatcher

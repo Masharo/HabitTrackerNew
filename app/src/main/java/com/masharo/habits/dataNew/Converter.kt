@@ -2,6 +2,7 @@ package com.masharo.habits.dataNew
 
 import com.masharo.habits.dataNew.model.local.HabitData
 import com.masharo.habits.dataNew.model.remote.HabitRemote
+import com.masharo.habits.dataNew.model.remote.ParamHabitPutRemote
 import com.masharo.habits.domain.model.Habit
 
 fun domainToDataHabit(habit: Habit) = HabitData(
@@ -57,3 +58,21 @@ fun dataToRemoteHabit(habitData: HabitData) = HabitRemote(
         questDate = habitData.dateRemote,
         questColor = habitData.color
     )
+
+fun domainToRemoteHabit(habit: Habit) = HabitRemote(
+        questId = habit.idRemote ?: "",
+        questTitle = habit.title,
+        questDescription = habit.description,
+        questCount = habit.count,
+        questDoneDates = arrayListOf(),
+        questFrequency = habit.period,
+        questPriority = habit.priority,
+        questType = habit.type,
+        questDate = habit.dateRemote,
+        questColor = habit.color
+   )
+
+fun domainHabitToParamPutRemote(habit: Habit) = ParamHabitPutRemote(
+        idData = habit.id,
+        idRemote = habit.idRemote
+   )
