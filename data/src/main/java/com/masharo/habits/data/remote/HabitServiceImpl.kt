@@ -2,7 +2,7 @@ package com.masharo.habits.data.remote
 
 import android.content.Context
 import androidx.work.*
-import com.masharo.habits.HABIT_ID
+import com.masharo.habits.data.HABIT_ID
 import com.masharo.habits.data.model.local.IdData
 import com.masharo.habits.data.model.remote.ParamHabitPutRemote
 import com.masharo.habits.data.remote.worker.AddHabitWorker

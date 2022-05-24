@@ -3,7 +3,7 @@ package com.masharo.habits.data.remote.worker
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.masharo.habits.HABIT_ID
+import com.masharo.habits.data.HABIT_ID
 import com.masharo.habits.data.dataToRemoteHabit
 import com.masharo.habits.data.database.HabitDatabase
 import com.masharo.habits.data.remote.HabitApi

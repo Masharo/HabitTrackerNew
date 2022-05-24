@@ -2,13 +2,13 @@ package com.masharo.habits.di
 
 import com.masharo.habits.BASE_URL
 import com.masharo.habits.TOKEN
-import com.masharo.habits.data.repository.DBHabitRepositoryImpl
 import com.masharo.habits.data.database.HabitDatabase
 import com.masharo.habits.data.database.HabitStorage
 import com.masharo.habits.data.database.HabitStorageImpl
 import com.masharo.habits.data.remote.HabitApi
 import com.masharo.habits.data.remote.HabitService
 import com.masharo.habits.data.remote.HabitServiceImpl
+import com.masharo.habits.data.repository.DBHabitRepositoryImpl
 import com.masharo.habits.data.repository.RemoteHabitRepositoryImpl
 import com.masharo.habits.domain.repository.DBHabitRepository
 import com.masharo.habits.domain.repository.RemoteHabitRepository
@@ -20,7 +20,6 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 val dataModule = module {
