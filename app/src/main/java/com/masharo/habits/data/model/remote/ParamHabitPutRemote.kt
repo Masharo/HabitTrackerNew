@@ -1,4 +1,4 @@
-package com.masharo.habits.dataNew.model.remote
+package com.masharo.habits.data.model.remote
 
 data class ParamHabitPutRemote(
 

@@ -2,14 +2,14 @@ package com.masharo.habits.di
 
 import com.masharo.habits.BASE_URL
 import com.masharo.habits.TOKEN
-import com.masharo.habits.dataNew.repository.DBHabitRepositoryImpl
-import com.masharo.habits.dataNew.database.HabitDatabase
-import com.masharo.habits.dataNew.database.HabitStorage
-import com.masharo.habits.dataNew.database.HabitStorageImpl
-import com.masharo.habits.dataNew.remote.HabitApi
-import com.masharo.habits.dataNew.remote.HabitService
-import com.masharo.habits.dataNew.remote.HabitServiceImpl
-import com.masharo.habits.dataNew.repository.RemoteHabitRepositoryImpl
+import com.masharo.habits.data.repository.DBHabitRepositoryImpl
+import com.masharo.habits.data.database.HabitDatabase
+import com.masharo.habits.data.database.HabitStorage
+import com.masharo.habits.data.database.HabitStorageImpl
+import com.masharo.habits.data.remote.HabitApi
+import com.masharo.habits.data.remote.HabitService
+import com.masharo.habits.data.remote.HabitServiceImpl
+import com.masharo.habits.data.repository.RemoteHabitRepositoryImpl
 import com.masharo.habits.domain.repository.DBHabitRepository
 import com.masharo.habits.domain.repository.RemoteHabitRepository
 import com.masharo.habits.domain.usecase.*
@@ -82,7 +82,6 @@ private fun retrofit(okHttpClient: OkHttpClient) = Retrofit
     .Builder()
     .baseUrl(BASE_URL)
     .client(okHttpClient)
-    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 

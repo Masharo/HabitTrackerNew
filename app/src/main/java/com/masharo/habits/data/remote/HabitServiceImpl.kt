@@ -1,13 +1,13 @@
-package com.masharo.habits.dataNew.remote
+package com.masharo.habits.data.remote
 
 import android.content.Context
 import androidx.work.*
 import com.masharo.habits.HABIT_ID
-import com.masharo.habits.dataNew.model.local.IdData
-import com.masharo.habits.dataNew.model.remote.ParamHabitPutRemote
-import com.masharo.habits.dataNew.remote.worker.AddHabitWorker
-import com.masharo.habits.dataNew.remote.worker.SetHabitWorker
-import com.masharo.habits.dataNew.remote.worker.UpdateAllHabitWorker
+import com.masharo.habits.data.model.local.IdData
+import com.masharo.habits.data.model.remote.ParamHabitPutRemote
+import com.masharo.habits.data.remote.worker.AddHabitWorker
+import com.masharo.habits.data.remote.worker.SetHabitWorker
+import com.masharo.habits.data.remote.worker.UpdateAllHabitWorker
 import java.util.concurrent.TimeUnit
 
 class HabitServiceImpl(

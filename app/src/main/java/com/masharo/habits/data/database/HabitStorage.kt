@@ -1,7 +1,7 @@
-package com.masharo.habits.dataNew.database
+package com.masharo.habits.data.database
 
-import com.masharo.habits.dataNew.model.local.HabitData
-import com.masharo.habits.dataNew.model.local.IdData
+import com.masharo.habits.data.model.local.HabitData
+import com.masharo.habits.data.model.local.IdData
 import kotlinx.coroutines.flow.Flow
 
 interface HabitStorage {

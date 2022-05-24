@@ -1,7 +1,7 @@
-package com.masharo.habits.dataNew.remote
+package com.masharo.habits.data.remote
 
-import com.masharo.habits.dataNew.model.local.IdData
-import com.masharo.habits.dataNew.model.remote.ParamHabitPutRemote
+import com.masharo.habits.data.model.local.IdData
+import com.masharo.habits.data.model.remote.ParamHabitPutRemote
 
 interface HabitService {
 

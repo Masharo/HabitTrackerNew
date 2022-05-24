@@ -1,10 +1,9 @@
-package com.masharo.habits.dataNew.repository
+package com.masharo.habits.data.repository
 
-import com.masharo.habits.dataNew.dataToDomainHabit
-import com.masharo.habits.dataNew.database.HabitDatabase
-import com.masharo.habits.dataNew.database.HabitStorage
-import com.masharo.habits.dataNew.domainToDataHabit
-import com.masharo.habits.dataNew.domainToDataId
+import com.masharo.habits.data.dataToDomainHabit
+import com.masharo.habits.data.database.HabitStorage
+import com.masharo.habits.data.domainToDataHabit
+import com.masharo.habits.data.domainToDataId
 import com.masharo.habits.domain.repository.DBHabitRepository
 import com.masharo.habits.domain.model.Habit
 import com.masharo.habits.domain.model.Id

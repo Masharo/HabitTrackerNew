@@ -1,8 +1,8 @@
-package com.masharo.habits.dataNew.repository
+package com.masharo.habits.data.repository
 
-import com.masharo.habits.dataNew.domainHabitToParamPutRemote
-import com.masharo.habits.dataNew.domainToDataId
-import com.masharo.habits.dataNew.remote.HabitService
+import com.masharo.habits.data.domainHabitToParamPutRemote
+import com.masharo.habits.data.domainToDataId
+import com.masharo.habits.data.remote.HabitService
 import com.masharo.habits.domain.model.Habit
 import com.masharo.habits.domain.model.Id
 import com.masharo.habits.domain.repository.RemoteHabitRepository
