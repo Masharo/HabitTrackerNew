@@ -1,33 +1,32 @@
 package com.masharo.habits.dataNew.repository
 
-import androidx.work.*
-import com.masharo.habits.dataNew.domainToRemoteHabit
-import com.masharo.habits.dataNew.remote.HabitServiceImpl
-import com.masharo.habits.dataNew.remote.worker.AddHabitWorker
-import com.masharo.habits.dataNew.remote.worker.SetHabitWorker
-import com.masharo.habits.dataNew.remote.worker.UpdateAllHabitWorker
+import com.masharo.habits.dataNew.domainHabitToParamPutRemote
+import com.masharo.habits.dataNew.domainToDataId
+import com.masharo.habits.dataNew.remote.HabitService
 import com.masharo.habits.domain.model.Habit
 import com.masharo.habits.domain.model.Id
 import com.masharo.habits.domain.repository.RemoteHabitRepository
 
 class RemoteHabitRepositoryImpl(
-    private val service: HabitServiceImpl
+    private val service: HabitService
 ): RemoteHabitRepository {
 
     override suspend fun incGoneCountHabitRemote(id: Id) {
-        TODO("Not yet implemented")
+        service.incGoneCountHabitRemote(domainToDataId(id))
     }
 
     override suspend fun putHabitRemote(habit: Habit) {
-
+        service.putHabitRemote(
+            domainHabitToParamPutRemote(habit)
+        )
     }
 
     override suspend fun deleteHabitRemote(id: Id) {
-        TODO("Not yet implemented")
+        service.deleteHabitRemote(domainToDataId(id))
     }
 
     override suspend fun updateHabits() {
-
+        service.updateHabits()
     }
 
 }

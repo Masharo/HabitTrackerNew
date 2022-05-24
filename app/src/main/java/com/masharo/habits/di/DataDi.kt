@@ -4,7 +4,11 @@ import com.masharo.habits.BASE_URL
 import com.masharo.habits.TOKEN
 import com.masharo.habits.dataNew.repository.DBHabitRepositoryImpl
 import com.masharo.habits.dataNew.database.HabitDatabase
+import com.masharo.habits.dataNew.database.HabitStorage
+import com.masharo.habits.dataNew.database.HabitStorageImpl
 import com.masharo.habits.dataNew.remote.HabitApi
+import com.masharo.habits.dataNew.remote.HabitService
+import com.masharo.habits.dataNew.remote.HabitServiceImpl
 import com.masharo.habits.dataNew.repository.RemoteHabitRepositoryImpl
 import com.masharo.habits.domain.repository.DBHabitRepository
 import com.masharo.habits.domain.repository.RemoteHabitRepository
@@ -26,9 +30,17 @@ val dataModule = module {
     factory { retrofit(get()) }
     single { remoteApi(get()) }
 
-    factory<RemoteHabitRepository> { RemoteHabitRepositoryImpl(get(), get()) }
-
     single { HabitDatabase.instance(get()) }
+
+    factory<HabitService> {
+        HabitServiceImpl(get())
+    }
+
+    factory<HabitStorage> {
+        HabitStorageImpl(get())
+    }
+
+    factory<RemoteHabitRepository> { RemoteHabitRepositoryImpl(get()) }
     factory<DBHabitRepository> { DBHabitRepositoryImpl(get()) }
 
     factory<LoadHabitsUseCase> { LoadHabitsUseCase(get(), Dispatchers.IO) }

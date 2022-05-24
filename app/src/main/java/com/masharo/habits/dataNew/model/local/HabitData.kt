@@ -3,7 +3,6 @@ package com.masharo.habits.dataNew.model.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "habits")
 data class HabitData(
@@ -13,11 +12,9 @@ data class HabitData(
     val id: Int? = null,
 
     @ColumnInfo("_id_remote")
-    @SerializedName("uid")
     var idRemote: String?,
 
     @ColumnInfo("date_remote")
-    @SerializedName("date")
     val dateRemote: Int,
 
     @ColumnInfo("title")
@@ -36,7 +33,6 @@ data class HabitData(
     val count: Int,
 
     @ColumnInfo("period")
-    @SerializedName("frequency")
     val period: Int,
 
     @ColumnInfo("count_done")

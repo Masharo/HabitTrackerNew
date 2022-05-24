@@ -3,9 +3,7 @@ package com.masharo.habits.dataNew.remote
 import android.content.Context
 import androidx.work.*
 import com.masharo.habits.HABIT_ID
-import com.masharo.habits.dataNew.domainToRemoteHabit
-import com.masharo.habits.dataNew.model.local.IdRemote
-import com.masharo.habits.dataNew.model.remote.HabitRemote
+import com.masharo.habits.dataNew.model.local.IdData
 import com.masharo.habits.dataNew.model.remote.ParamHabitPutRemote
 import com.masharo.habits.dataNew.remote.worker.AddHabitWorker
 import com.masharo.habits.dataNew.remote.worker.SetHabitWorker
@@ -16,7 +14,7 @@ class HabitServiceImpl(
     private val context: Context
 ): HabitService {
 
-    override suspend fun incGoneCountHabitRemote(id: IdRemote) {
+    override suspend fun incGoneCountHabitRemote(id: IdData) {
         TODO("Not yet implemented")
     }
 
@@ -40,7 +38,7 @@ class HabitServiceImpl(
         }
     }
 
-    override suspend fun deleteHabitRemote(id: IdRemote) {
+    override suspend fun deleteHabitRemote(id: IdData) {
         TODO("Not yet implemented")
     }
 

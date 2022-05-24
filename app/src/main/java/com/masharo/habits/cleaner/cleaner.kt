@@ -1,7 +1,7 @@
 package com.masharo.habits.cleaner
 
 import android.util.Log
-import com.masharo.habits.dataNew.model.local.IdRemote
+import com.masharo.habits.dataNew.model.remote.IdRemote
 import com.masharo.habits.dataNew.model.remote.HabitRemote
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

@@ -1,9 +1,11 @@
 package com.masharo.habits.dataNew
 
 import com.masharo.habits.dataNew.model.local.HabitData
+import com.masharo.habits.dataNew.model.local.IdData
 import com.masharo.habits.dataNew.model.remote.HabitRemote
 import com.masharo.habits.dataNew.model.remote.ParamHabitPutRemote
 import com.masharo.habits.domain.model.Habit
+import com.masharo.habits.domain.model.Id
 
 fun domainToDataHabit(habit: Habit) = HabitData(
         id = habit.id,
@@ -75,4 +77,12 @@ fun domainToRemoteHabit(habit: Habit) = HabitRemote(
 fun domainHabitToParamPutRemote(habit: Habit) = ParamHabitPutRemote(
         idData = habit.id,
         idRemote = habit.idRemote
+   )
+
+fun domainToDataId(id: Id) = IdData(
+        id = id.id
+   )
+
+fun dataToDomainId(id: IdData) = Id(
+        id = id.id
    )
