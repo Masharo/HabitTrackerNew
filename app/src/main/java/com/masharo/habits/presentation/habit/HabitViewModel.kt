@@ -10,8 +10,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.work.*
-import com.masharo.habits.HABIT_ID
 import com.masharo.habits.domain.model.Id
 import com.masharo.habits.domain.usecase.AddHabitUseCase
 import com.masharo.habits.domain.usecase.EditHabitUseCase
@@ -21,7 +19,6 @@ import com.masharo.habits.presentation.model.HabitPresentation
 import com.masharo.habits.presentation.presentationToDomainHabit
 import kotlinx.coroutines.launch
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class HabitViewModel(
     private val context: Context,
