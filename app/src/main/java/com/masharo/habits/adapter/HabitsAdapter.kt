@@ -3,27 +3,23 @@ package com.masharo.habits.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.ObservableBoolean
 import androidx.recyclerview.widget.RecyclerView
 import com.masharo.habits.R
-import com.masharo.habits.presentation.model.HabitPresentation
 import com.masharo.habits.databinding.HabitItemBinding
+import com.masharo.habits.presentation.model.HabitPresentation
 
 class HabitsAdapter(
     var habits: List<HabitPresentation>? = null,
-    private val onClick: (id: Int) -> Unit):
-    RecyclerView.Adapter<HabitsAdapter.HabitsViewHolder>() {
+    private val onClickItem: (id: Int) -> Unit,
+    private val onClickDone: (habit: HabitPresentation) -> Unit
+): RecyclerView.Adapter<HabitsAdapter.HabitsViewHolder>() {
 
     class HabitsViewHolder(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
-        var isDescriptionOpen = ObservableBoolean(false)
         val bind: HabitItemBinding = HabitItemBinding.bind(itemView)
 
-        fun descriptionOpenChange() {
-            isDescriptionOpen.set(!isDescriptionOpen.get())
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitsViewHolder {
@@ -40,7 +36,13 @@ class HabitsAdapter(
 
             holder.itemView.setOnClickListener {
                 habit.id?.let {
-                    onClick(it)
+                    onClickItem(it)
+                }
+            }
+
+            holder.bind.imageButtonHabitItemOpenDescription.setOnClickListener {
+                habit.id?.let {
+                    onClickDone(habit)
                 }
             }
 

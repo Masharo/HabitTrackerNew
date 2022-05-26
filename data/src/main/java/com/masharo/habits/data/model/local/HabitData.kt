@@ -36,7 +36,7 @@ data class HabitData(
     val period: Int,
 
     @ColumnInfo("count_done")
-    val countDone: Int,
+    var countDone: Int,
 
     @ColumnInfo("color")
     val color: Int

@@ -2,10 +2,12 @@ package com.masharo.habits.data
 
 import com.masharo.habits.data.model.local.HabitData
 import com.masharo.habits.data.model.local.IdData
+import com.masharo.habits.data.model.remote.DoneRemote
 import com.masharo.habits.data.model.remote.HabitRemote
 import com.masharo.habits.data.model.remote.ParamHabitPutRemote
 import com.masharo.habits.domain.model.Habit
 import com.masharo.habits.domain.model.Id
+import java.util.*
 
 fun domainToDataHabit(habit: Habit) = HabitData(
         id = habit.id,
@@ -85,4 +87,9 @@ fun domainToDataId(id: Id) = IdData(
 
 fun dataToDomainId(id: IdData) = Id(
         id = id.id
+   )
+
+fun dataHabitToDoneRemote(habit: HabitData) = DoneRemote(
+        id = habit.idRemote ?: throw NullPointerException("dataHabitToDoneRemote: idRemote is null"),
+        date = (Calendar.getInstance().timeInMillis * 0.001).toInt()
    )

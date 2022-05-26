@@ -22,11 +22,13 @@ class AppModule(val context: Context) {
     @Provides
     fun provideHabitListViewModelFactory(
         loadHabitsUseCase: LoadHabitsUseCase,
-        getAllHabitsUseCase: GetAllHabitsUseCase
+        getAllHabitsUseCase: GetAllHabitsUseCase,
+        incDoneCountHabitUseCase: IncDoneCountHabitUseCase
     ): HabitListViewModelFactory {
         return HabitListViewModelFactory(
             loadHabitsUseCase = loadHabitsUseCase,
-            getAllHabitsUseCase = getAllHabitsUseCase
+            getAllHabitsUseCase = getAllHabitsUseCase,
+            incDoneCountHabitUseCase = incDoneCountHabitUseCase
         )
     }
 

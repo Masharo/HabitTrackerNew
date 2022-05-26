@@ -89,16 +89,6 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }
 
-//DI
-dependencies {
-//    def koin_version = "3.2.0-beta-1"
-//
-//    implementation "io.insert-koin:koin-core:$koin_version"
-//    implementation "io.insert-koin:koin-android:$koin_version"
-
-//    implementation "io.insert-koin:koin-test:$koin_version"
-}
-
 //Remote
 dependencies {
     def okHttp_version = '4.8.0'
@@ -126,11 +116,7 @@ dependencies {
     implementation "androidx.work:work-multiprocess:$work_version"
 }
 
-//dependencies {
-//    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-//}
-
+//DI
 dependencies {
     def dagger_version = "2.42"
 

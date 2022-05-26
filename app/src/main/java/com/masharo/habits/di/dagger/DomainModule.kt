@@ -63,4 +63,16 @@ class DomainModule {
         )
     }
 
+    @Provides
+    fun provideIncDoneCountHabitUseCase(
+        dbRepository: DBHabitRepository,
+        remoteRepository: RemoteHabitRepository
+    ): IncDoneCountHabitUseCase {
+        return IncDoneCountHabitUseCase(
+            dbRepository = dbRepository,
+            remoteRepository = remoteRepository,
+            dispatcher = Dispatchers.IO
+        )
+    }
+
 }

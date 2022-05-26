@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -52,14 +53,24 @@ class HabitListFragment : Fragment() {
 
         type = arguments?.getInt(TYPE_HABIT, 0) ?: 0
 
-        adapter = HabitsAdapter(null) {
-            view.findNavController().navigate(R.id.habitFragment, bundleOf(Pair(ARG_ID, it)))
-        }
+        adapter = HabitsAdapter(
+            habits = null,
+            onClickItem = {
+                view.findNavController().navigate(R.id.habitFragment, bundleOf(Pair(ARG_ID, it)))
+            },
+            onClickDone = {
+                vm.incDoneCount(it)
+            }
+        )
 
         bind.adapter = adapter
 
         vm.getChangeHabits().observe(viewLifecycleOwner) {
             habitListChange( it )
+        }
+
+        vm.toast.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), getString(it.first, it.second), Toast.LENGTH_SHORT).show()
         }
 
         vm.habits.observe(viewLifecycleOwner) {

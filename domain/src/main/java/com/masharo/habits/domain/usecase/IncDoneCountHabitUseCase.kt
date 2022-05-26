@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
-class IncGoneCountHabitUseCase(private val dbRepository: DBHabitRepository,
+class IncDoneCountHabitUseCase(private val dbRepository: DBHabitRepository,
                                private val remoteRepository: RemoteHabitRepository,
                                private val dispatcher: CoroutineDispatcher
 ) {

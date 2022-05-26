@@ -6,6 +6,7 @@ import com.masharo.habits.data.HABIT_ID
 import com.masharo.habits.data.model.local.IdData
 import com.masharo.habits.data.model.remote.ParamHabitPutRemote
 import com.masharo.habits.data.remote.worker.AddHabitWorker
+import com.masharo.habits.data.remote.worker.IncDoneCountHabitWorker
 import com.masharo.habits.data.remote.worker.SetHabitWorker
 import com.masharo.habits.data.remote.worker.UpdateAllHabitWorker
 import java.util.concurrent.TimeUnit
@@ -15,8 +16,14 @@ class HabitServiceImpl(
 ): HabitService {
 
     override suspend fun incGoneCountHabitRemote(id: IdData) {
-        TODO("Not yet implemented")
+        startWorker(
+            addIdParam(
+                createBuilder<IncDoneCountHabitWorker>(),
+                id.id
+            )
+        )
     }
+
 
     override suspend fun putHabitRemote(param: ParamHabitPutRemote) {
         param.idData?.let {

@@ -72,7 +72,8 @@
                 android:textSize="25sp"
                 android:text="@{habit.title}"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/guideline_habitItem_vertical23" />
+                app:layout_constraintLeft_toRightOf="@id/guideline_habitItem_vertical23"
+                app:layout_constraintRight_toLeftOf="@id/imageButton_habitItem_openDescription" />
 
             <TextView
                 android:id="@+id/textView_habitItem_priority"
@@ -81,7 +82,8 @@
                 android:textColor="@color/color_text_des"
                 android:text="@{SupportDataBinding.INSTANCE.getPriority(habit, context)}"
                 app:layout_constraintLeft_toLeftOf="@id/guideline_habitItem_vertical23"
-                app:layout_constraintTop_toBottomOf="@id/textView_habitItem_title" />
+                app:layout_constraintTop_toBottomOf="@id/textView_habitItem_title"
+                app:layout_constraintRight_toLeftOf="@id/imageButton_habitItem_openDescription" />
 
             <TextView
                 android:id="@+id/textView_habitItem_cycle"
@@ -93,32 +95,20 @@
                 android:text="@{SupportDataBinding.INSTANCE.getPeriod(habit, context)}"
                 app:layout_constraintTop_toBottomOf="@id/textView_habitItem_priority"
                 app:layout_constraintLeft_toRightOf="@id/guideline_habitItem_vertical23"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/imageButton_habitItem_openDescription" />
 
             <ImageButton
                 android:id="@+id/imageButton_habitItem_openDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@{habit.color}"
-                android:src="@drawable/ic_baseline_expand_more_24"
-                android:onClick="@{() -> holder.descriptionOpenChange()}"
+                android:src="@drawable/ic_baseline_check_box_24"
+                android:textSize="24sp"
+                android:layout_marginRight="8dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
-
-            <TextView
-                android:id="@+id/textView_habitItem_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:textSize="18sp"
-                android:minHeight="0dp"
-                android:text="@{habit.description}"
-                android:visibility="@{holder.descriptionOpen ? View.VISIBLE : View.GONE}"
-                app:layout_constraintTop_toBottomOf="@id/textView_habitItem_cycle"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

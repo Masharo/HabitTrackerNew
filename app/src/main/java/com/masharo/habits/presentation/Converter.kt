@@ -1,6 +1,7 @@
 package com.masharo.habits.presentation
 
 import com.masharo.habits.domain.model.Habit
+import com.masharo.habits.domain.model.Id
 import com.masharo.habits.presentation.model.HabitPresentation
 
 fun domainToPresentationHabit(habit: Habit) = HabitPresentation()
@@ -28,4 +29,8 @@ fun presentationToDomainHabit(habitPresentation: HabitPresentation) = Habit(
     color = habitPresentation.color,
     count = habitPresentation.count,
     countDone = habitPresentation.countDone
+)
+
+fun presentationToDomainId(id: Int) = Id(
+    id = id
 )

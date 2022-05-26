@@ -18,11 +18,11 @@ class UpdateAllHabitWorker(context: Context, workerParams: WorkerParameters):
 
     override suspend fun doWork(): Result {
 
-        db.getHabitDao().deleteAll()
         val response = api.getHabits()
 
         if (response.isSuccessful) {
             response.body()?.let {
+                db.getHabitDao().deleteAll()
                 db.getHabitDao().addAll(*it.map { habit ->  remoteToDataHabit(habit) }.toTypedArray())
             }
         }

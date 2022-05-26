@@ -60,4 +60,9 @@
 
     <string name="hsv">(%d %d %d) :HSV</string>
     <string name="rgb">RGB: (%d %d %d)</string>
+    
+    <string name="bad_min">Можете выполнить еще %d раз</string>
+    <string name="bad_max">Хватит это делать</string>
+    <string name="good_min">Стоит выполнить еще %d раз</string>
+    <string name="good_max">You are breathtaking!</string>
 </resources>
