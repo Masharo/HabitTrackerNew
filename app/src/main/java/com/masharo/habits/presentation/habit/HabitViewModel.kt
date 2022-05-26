@@ -1,6 +1,5 @@
 package com.masharo.habits.presentation.habit
 
-import android.content.Context
 import android.view.View
 import androidx.core.view.drawToBitmap
 import androidx.databinding.Bindable
@@ -21,8 +20,6 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class HabitViewModel(
-    private val context: Context,
-    private val habitId: Int?,
     private val getHabitUseCase: GetHabitUseCase,
     private val addHabitUseCase: AddHabitUseCase,
     private val editHabitUseCase: EditHabitUseCase
@@ -34,10 +31,10 @@ class HabitViewModel(
     @Bindable
     val habit: LiveData<HabitPresentation> = habitLocal
 
-    init {
-        habitId?.let {
+    fun setHabit(id: Int) {
+        habitLocal.value?.id ?: run {
             viewModelScope.launch {
-                getHabitUseCase.execute(Id(it))?.let { habit->
+                getHabitUseCase.execute(Id(id))?.let { habit ->
                     habitLocal.postValue(domainToPresentationHabit(habit))
                 }
             }

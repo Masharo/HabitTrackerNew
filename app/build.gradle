@@ -60,7 +60,6 @@ dependencies {
     def lifecycle_version = "2.5.0-alpha04"
 
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.activity:activity-ktx:1.4.0"
 }
 
@@ -92,10 +91,10 @@ dependencies {
 
 //DI
 dependencies {
-    def koin_version = "3.2.0-beta-1"
-
-    implementation "io.insert-koin:koin-core:$koin_version"
-    implementation "io.insert-koin:koin-android:$koin_version"
+//    def koin_version = "3.2.0-beta-1"
+//
+//    implementation "io.insert-koin:koin-core:$koin_version"
+//    implementation "io.insert-koin:koin-android:$koin_version"
 
 //    implementation "io.insert-koin:koin-test:$koin_version"
 }

@@ -7,14 +7,15 @@ import com.masharo.habits.data.HABIT_ID
 import com.masharo.habits.data.dataToRemoteHabit
 import com.masharo.habits.data.database.HabitDatabase
 import com.masharo.habits.data.remote.HabitApi
+import com.masharo.habits.data.remote.HabitRemote
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class SetHabitWorker(context: Context, workerParams: WorkerParameters):
     CoroutineWorker(context, workerParams), KoinComponent {
 
-    private val db: HabitDatabase by inject()
-    private val api: HabitApi by inject()
+    private val db: HabitDatabase = HabitDatabase.instance(context)
+    private val api: HabitApi = HabitRemote.getApi()
     
     override suspend fun doWork(): Result {
 

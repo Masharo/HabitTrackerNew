@@ -15,7 +15,9 @@ abstract class HabitDatabase: RoomDatabase() {
         private const val NAME_DB = "habit_db"
         @Volatile
         private var db_local: HabitDatabase? = null
-        private val db: HabitDatabase by lazy { db_local ?: throw Exception("Ошибка инициализации БД") }
+        private val db: HabitDatabase by lazy(LazyThreadSafetyMode.NONE) {
+            db_local ?: throw Exception("Ошибка инициализации БД")
+        }
 
         fun instance(context: Context): HabitDatabase {
             db_local ?: run {

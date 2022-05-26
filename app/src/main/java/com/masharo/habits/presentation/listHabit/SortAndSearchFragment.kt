@@ -10,15 +10,32 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.masharo.habits.R
-import com.masharo.habits.presentation.HabitListFilter
+import com.masharo.habits.app.App
 import com.masharo.habits.databinding.FragmentSortAndSearchBinding
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import com.masharo.habits.presentation.HabitListFilter
+import javax.inject.Inject
 
 class SortAndSearchFragment : Fragment() {
 
     private lateinit var bind: FragmentSortAndSearchBinding
-    private val vm: HabitListViewModel by sharedViewModel()
+    //    private val vm: HabitListViewModel by sharedViewModel()
+    @Inject
+    lateinit var vmFactory: HabitListViewModelFactory
+    private val vm: HabitListViewModel by lazy {
+        ViewModelProvider(activity?.viewModelStore ?: throw NullPointerException(
+            "Activity is null. SortAndSearchFragment"
+        ), vmFactory)
+        .get(HabitListViewModel::class.java)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.apply {
+            (applicationContext as App).appComponent.inject(this@SortAndSearchFragment)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

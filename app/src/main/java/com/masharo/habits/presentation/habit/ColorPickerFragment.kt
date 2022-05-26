@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import com.masharo.habits.R
 import com.masharo.habits.databinding.FragmentColorPickerBinding
-import org.koin.androidx.viewmodel.ext.android.getViewModel
+import javax.inject.Inject
 
 const val ARG_COLOR = "color"
 const val COUNT_RECTANGLE: Int = 16
@@ -15,8 +18,12 @@ const val COUNT_RECTANGLE: Int = 16
 class ColorPickerFragment: DialogFragment() {
 
     private lateinit var bind: FragmentColorPickerBinding
+    @Inject
+    lateinit var vmFactory: HabitViewModelFactory
     private val vm: HabitViewModel by lazy {
-        requireParentFragment().getViewModel()
+        ViewModelProvider(
+            requireParentFragment()
+        ).get(HabitViewModel::class.java)
     }
 
     override fun onCreateView(

@@ -6,13 +6,13 @@ import com.masharo.habits.domain.model.Id
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-class GetHabitUseCase(private val repository: DBHabitRepository,
+class GetHabitUseCase(private val dbRepository: DBHabitRepository,
                       private val dispatcher: CoroutineDispatcher
 ) {
 
     suspend fun execute(id: Id): Habit? =
         withContext(dispatcher) {
-            repository.getHabit(id)
+            dbRepository.getHabit(id)
         }
 
 }

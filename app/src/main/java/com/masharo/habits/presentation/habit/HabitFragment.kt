@@ -7,25 +7,39 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.masharo.habits.R
+import com.masharo.habits.app.App
 import com.masharo.habits.databinding.FragmentHabitBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
+import com.masharo.habits.presentation.listHabit.HabitListViewModel
+import com.masharo.habits.presentation.listHabit.HabitListViewModelFactory
+import javax.inject.Inject
 
 const val ARG_ID = "ID"
 
 class HabitFragment : Fragment() {
 
     private lateinit var bind: FragmentHabitBinding
-    private var habitId: Int? = null
-    private val vm: HabitViewModel by viewModel { parametersOf(habitId) }
+    @Inject lateinit var vmFactory: HabitViewModelFactory
+    private val vm: HabitViewModel by lazy {
+        ViewModelProvider(
+            this,
+            vmFactory
+        ).get(HabitViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            habitId = it.getInt(ARG_ID)
+        activity?.apply {
+            (applicationContext as App).appComponent.inject(this@HabitFragment)
+        }
+
+        arguments?.apply {
+            if (containsKey(ARG_ID)) {
+                vm.setHabit(getInt(ARG_ID))
+            }
         }
 
         childFragmentManager.setFragmentResultListener(ColorPickerFragment.TAG, this) { _, bundle ->
