@@ -16,6 +16,8 @@
         <entry key="app/src/main/res/layout/fragment_color_picker.xml" value="0.29069767441860467" />
         <entry key="app/src/main/res/layout/fragment_habit.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_habit_list.xml" value="0.3578125" />
+        <entry key="app/src/main/res/layout/fragment_info.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/fragment_sort_and_search.xml" value="0.34444444444444444" />
         <entry key="app/src/main/res/layout/fragment_view_pager_habit_list.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/habit_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/habit_spinner_item.xml" value="0.35833333333333334" />
