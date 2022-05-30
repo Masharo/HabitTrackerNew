@@ -15,7 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
     buildFeatures {
@@ -39,15 +39,11 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
 
 //Coroutine
@@ -124,7 +120,24 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
 
+//LOCAL
 dependencies {
     implementation project(path: ':data')
     implementation project(path: ':domain')
+}
+
+//TEST
+dependencies {
+//    androidTestImplementation 'androidx.test:rules:1.4.0'
+//    androidTestImplementation 'androidx.test:runner:1.4.0'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+//    testImplementation 'junit:junit:4.13.2'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    androidTestImplementation 'com.kaspersky.android-components:kaspresso:1.4.1'
+    // Allure support
+    androidTestImplementation "com.kaspersky.android-components:kaspresso-allure-support:1.4.1"
+    // Jetpack Compose support
+    androidTestImplementation "com.kaspersky.android-components:kaspresso-compose-support:1.4.1"
+
 }
