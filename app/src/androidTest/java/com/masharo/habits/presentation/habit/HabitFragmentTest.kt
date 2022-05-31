@@ -1,25 +1,20 @@
 package com.masharo.habits.presentation.habit
 
 import android.Manifest
-import android.view.View
-import android.widget.HorizontalScrollView
-import android.widget.ScrollView
-import androidx.test.espresso.UiController
-import androidx.test.espresso.ViewAction
-import androidx.test.espresso.matcher.ViewMatchers
+import android.widget.LinearLayout
 import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
 import com.kaspersky.kaspresso.screens.KScreen
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import com.masharo.habits.R
+import com.masharo.habits.customize.HorizontalScroll
 import com.masharo.habits.presentation.root.RootHabitActivity
+import io.github.kakaocup.kakao.common.views.KView
 import io.github.kakaocup.kakao.edit.KEditText
 import io.github.kakaocup.kakao.scroll.KScrollView
-import io.github.kakaocup.kakao.scroll.ScrollViewActions
 import io.github.kakaocup.kakao.spinner.KSpinner
 import io.github.kakaocup.kakao.text.KButton
 import io.github.kakaocup.kakao.text.KTextView
-import org.hamcrest.Matchers
 import org.junit.Rule
 import org.junit.Test
 
@@ -138,18 +133,7 @@ class HabitFragmentTest : TestCase() {
                 ColorPickerScreen {
                     scrollColors {
                         isVisible()
-                        view.perform(object : ViewAction {
-                            override fun getDescription() = "Scroll ScrollView to 500 Y position"
-
-                            override fun getConstraints() =
-                                Matchers.allOf(ViewMatchers.isAssignableFrom(HorizontalScrollView::class.java), ViewMatchers.isDisplayed())
-
-                            override fun perform(uiController: UiController?, view: View?) {
-                                if (view is ScrollView) {
-                                    view.scrollTo(-500, 0)
-                                }
-                            }
-                        })
+                        view.perform(HorizontalScroll.scrollToEnd())
                     }
                 }
             }
