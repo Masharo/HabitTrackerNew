@@ -1,4 +1,4 @@
-package com.masharo.habits.data.dataNew
+package com.masharo.habits.data
 
 import org.junit.Test
 

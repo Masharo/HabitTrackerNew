@@ -43,13 +43,13 @@ class HabitListViewModel(
 
             localToastText.value = Pair(
                 if (habit.getTypeEnum() == HabitPresentation.TypeHabit.POSITIVE) {
-                    if (habit.countDone < habit.count) {
+                    if (habit.countDone <= habit.count) {
                         R.string.good_min
                     } else {
                         R.string.good_max
                     }
                 } else {
-                    if (habit.countDone < habit.count) {
+                    if (habit.countDone <= habit.count) {
                         R.string.bad_min
                     } else {
                         R.string.bad_max
