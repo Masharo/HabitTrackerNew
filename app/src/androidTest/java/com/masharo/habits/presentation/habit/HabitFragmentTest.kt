@@ -1,7 +1,8 @@
 package com.masharo.habits.presentation.habit
 
 import android.Manifest
-import android.widget.LinearLayout
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
 import com.kaspersky.kaspresso.screens.KScreen
@@ -9,7 +10,6 @@ import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import com.masharo.habits.R
 import com.masharo.habits.customize.HorizontalScroll
 import com.masharo.habits.presentation.root.RootHabitActivity
-import io.github.kakaocup.kakao.common.views.KView
 import io.github.kakaocup.kakao.edit.KEditText
 import io.github.kakaocup.kakao.scroll.KScrollView
 import io.github.kakaocup.kakao.spinner.KSpinner
@@ -17,6 +17,7 @@ import io.github.kakaocup.kakao.text.KButton
 import io.github.kakaocup.kakao.text.KTextView
 import org.junit.Rule
 import org.junit.Test
+import java.io.File
 
 class HabitFragmentTest : TestCase() {
 
@@ -61,6 +62,8 @@ class HabitFragmentTest : TestCase() {
         override val viewClass: Class<*> = RootHabitActivity::class.java
 
         val scrollColors = KScrollView { withId(R.id.scrollView_colorPicker_colors) }
+        val butOk = KButton { withId(R.id.button_colorPicker_OK) }
+
     }
 
     @get:Rule
@@ -135,7 +138,21 @@ class HabitFragmentTest : TestCase() {
                         isVisible()
                         view.perform(HorizontalScroll.scrollToEnd())
                     }
+                    butOk {
+                        isVisible()
+                        click()
+                    }
                 }
+            }
+
+            step("Тест HabitFragment заполнение") {
+                HabitScreen {
+                    butSave {
+                        click()
+                        onView(withText(R.string.warn_title_or_description_blank))
+                    }
+                }
+                device.screenshots.take("screen")
             }
 
 
