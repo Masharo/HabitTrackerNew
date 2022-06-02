@@ -5,16 +5,12 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.masharo.habits.data.HABIT_ID
 import com.masharo.habits.data.dataHabitToDoneRemote
-import com.masharo.habits.data.dataToRemoteHabit
 import com.masharo.habits.data.database.HabitDatabase
-import com.masharo.habits.data.model.remote.DoneRemote
-import com.masharo.habits.data.model.remote.IdRemote
 import com.masharo.habits.data.remote.HabitApi
 import com.masharo.habits.data.remote.HabitRemote
-import org.koin.core.component.KoinComponent
 
 class IncDoneCountHabitWorker(context: Context, workerParams: WorkerParameters):
-    CoroutineWorker(context, workerParams), KoinComponent {
+    CoroutineWorker(context, workerParams) {
 
     private val db: HabitDatabase = HabitDatabase.instance(context)
     private val api: HabitApi = HabitRemote.getApi()

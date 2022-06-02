@@ -7,11 +7,9 @@ import com.masharo.habits.data.database.HabitDatabase
 import com.masharo.habits.data.remote.HabitApi
 import com.masharo.habits.data.remote.HabitRemote
 import com.masharo.habits.data.remoteToDataHabit
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 class UpdateAllHabitWorker(context: Context, workerParams: WorkerParameters):
-    CoroutineWorker(context, workerParams), KoinComponent {
+    CoroutineWorker(context, workerParams) {
 
     private val db: HabitDatabase = HabitDatabase.instance(context)
     private val api: HabitApi = HabitRemote.getApi()

@@ -66,14 +66,6 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 }
 
-//DI
-dependencies {
-    def koin_version = "3.2.0-beta-1"
-
-    implementation "io.insert-koin:koin-core:$koin_version"
-    implementation "io.insert-koin:koin-android:$koin_version"
-}
-
 dependencies {
     def work_version = "2.7.1"
 
