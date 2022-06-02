@@ -60,10 +60,6 @@ class HabitListViewModel(
         }
     }
 
-    fun setFilterType(type: Int) {
-        habitListFilter.setFilter(HabitListFilter.Column.TYPE, type)
-    }
-
     fun setSort(column: HabitListFilter.Column) {
         habitListFilter.sortColumn = column
     }

@@ -11,13 +11,13 @@ import com.masharo.habits.R
 import com.masharo.habits.customize.HorizontalScroll
 import com.masharo.habits.presentation.root.RootHabitActivity
 import io.github.kakaocup.kakao.edit.KEditText
+import io.github.kakaocup.kakao.image.KImageView
 import io.github.kakaocup.kakao.scroll.KScrollView
 import io.github.kakaocup.kakao.spinner.KSpinner
 import io.github.kakaocup.kakao.text.KButton
 import io.github.kakaocup.kakao.text.KTextView
 import org.junit.Rule
 import org.junit.Test
-import java.io.File
 
 class HabitFragmentTest : TestCase() {
 
@@ -42,11 +42,16 @@ class HabitFragmentTest : TestCase() {
         val butSave = KButton { withId(R.id.button_habit_save) }
         val butSelectColor = KButton { withId(R.id.button_habit_colorPicker) }
 
+        val rbPositive = KButton { withId(R.id.radioButton_habit_positive) }
+        val rbNegative = KButton { withId(R.id.radioButton_habit_negative) }
+
+        val typeImage = KImageView {withId(R.id.imageView_habit_type)}
+
         val tvTitle = KTextView { withId(R.id.textView_habit_title) }
         val tvType = KTextView { withId(R.id.textView_habit_type) }
         val tvTitleCount = KTextView { withId(R.id.textView_habit_count) }
-        val tvDone = KTextView { withId(R.id.editText_habit_done) }
-        val tvTitleDone = KTextView { withId(R.id.textView_habit_done) }
+        val tvDone = KTextView { withId(R.id.textView_habit_done) }
+        val tvTitleDone = KEditText { withId(R.id.textView_habit_done) }
 
         val etTitle = KEditText { withId(R.id.editText_habit_title) }
         val etDescription = KEditText { withId(R.id.editText_habit_description) }
@@ -149,12 +154,49 @@ class HabitFragmentTest : TestCase() {
                 HabitScreen {
                     butSave {
                         click()
-                        onView(withText(R.string.warn_title_or_description_blank))
+                    }
+
+                    etTitle {
+                        typeText("Test")
+                    }
+
+                    butSave {
+                        click()
+                    }
+
+                    etTitle {
+                        clearText()
+                    }
+
+                    etDescription {
+                        typeText("Test")
+                    }
+
+                    butSave {
+                        click()
                     }
                 }
-                device.screenshots.take("screen")
             }
 
+            step("Тест type") {
+                HabitScreen {
+                    rbNegative {
+                        click()
+                    }
+
+                    typeImage {
+                        hasDrawable(R.drawable.ic_smailsad)
+                    }
+
+                    rbPositive {
+                        click()
+                    }
+
+                    typeImage {
+                        hasDrawable(R.drawable.ic_smailhappy)
+                    }
+                }
+            }
 
         }
 

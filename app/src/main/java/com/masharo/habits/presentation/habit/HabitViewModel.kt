@@ -59,20 +59,6 @@ class HabitViewModel(
 
     }
 
-    fun doneInc() {
-        habitLocal.value?.apply {
-            countDone++
-        }
-    }
-
-    fun doneDec() {
-        habitLocal.value?.apply {
-            if (countDone > 0) {
-                countDone--
-            }
-        }
-    }
-
     fun changeHabitColor(color: Int) {
         habit.value?.let {
             it.color = color
