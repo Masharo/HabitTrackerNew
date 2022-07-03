@@ -140,6 +140,9 @@ class HabitPresentation : BaseObservable() {
     }
 
     override fun hashCode(): Int {
-        return super.hashCode()
+        var result = id ?: 0
+        result = 31 * result + idRemote.hashCode()
+        result = 31 * result + dateRemote
+        return result
     }
 }

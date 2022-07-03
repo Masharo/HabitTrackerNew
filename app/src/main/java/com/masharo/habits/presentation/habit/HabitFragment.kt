@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.masharo.habits.R
 import com.masharo.habits.app.App
 import com.masharo.habits.databinding.FragmentHabitBinding
@@ -18,9 +19,9 @@ import javax.inject.Inject
 
 const val ARG_ID = "ID"
 
-class HabitFragment : Fragment() {
+class HabitFragment : Fragment(R.layout.fragment_habit) {
 
-    private lateinit var bind: FragmentHabitBinding
+    private val bind: FragmentHabitBinding by viewBinding()
     @Inject lateinit var vmFactory: HabitViewModelFactory
     private val vm: HabitViewModel by lazy {
         ViewModelProvider(
@@ -47,20 +48,11 @@ class HabitFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        bind = FragmentHabitBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         bind.vm = vm
         bind.lifecycleOwner = viewLifecycleOwner
-
-        return bind.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         context?.let {
             bind.spinnerHabitPriority.adapter = ArrayAdapter(

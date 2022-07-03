@@ -11,6 +11,7 @@ fun domainToPresentationHabit(habit: Habit) = HabitPresentation()
         idRemote = habit.idRemote ?: ""
         description = habit.description
         priority = habit.priority
+        period = habit.period
         type = habit.type
         color = habit.color
         count = habit.count

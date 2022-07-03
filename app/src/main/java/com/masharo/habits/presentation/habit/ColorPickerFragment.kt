@@ -1,11 +1,10 @@
 package com.masharo.habits.presentation.habit
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.masharo.habits.R
 import com.masharo.habits.databinding.FragmentColorPickerBinding
 import javax.inject.Inject
@@ -13,9 +12,9 @@ import javax.inject.Inject
 const val ARG_COLOR = "color"
 const val COUNT_RECTANGLE: Int = 16
 
-class ColorPickerFragment: DialogFragment() {
+class ColorPickerFragment: DialogFragment(R.layout.fragment_color_picker) {
 
-    private lateinit var bind: FragmentColorPickerBinding
+    private val bind: FragmentColorPickerBinding by viewBinding()
     @Inject
     lateinit var vmFactory: HabitViewModelFactory
     private val vm: HabitViewModel by lazy {
@@ -24,18 +23,10 @@ class ColorPickerFragment: DialogFragment() {
         ).get(HabitViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        bind = FragmentColorPickerBinding.inflate(inflater, container, false)
-        bind.vm = vm
-        return bind.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        bind.vm = vm
         createRectangleForGradient()
 
         bind.buttonColorPickerOK.setOnClickListener {
@@ -53,7 +44,7 @@ class ColorPickerFragment: DialogFragment() {
                 )
             }
 
-            for (i in 1..COUNT_RECTANGLE) {
+            repeat(COUNT_RECTANGLE) {
                 val viewRectangle = layoutInflater.inflate(
                     R.layout.rectangle_color_picker_view,
                     bind.linearLayoutColorPickerGradient,

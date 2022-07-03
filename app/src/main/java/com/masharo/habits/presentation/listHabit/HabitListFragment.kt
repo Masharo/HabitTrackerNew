@@ -1,15 +1,14 @@
 package com.masharo.habits.presentation.listHabit
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.masharo.habits.R
 import com.masharo.habits.adapter.HabitDiffUtilCallback
 import com.masharo.habits.adapter.HabitsAdapter
@@ -21,9 +20,9 @@ import javax.inject.Inject
 
 const val TYPE_HABIT = "typeHabit"
 
-class HabitListFragment : Fragment() {
+class HabitListFragment : Fragment(R.layout.fragment_habit_list) {
 
-    private lateinit var bind: FragmentHabitListBinding
+    private val bind: FragmentHabitListBinding by viewBinding()
     private var type: Int = 0
     @Inject lateinit var vmFactory: HabitListViewModelFactory
     private val vm: HabitListViewModel by lazy {
@@ -38,14 +37,6 @@ class HabitListFragment : Fragment() {
         activity?.apply {
             (applicationContext as App).appComponent.inject(this@HabitListFragment)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        bind = FragmentHabitListBinding.inflate(inflater, container, false)
-        return bind.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
