@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -22,13 +23,7 @@ const val ARG_ID = "ID"
 class HabitFragment : Fragment(R.layout.fragment_habit) {
 
     private val bind: FragmentHabitBinding by viewBinding()
-    @Inject lateinit var vmFactory: HabitViewModelFactory
-    private val vm: HabitViewModel by lazy {
-        ViewModelProvider(
-            this,
-            vmFactory
-        ).get(HabitViewModel::class.java)
-    }
+    private val vm: HabitViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

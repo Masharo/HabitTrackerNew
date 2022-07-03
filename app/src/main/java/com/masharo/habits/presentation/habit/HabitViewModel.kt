@@ -18,8 +18,9 @@ import com.masharo.habits.presentation.model.HabitPresentation
 import com.masharo.habits.presentation.presentationToDomainHabit
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
-class HabitViewModel(
+class HabitViewModel @Inject constructor(
     private val getHabitUseCase: GetHabitUseCase,
     private val addHabitUseCase: AddHabitUseCase,
     private val editHabitUseCase: EditHabitUseCase

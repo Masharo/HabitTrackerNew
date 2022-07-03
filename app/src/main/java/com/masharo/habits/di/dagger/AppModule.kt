@@ -1,15 +1,10 @@
 package com.masharo.habits.di.dagger
 
 import android.content.Context
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.masharo.habits.domain.usecase.*
-import com.masharo.habits.presentation.habit.HabitViewModelFactory
-import com.masharo.habits.presentation.listHabit.HabitListViewModel
 import com.masharo.habits.presentation.listHabit.HabitListViewModelFactory
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class AppModule(val context: Context) {
