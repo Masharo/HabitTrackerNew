@@ -2,6 +2,7 @@ package com.masharo.habits.di.dagger
 
 import android.content.Context
 import com.masharo.habits.domain.usecase.*
+import com.masharo.habits.presentation.habit.HabitViewModelFactory
 import com.masharo.habits.presentation.listHabit.HabitListViewModelFactory
 import dagger.Module
 import dagger.Provides

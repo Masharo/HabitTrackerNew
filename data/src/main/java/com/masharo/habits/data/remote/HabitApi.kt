@@ -3,7 +3,6 @@ package com.masharo.habits.data.remote
 import com.masharo.habits.data.model.remote.DoneRemote
 import com.masharo.habits.data.model.remote.HabitRemote
 import com.masharo.habits.data.model.remote.IdRemote
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 

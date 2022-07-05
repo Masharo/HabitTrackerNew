@@ -3,7 +3,6 @@ package com.masharo.habits.presentation.model
 import android.graphics.Color
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
-import androidx.room.Ignore
 import com.masharo.habits.BR
 import com.masharo.habits.R
 
@@ -72,7 +71,6 @@ class HabitPresentation : BaseObservable() {
             notifyPropertyChanged(BR.color)
         }
 
-    @Ignore
     @get:Bindable
     var image: Int = getTypeEnum().resourceDrawable()
         set(value) {

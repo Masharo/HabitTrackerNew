@@ -35,12 +35,11 @@ object HabitRemote {
         return remote
     }
 
-    private fun httpLoggingInterceptor(): HttpLoggingInterceptor {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    private fun httpLoggingInterceptor() = HttpLoggingInterceptor()
+        .apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
 
-        return httpLoggingInterceptor
-    }
 
     private fun headersInterceptor() = object: Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
@@ -55,8 +54,9 @@ object HabitRemote {
         }
     }
 
-    private fun okHttpClient(logger: HttpLoggingInterceptor,
-                             headers: Interceptor
+    private fun okHttpClient(
+        logger: HttpLoggingInterceptor,
+        headers: Interceptor
     ) = OkHttpClient
         .Builder()
         .addInterceptor(logger)

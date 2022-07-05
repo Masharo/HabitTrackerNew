@@ -1,21 +1,16 @@
 package com.masharo.habits.presentation.habit
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.masharo.habits.R
-import com.masharo.habits.app.App
+import com.masharo.habits.app.appComponent
 import com.masharo.habits.databinding.FragmentHabitBinding
-import com.masharo.habits.presentation.listHabit.HabitListViewModel
-import com.masharo.habits.presentation.listHabit.HabitListViewModelFactory
 import javax.inject.Inject
 
 const val ARG_ID = "ID"
@@ -23,14 +18,19 @@ const val ARG_ID = "ID"
 class HabitFragment : Fragment(R.layout.fragment_habit) {
 
     private val bind: FragmentHabitBinding by viewBinding()
-    private val vm: HabitViewModel by viewModels()
+    @Inject
+    lateinit var vmFactory: HabitViewModelFactory
+    private val vm: HabitViewModel by lazy {
+        ViewModelProvider(
+            this,
+            vmFactory
+        ).get(HabitViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        activity?.apply {
-            (applicationContext as App).appComponent.inject(this@HabitFragment)
-        }
+        activity?.appComponent?.inject(this)
 
         arguments?.apply {
             if (containsKey(ARG_ID)) {

@@ -5,7 +5,6 @@ import com.masharo.habits.domain.repository.RemoteHabitRepository
 import com.masharo.habits.domain.usecase.*
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 @Module

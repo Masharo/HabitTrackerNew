@@ -20,7 +20,6 @@ import javax.inject.Inject
 class SortAndSearchFragment : Fragment() {
 
     private lateinit var bind: FragmentSortAndSearchBinding
-    //    private val vm: HabitListViewModel by sharedViewModel()
     @Inject
     lateinit var vmFactory: HabitListViewModelFactory
     private val vm: HabitListViewModel by lazy {
