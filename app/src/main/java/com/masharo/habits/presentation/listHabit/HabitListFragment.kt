@@ -1,6 +1,7 @@
 package com.masharo.habits.presentation.listHabit
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.masharo.habits.R
 import com.masharo.habits.adapter.HabitDiffUtilCallback
@@ -34,6 +36,7 @@ class HabitListFragment : Fragment(R.layout.fragment_habit_list) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         activity?.apply {
             (applicationContext as App).appComponent.inject(this@HabitListFragment)
         }
@@ -44,6 +47,8 @@ class HabitListFragment : Fragment(R.layout.fragment_habit_list) {
 
         type = arguments?.getInt(TYPE_HABIT, 0) ?: 0
 
+        registerForContextMenu(bind.recyclerViewHabitsListHabits)
+
         adapter = HabitsAdapter(
             habits = null,
             onClickItem = {
@@ -51,6 +56,9 @@ class HabitListFragment : Fragment(R.layout.fragment_habit_list) {
             },
             onClickDone = {
                 vm.incDoneCount(it)
+            },
+            onClickDelete = {
+                vm.deleteHabit(it)
             }
         )
 

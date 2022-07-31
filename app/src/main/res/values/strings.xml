@@ -63,6 +63,9 @@
     
     <string name="bad_min">Можете выполнить еще %d раз</string>
     <string name="bad_max">Хватит это делать</string>
+    <string name="bad_end">Пора остановиться</string>
     <string name="good_min">Стоит выполнить еще %d раз</string>
     <string name="good_max">You are breathtaking!</string>
+    <string name="good_end">Отлично!!!</string>
+    <string name="sort_and_search">Сортировка / Поиск</string>
 </resources>

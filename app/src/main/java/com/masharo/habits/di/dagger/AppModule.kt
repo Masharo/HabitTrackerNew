@@ -19,12 +19,14 @@ class AppModule(val context: Context) {
     fun provideHabitListViewModelFactory(
         loadHabitsUseCase: LoadHabitsUseCase,
         getAllHabitsUseCase: GetAllHabitsUseCase,
-        incDoneCountHabitUseCase: IncDoneCountHabitUseCase
+        incDoneCountHabitUseCase: IncDoneCountHabitUseCase,
+        deleteHabitUseCase: DeleteHabitUseCase
     ): HabitListViewModelFactory {
         return HabitListViewModelFactory(
             loadHabitsUseCase = loadHabitsUseCase,
             getAllHabitsUseCase = getAllHabitsUseCase,
-            incDoneCountHabitUseCase = incDoneCountHabitUseCase
+            incDoneCountHabitUseCase = incDoneCountHabitUseCase,
+            deleteHabitUseCase = deleteHabitUseCase
         )
     }
 
@@ -41,23 +43,4 @@ class AppModule(val context: Context) {
         )
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideHabitListViewModelFactoryT(
-//        loadHabitsUseCase: LoadHabitsUseCase,
-//        getAllHabitsUseCase: GetAllHabitsUseCase,
-//        context: Context
-//    ): HabitListViewModel {
-//        ViewModelProvider(context,
-//        object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-//                HabitListViewModelFactory(
-//                    loadHabitsUseCase = loadHabitsUseCase,
-//                    getAllHabitsUseCase = getAllHabitsUseCase
-//                ) as T
-//        }
-//        )
-//
-//
-//    }
 }

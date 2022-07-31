@@ -5,11 +5,11 @@ import com.masharo.habits.data.model.remote.ParamHabitPutRemote
 
 interface HabitService {
 
-    suspend fun incGoneCountHabitRemote(id: IdData)
+    suspend fun incGoneCountHabitRemote(param: IdData)
 
     suspend fun putHabitRemote(param: ParamHabitPutRemote)
 
-    suspend fun deleteHabitRemote(id: IdData)
+    suspend fun deleteHabitRemote(param: IdData)
 
     suspend fun updateHabits()
 

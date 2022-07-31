@@ -82,7 +82,8 @@ fun domainHabitToParamPutRemote(habit: Habit) = ParamHabitPutRemote(
    )
 
 fun domainToDataId(id: Id) = IdData(
-        id = id.id
+        id = id.id,
+        idRemote = id.idRemote
    )
 
 fun dataToDomainId(id: IdData) = Id(

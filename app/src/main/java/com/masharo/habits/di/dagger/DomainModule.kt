@@ -74,4 +74,16 @@ class DomainModule {
         )
     }
 
+    @Provides
+    fun provideDeleteHabitUseCase(
+        dbRepository: DBHabitRepository,
+        remoteRepository: RemoteHabitRepository
+    ): DeleteHabitUseCase {
+        return DeleteHabitUseCase(
+            dbRepository = dbRepository,
+            remoteRepository = remoteRepository,
+            dispatcher = Dispatchers.IO
+        )
+    }
+
 }

@@ -2,6 +2,8 @@ package com.masharo.habits.presentation.listHabit
 
 import androidx.lifecycle.*
 import com.masharo.habits.R
+import com.masharo.habits.domain.model.Id
+import com.masharo.habits.domain.usecase.DeleteHabitUseCase
 import com.masharo.habits.domain.usecase.GetAllHabitsUseCase
 import com.masharo.habits.domain.usecase.IncDoneCountHabitUseCase
 import com.masharo.habits.domain.usecase.LoadHabitsUseCase
@@ -14,7 +16,8 @@ import kotlinx.coroutines.launch
 class HabitListViewModel(
     loadHabitsUseCase: LoadHabitsUseCase,
     getAllHabitsUseCase: GetAllHabitsUseCase,
-    val incDoneCountHabitUseCase: IncDoneCountHabitUseCase
+    private val deleteHabitUseCase: DeleteHabitUseCase,
+    private val incDoneCountHabitUseCase: IncDoneCountHabitUseCase
 ): ViewModel() {
 
     private val localToastText: MutableLiveData<Pair<Int, Int>> = MutableLiveData()
@@ -35,22 +38,35 @@ class HabitListViewModel(
         }
     }
 
+    fun deleteHabit(id: Int) {
+        viewModelScope.launch {
+            deleteHabitUseCase.execute(Id(id))
+        }
+    }
+
     fun incDoneCount(habit: HabitPresentation) {
         habit.id?.let {
             viewModelScope.launch {
                 incDoneCountHabitUseCase.execute(presentationToDomainId(it))
             }
 
+            val localCountDone = habit.countDone + 1
+
             localToastText.value = Pair(
                 if (habit.getTypeEnum() == HabitPresentation.TypeHabit.POSITIVE) {
-                    if (habit.countDone <= habit.count) {
+                    if (localCountDone < habit.count) {
                         R.string.good_min
-                    } else {
+                    } else if (localCountDone == habit.count) {
+                        R.string.good_end
+                    }
+                    else {
                         R.string.good_max
                     }
                 } else {
-                    if (habit.countDone <= habit.count) {
+                    if (localCountDone < habit.count) {
                         R.string.bad_min
+                    } else if (localCountDone == habit.count){
+                        R.string.bad_end
                     } else {
                         R.string.bad_max
                     }

@@ -1,9 +1,10 @@
 package com.masharo.habits.domain.usecase
 
+import com.masharo.habits.domain.model.Id
 import com.masharo.habits.domain.repository.DBHabitRepository
 import com.masharo.habits.domain.repository.RemoteHabitRepository
-import com.masharo.habits.domain.model.Id
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class DeleteHabitUseCase(private val dbRepository: DBHabitRepository,
@@ -15,8 +16,12 @@ class DeleteHabitUseCase(private val dbRepository: DBHabitRepository,
         withContext(dispatcher) {
             try {
 
-                dbRepository.deleteHabit(id)
+                withContext(Dispatchers.Default) {
+                    id.idRemote = dbRepository.getHabit(id)?.idRemote
+                }
+
                 remoteRepository.deleteHabitRemote(id)
+                dbRepository.deleteHabit(id)
 
                 return@withContext true
             } catch (ex: Exception) {

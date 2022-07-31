@@ -5,21 +5,18 @@ import androidx.work.*
 import com.masharo.habits.data.HABIT_ID
 import com.masharo.habits.data.model.local.IdData
 import com.masharo.habits.data.model.remote.ParamHabitPutRemote
-import com.masharo.habits.data.remote.worker.AddHabitWorker
-import com.masharo.habits.data.remote.worker.IncDoneCountHabitWorker
-import com.masharo.habits.data.remote.worker.SetHabitWorker
-import com.masharo.habits.data.remote.worker.UpdateAllHabitWorker
+import com.masharo.habits.data.remote.worker.*
 import java.util.concurrent.TimeUnit
 
 class HabitServiceImpl(
     private val context: Context
 ): HabitService {
 
-    override suspend fun incGoneCountHabitRemote(id: IdData) {
+    override suspend fun incGoneCountHabitRemote(param: IdData) {
         startWorker(
             addIdParam(
                 createBuilder<IncDoneCountHabitWorker>(),
-                id.id
+                param.id
             )
         )
     }
@@ -45,8 +42,13 @@ class HabitServiceImpl(
         }
     }
 
-    override suspend fun deleteHabitRemote(id: IdData) {
-        TODO("Not yet implemented")
+    override suspend fun deleteHabitRemote(param: IdData) {
+        startWorker(
+            addIdRemoteParam(
+                createBuilder<DeleteHabitWorker>(),
+                param.idRemote
+            )
+        )
     }
 
     override suspend fun updateHabits() {
@@ -71,6 +73,14 @@ class HabitServiceImpl(
             Data
                 .Builder()
                 .putInt(HABIT_ID, id)
+                .build()
+        )
+
+    private fun addIdRemoteParam(request: OneTimeWorkRequest.Builder, id: String?) = request
+        .setInputData(
+            Data
+                .Builder()
+                .putString(HABIT_ID, id)
                 .build()
         )
 
