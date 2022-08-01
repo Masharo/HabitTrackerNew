@@ -6,6 +6,9 @@
         <entry key="../../../../../layout/compose-model-1656862562595.xml" value="0.5" />
         <entry key="../../../../../layout/compose-model-1656862665486.xml" value="0.1" />
         <entry key="../../../../../layout/custom_preview.xml" value="0.3648148148148148" />
+        <entry key="..\:/Users/U-003-106/Desktop/myProject/HTN3006/app/src/main/res/layout/bottom_sheet_list_habit.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/U-003-106/Desktop/myProject/HTN3006/app/src/main/res/layout/habit_spinner_item.xml" value="0.3398148148148148" />
+        <entry key="..\:/Users/U-003-106/Desktop/myProject/HTN3006/app/src/main/res/menu/menu_drawer_root.xml" value="0.3398148148148148" />
         <entry key="..\:/Users/U-003-106/Desktop/myProject/HTN_VERSION_2305/app/src/main/res/layout/fragment_color_picker.xml" value="0.34814814814814815" />
         <entry key="..\:/Users/U-003-106/Desktop/myProject/HTN_VERSION_2305/app/src/main/res/layout/fragment_habit.xml" value="0.33" />
         <entry key="..\:/Users/U-003-106/Desktop/myProject/HTN_VERSION_2305/app/src/main/res/layout/habit_item.xml" value="0.36666666666666664" />
@@ -21,7 +24,6 @@
         <entry key="app/src/main/res/layout/fragment_color_picker.xml" value="0.29069767441860467" />
         <entry key="app/src/main/res/layout/fragment_habit.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_habit_list.xml" value="0.3578125" />
-        <entry key="app/src/main/res/layout/fragment_sort_and_search.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_view_pager_habit_list.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/habit_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/habit_spinner_item.xml" value="0.35833333333333334" />
